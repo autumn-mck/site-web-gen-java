@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html { 
-  background: url(background.png) no-repeat center center fixed;
+  background: url(background.png) center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -100,3 +100,19 @@ a{
 }
 
 span.spamprotection {display:none;}
+
+@media(max-width:780px){
+    .grid-2{
+        grid-template-columns: 1fr;
+    }
+    .section-1{
+        padding:0;
+        padding-top: 5rem;
+    }
+    .section-2{
+        padding: 2rem;
+        padding: 0;
+        padding-left: 1.5rem;
+        padding-top: 2rem;
+    }
+}
