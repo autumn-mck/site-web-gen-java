@@ -1,5 +1,5 @@
 html { 
-	background: #121415;
+	background: #000000;
 	
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -14,34 +14,34 @@ body {
 }
 
 html, body {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 .page-bg {
-    opacity: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: url(images/background.webp) no-repeat center center fixed;
-    background-size: cover;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: url(images/background.webp) no-repeat center center fixed;
+	background-size: cover;
 	z-index: -1;
 
-    animation: fadeInAnimation ease 1s;
-    animation-iteration-count: 1;
-    animation-fill-mode:forwards;
+	animation: fadeInAnimation ease 1s;
+	animation-iteration-count: 1;
+	animation-fill-mode:forwards;
 }
 
  @keyframes fadeInAnimation {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
 
 .grid-2{
 	display: grid;
