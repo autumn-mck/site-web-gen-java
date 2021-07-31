@@ -2,14 +2,39 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html { 
-	background: #121415 url(background.png) no-repeat center center fixed;
-	animation: fadeInAnimation ease 1s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
+	background: #121415;
+	
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+body {
+	animation: fadeInAnimation ease 1s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.page-bg {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url(background.png) no-repeat center center fixed;
+    background-size: cover;
+	z-index: -1;
+
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode:forwards;
 }
 
  @keyframes fadeInAnimation {
