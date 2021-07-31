@@ -51,9 +51,9 @@ html, body {
 body{
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family: sans-serif;
 	/*background-color: #101214;*/
-	color: #9EA1A6;
+	color: #CEC5B9;
 
 }
 
@@ -62,7 +62,7 @@ h2,.white{
 }
 
 a{
-	color: #9EA1A6;
+	color: #CEC5B9;
 	text-decoration: none;
 }
 /* section 1 */
@@ -149,67 +149,4 @@ span.spamprotection {display:none;}
 		padding-left: 1.5rem;
 		padding-top: 2rem;
 	}
-}
-
-
-/*!
- * Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- */
-.fa,
-.fab,
-.fad,
-.fal,
-.far,
-.fas {
- -moz-osx-font-smoothing:grayscale;
- -webkit-font-smoothing:antialiased;
- display:inline-block;
- font-style:normal;
- font-variant:normal;
- text-rendering:auto;
- line-height:1
-}
-
-.fa-github:before {
- content:"\f09b"
-}
-
-.fa-twitter:before {
- content:"\f099"
-}
-
-.sr-only {
- border:0;
- clip:rect(0,0,0,0);
- height:1px;
- margin:-1px;
- overflow:hidden;
- padding:0;
- position:absolute;
- width:1px
-}
-.sr-only-focusable:active,
-.sr-only-focusable:focus {
- clip:auto;
- height:auto;
- margin:0;
- overflow:visible;
- position:static;
- width:auto
-}
-@font-face {
- font-family:"Font Awesome 5 Brands";
- font-style:normal;
- font-weight:400;
- font-display:block;
- src:url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.eot);
- src:url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),
- url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.woff2) format("woff2"),
- url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.woff) format("woff"),
- url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.ttf) format("truetype"),
- url(https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.svg#fontawesome) format("svg")
-}
-.fab {
- font-family:"Font Awesome 5 Brands"
 }
