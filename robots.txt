@@ -1,3 +1,6 @@
-# Stop all bots from crawling this site
 User-agent: *
-Disallow: /
+Disallow: /images
+
+Disallow: /harming/humans
+Disallow: /ignoring/human/orders
+Disallow: /harm/to/self
