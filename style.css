@@ -63,6 +63,7 @@ h2,.white{
 
 a{
 	color: #CEC5B9;
+	padding: 10px;
 }
 /* section 1 */
 .section-1{
@@ -83,7 +84,7 @@ a{
 
 .section-1 a{
 	font-size: 1.5rem;
-	padding: 10px;
+	padding: 5px;
 }
 /* section 2 */
 .section-2{
@@ -104,9 +105,11 @@ a{
 }
 
 .section-2 a{
+	display: block;
 	padding: 5px;
 	font-size: 1.2rem;
 	padding-left: 0;
+	width: 250px;
 }
 /* animations / utilities */
 .section-2 a:hover{
@@ -155,11 +158,12 @@ span.spamprotection {display:none;}
 
 .technologic {
 	position: relative;
-	display: inline-block;
+	display: inline-block !important;
 	border-bottom: 1px dotted black;
 	text-decoration: none;
 	font-size: 1.1rem !important;
 	padding: 0 !important;
+	width: 6rem !important;
 }
 
 .technologic .technologictext {
