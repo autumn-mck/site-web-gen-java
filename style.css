@@ -170,8 +170,6 @@ a{
 	opacity: 1;
 }
 
-span.spamprotection {display:none;}
-
 @media(max-width:780px){
 	.grid-2{
 		grid-template-columns: 1fr;
