@@ -63,7 +63,6 @@ h2,.white{
 
 a{
 	color: #CEC5B9;
-	text-decoration: none;
 }
 /* section 1 */
 .section-1{
@@ -105,11 +104,9 @@ a{
 }
 
 .section-2 a{
-	display: block;
 	padding: 5px;
 	font-size: 1.2rem;
 	padding-left: 0;
-	width: 250px;
 }
 /* animations / utilities */
 .section-2 a:hover{
@@ -149,4 +146,40 @@ span.spamprotection {display:none;}
 		padding-left: 1.5rem;
 		padding-top: 2rem;
 	}
+}
+
+.icon {
+	text-decoration: none;
+}
+
+
+.technologic {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+	text-decoration: none;
+	font-size: 1.1rem !important;
+	padding: 0 !important;
+}
+
+.technologic .technologictext {
+	visibility: hidden;
+	width: 320px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: -1050%;
+	left: 0%;
+	margin-left: -60px;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.technologic:hover .technologictext {
+	visibility: visible;
+	opacity: 1;
 }
