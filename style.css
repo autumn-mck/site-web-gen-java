@@ -1,6 +1,6 @@
-html { 
+html {
 	background: #000000;
-	
+
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -25,7 +25,7 @@ html, body {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: url(images/background.webp) no-repeat center center fixed;
+	background: url(assets/images/background.webp) no-repeat center center fixed;
 	background-size: cover;
 	z-index: -1;
 
