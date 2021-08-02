@@ -1,0 +1,17 @@
+nav a:hover,
+nav a.nav-current,
+nav a.current {
+  background: var(--bg);
+  color: var(--accent) !important;
+    opacity: 1;
+}
+
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+
+  /* I feel that simple.css's default of 0.6 has the right idea, but is a bit extreme */
+  img, video {
+    opacity: .8;
+  }
+}
