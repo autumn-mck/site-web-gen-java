@@ -7,6 +7,13 @@ html {
 	background-size: cover;
 }
 
+img {
+	animation: fadeInAnimation ease 0.25s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
