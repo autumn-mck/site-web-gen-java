@@ -1,16 +1,10 @@
 html {
-	background: #000000;
+	background: #0E0300;
 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
-
-body {
-	animation: fadeInAnimation ease 0.25s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
 }
 
 html, body {
