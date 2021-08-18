@@ -101,6 +101,9 @@ a{
 	margin:0;
 }
 
+.section-2 a{
+	padding: 0;
+}
 /* animations / utilities */
 .section-2 a:hover{
 	color: #fff;
