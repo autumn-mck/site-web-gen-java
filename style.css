@@ -137,38 +137,6 @@ a{
 	padding: 5px;
 }
 
-.technologic {
-	position: relative;
-	display: inline-block !important;
-	border-bottom: 1px dotted black;
-	text-decoration: none;
-	font-size: 1.1rem !important;
-	padding: 0 !important;
-	width: 6rem !important;
-}
-
-.technologic .technologictext {
-	visibility: hidden;
-	width: 320px;
-	background-color: #555;
-	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 5px 0;
-	position: absolute;
-	z-index: 1;
-	bottom: -1050%;
-	left: 0%;
-	margin-left: -60px;
-	opacity: 0;
-	transition: opacity 0.3s;
-}
-
-.technologic:hover .technologictext {
-	visibility: visible;
-	opacity: 1;
-}
-
 .p-name {
 	text-decoration: none;
 	color: #fff;
@@ -189,15 +157,5 @@ a{
 		padding: 0;
 		padding-left: 1.5rem;
 		padding-top: 2rem;
-	}
-	.technologic {
-		position: static;
-	}
-	.technologic .technologictext {
-		left: 15%;
-		top: auto;
-		bottom: auto;
-		margin: 1.3rem auto auto auto;
-		position: absolute;
 	}
 }
