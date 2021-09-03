@@ -3,13 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="assets/icons/favicon.svg">
     <link rel="icon" href="/assets/icons/favicon.svg" />
     <title>Setup | mck.is</title>
-    <meta name="description" content="About my current setup" />
+    <meta name="description" content="About my setup" />
     <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' https://cdn.simplecss.org/">
   </head>
+
+
   <body>
 
     <header>
@@ -17,20 +23,12 @@
       <p>I'm always interested in seeing what other people use, so here's my current setup and some thoughts on it</p>
 
       <nav>
-
-  <a href="/">Home</a>
-
-  <a href="/who">Who I am</a>
-
-  <a href="/what">What I do</a>
-
-  <a href="/thoughts">Thoughts</a>
-
-  <a href="/contact">Contact me</a>
-
-  <a href="/links" class="nav-current">Other links</a>
-
-</nav>
+        <a href="/" class="nav-current">Home</a>
+        <a href="/what">Projects</a>
+        <a href="/thoughts">Thoughts</a>
+        <a href="/contact">Contact</a>
+        <a href="/links">Links</a>
+      </nav>
 
     </header>
 
