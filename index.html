@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preload" as="image" href="assets/icons/favicon.svg">
+		<link rel="icon" href="/assets/icons/favicon.svg" />
 		<title>Home page | mck.is</title>
 		<meta name="description" content="James McKee's home on the web." />
 		<meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
@@ -11,13 +13,23 @@
 		<link rel="stylesheet" href="homestyle.css">
 		<link rel="preload" as="image" href="assets/images/background.webp">
 		<link rel="preload" as="image" href="assets/images/me.webp">
-		<link rel="preload" as="image" href="assets/icons/favicon.svg">
-		<link rel="icon" href="/assets/icons/favicon.svg" />
 
 		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; img-src 'self'; script-src 'self' 'sha256-EfUILPmDKGSQLqDvoO/a8P5h92s+QvH89TrddYAwQ8M='; style-src 'self' https://cdn.simplecss.org/">
 	</head>
 
 	<body>
+
+		<header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/who">Who I am</a>
+        <a href="/what">What I do</a>
+        <a href="/thoughts" class="nav-current">Thoughts</a>
+        <a href="/contact">Contact me</a>
+        <a href="/links">Other links</a>
+      </nav>
+    </header>
+
 		<div class="page-bg"></div>
 
 		<div class="grid-2">
