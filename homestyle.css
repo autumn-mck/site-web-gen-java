@@ -45,13 +45,13 @@ header {
 }
 
 h2 {
-	color: #DCDCDC;
+	color: var(--text);
 	margin: 0px;
 	font-size: 1.7rem;
 }
 
 a, a:visited {
-	color: #DCDCDC;
+	color: var(--text);
 	padding: 0;
 }
 
