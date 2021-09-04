@@ -1,15 +1,15 @@
+/* Solarised dark theme */
 :root {
-	/* Set dark theme */
-	--bg: #212121;
-	--accent-bg: #2B2B2B;
-	--text: #DCDCDC;
-	--text-light: #ABABAB;
-	--border: #666;
-	--accent: #FFB300;
-	--accent-light: #FFECB3;
-	--code: #F06292;
-	--preformatted: #CCC;
-	--disabled: #111;
+	--bg: #002B36;
+	--accent-bg: #073642;
+	--text: #93A1A1;
+	--text-light: #EEE8D5;
+	--border: #586E75;
+	--accent: #B58900;
+	--accent-light: #B58900;
+	--code: #268BD2;
+	--preformatted: #839496;
+	--disabled: #111111;
 }
 
 html {
