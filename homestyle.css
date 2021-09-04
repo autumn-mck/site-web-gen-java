@@ -2,7 +2,7 @@
 :root {
 	--bg: #002B36;
 	--accent-bg: #073642;
-	--text: #DCDCDC;
+	--text: ##DCDCDC;
 	--text-light: #EEE8D5;
 	--border: #586E75;
 	--accent: #B58900;
@@ -53,6 +53,14 @@ h2 {
 a, a:visited {
 	color: var(--text);
 	padding: 0;
+}
+
+nav a:hover,
+nav a.nav-current,
+nav a.current {
+	background: var(--bg);
+	color: var(--accent) !important;
+		opacity: 1;
 }
 
 p {
