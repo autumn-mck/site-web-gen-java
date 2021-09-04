@@ -28,8 +28,8 @@ nav a.current {
   :root {
     --bg: #002B36;
     --accent-bg: #073642;
-    --text: #839496;
-    --text-light: #93A1A1;
+    --text: #93A1A1;
+    --text-light: #EEE8D5;
     --border: #586E75;
     --accent: #B58900;
     --accent-light: #B58900;
