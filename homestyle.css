@@ -1,3 +1,8 @@
+@font-face {
+	font-family: hyperlegible;
+	src: url(/assets/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
+}
+
 /* Solarised dark theme */
 :root {
 	--bg: #002B36;
@@ -19,6 +24,8 @@ html {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+
+	font-family: hyperlegible;
 }
 
 html, body {
