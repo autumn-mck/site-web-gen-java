@@ -1,3 +1,8 @@
+@font-face {
+	font-family: hyperlegible;
+	src: url(/assets/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
+}
+
 :root {
 	/* Default (light) theme */
 	--bg: #FFF;
@@ -11,6 +16,8 @@
 	--preformatted: #444;
 	--marked: #FFDD33;
 	--disabled: #EFEFEF;
+
+	--sans-font: hyperlegible;
 }
 
 nav a:hover,
