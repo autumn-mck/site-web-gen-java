@@ -19,18 +19,8 @@
 
 html {
 	background: #0E0300;
-
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
 	background-size: cover;
-
-	font-family: hyperlegible;
-}
-
-html, body {
-	height: 100%;
-	width: 100%;
+	font-family: hyperlegible,-apple-system,BlinkMacSystemFont,"Avenir Next",Avenir,"Nimbus Sans L",Roboto,Noto,"Segoe UI",Arial,Helvetica,"Helvetica Neue",sans-serif;
 }
 
 .grid-2 {
@@ -39,8 +29,6 @@ html, body {
 }
 
 body {
-	margin: 0;
-	padding: 0;
 	background: #0000;
 	max-width: 100%;
 }
@@ -57,22 +45,8 @@ h2 {
 	font-size: 2rem;
 }
 
-a, a:visited {
-	color: var(--text);
-	padding: 0;
-}
-
-nav a:hover,
-nav a.nav-current,
-nav a.current {
-	background: var(--bg);
-	color: var(--accent) !important;
-		opacity: 1;
-}
-
 p {
 	font-size: 1.3rem;
-	padding-bottom: 1.1rem;
 	margin: 0;
 }
 
@@ -82,22 +56,16 @@ p {
 	text-align: center;
 }
 
-.icon {
+.icon, .icon:visited {
 	text-decoration: none;
 	font-size: 1.7rem;
 	padding: 5px;
-}
-
-.p-name {
-	text-decoration: none;
-	margin: 0;
-	padding: 0;
+	color: var(--text);
 }
 
 /* section 2 */
 .section-2 {
-	padding-top: 8vh;
-	padding-bottom: 4vh;
+	padding-top: 7vh;
 	width: 85%;
 }
 
@@ -135,7 +103,7 @@ img {
 }
 
 .meimg {
-	border-radius: 10%;
+	border-radius: 5%;
 }
 
 /* Rearranging for mobile */
