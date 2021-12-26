@@ -1,8 +1,3 @@
-@font-face {
-	font-family: hyperlegible;
-	src: url(/assets/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
-}
-
 /* Dark theme */
 :root {
 	--bg: #14161B;
@@ -10,8 +5,8 @@
 	--text: #E8E6E3;
 	--text-light: #FFFDF9;
 	--border: #A0988B;
-	--accent: #1B6296;
-	--accent-light: #1B6296;
+	--accent: #58A8E1;
+	--accent-light: #58A8E1;
 	--code: #268BD2;
 	--preformatted: #839496;
 	--disabled: #111111;
