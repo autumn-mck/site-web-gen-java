@@ -33,11 +33,11 @@ nav a.current {
 @media (prefers-color-scheme: dark) {
 
 	:root {
-		--bg: #002B36;
-		--accent-bg: #073642;
-		--text: #B5C7C7;
-		--text-light: #EEE8D5;
-		--border: #586E75;
+		--bg: #14161B;
+		--accent-bg: #20232C;
+		--text: #E8E6E3;
+		--text-light: #FFFDF9;
+		--border: #A0988B;
 		--accent: #B58900;
 		--accent-light: #B58900;
 		--code: #268BD2;
