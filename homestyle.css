@@ -3,15 +3,15 @@
 	src: url(/assets/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
 }
 
-/* Solarised dark theme */
+/* Dark theme */
 :root {
-	--bg: #002B36;
-	--accent-bg: #073642;
-	--text: #DCDCDC;
-	--text-light: #EEE8D5;
-	--border: #586E75;
-	--accent: #B58900;
-	--accent-light: #B58900;
+	--bg: #14161B;
+	--accent-bg: #20232C;
+	--text: #E8E6E3;
+	--text-light: #FFFDF9;
+	--border: #A0988B;
+	--accent: #1B6296;
+	--accent-light: #1B6296;
 	--code: #268BD2;
 	--preformatted: #839496;
 	--disabled: #111111;
