@@ -35,16 +35,46 @@
       
 <h1>Title</h1>
 <em>Short description follows</em><br/>
-<small>Published on Tue 28 Dec 2021 at 20:27, updated on Wed 29 Dec 2021. 19 words, ~1 min. read.</small><br/>
-<small>Tags: <a href="/tags/example">example</a> | <a href="/tags/tags">tags</a> | <a href="/tags/blog post">blog post</a></small>
+<small>Published on Tue 28 Dec 2021 at 20:27, updated on Wed 29 Dec 2021. 260 words, ~1 min. read.</small><br/>
+<small>Tags: <a href="/tags/example">example</a> | <a href="/tags/tags">tags</a> | <a href="/tags/blog%20post">blog post</a></small>
 <hr/>
-<p>This is the content of the post!<br/>
-It spans over multiple lines!<br/>
-</p>
+<p>This page is a demonstration of the elements that can be formatted using Simple.css. Each section includes a code block on how to include it in your site’s design.</p>
 
-<p>This is a second paragraph on something completely different.<br/>
-</p>
+<p>This may be a little basic for some people, but I wanted to barrier for entry to be as low as possible for this project.</p>
 
+<h2> Basic Typography</h2>
+<p>All the typography of Simple.css uses <code>rem</code> for sizing. This means that accessibility is maintained for those who change their browser font size. The <code>body</code> element has a size of <code>1.15rem</code> which makes all the standard font sizes slightly larger. This equates to <code>18.4px</code> for paragraph text, instead of the standard <code>16px</code>.</p>
+
+<p>The heading elements also have an increased top margin in order to break blocks of text up better.</p>
+
+<h1>Heading 1 <code>2.8rem</code></h1>
+<h2>Heading 2 <code>2.25rem</code></h2>
+<h3>Heading 3 <code>1.8rem</code></h3>
+<h4>Heading 4 <code>1.44rem</code></h4>
+<h5>Heading 5 <code>1.15rem</code></h5>
+<h6>Heading 6 <code>.92rem</code></h6>
+
+<p><pre><code>&#60;h2&#62;This is a H2 header&#60;h2&#62;
+
+&#60;p&#62;This is some paragraph text.&#60;/p&#62; </code></pre></p>
+
+<h2> Links</h2>
+<p>Links are formatted very simply on Simple.css (shock horror). They use the accent CSS variable and are underlined. There is a :hover effect that removes the underline. Here is an <a href="https://example.com" title="Alt text">example link</a>.</p>
+
+<h2> Other typography elements</h2>
+<p>There are a number of other typography elements that you can use with Simple.css. Some of the common ones are:</p>
+
+<ul>
+	<li>All the standard stuff, like <strong>bold</strong>, <em>italic</em> and <strong><em>both</strong></em>.</li> 
+	<li>Adding <code>inline code</code> using the <code>code</code> element.</li>
+</ul>
+
+<h1> Images</h1>
+<p>In Simple.css, images within the <code>main</code> element are always full width and have rounded edges to them. The <code>figcaption</code> element is also formatted in Simple.css. Here are examples of images with and without a caption:</p>
+
+<p><img src="https://simplecss.org/assets/images/dog-ipad.jpg" alt="Dog with a tablet"></p>
+
+<p><img src="https://simplecss.org/assets/images/goose.jpg" alt="A black swan"></p>
 
     </main>
 
