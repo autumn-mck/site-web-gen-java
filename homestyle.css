@@ -39,7 +39,7 @@ header {
 
 h2 {
 	color: var(--text);
-	margin: 0px;
+	margin: 0px 0px 5px 0px;
 	font-size: 2rem;
 }
 
@@ -63,8 +63,8 @@ p {
 
 /* section 2 */
 .section-2 {
-	padding-top: 7vh;
-	width: 85%;
+	padding-top: 14vh;
+	width: 75%;
 }
 
 /* Images */
@@ -118,5 +118,6 @@ img {
 		padding: 0;
 		padding-left: 1.5rem;
 		padding-top: 2rem;
+		width: 90%;
 	}
 }
