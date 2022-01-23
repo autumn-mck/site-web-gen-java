@@ -1,16 +1,14 @@
 :root {
 	/* Default (light) theme */
-	--bg: #FFF;
-	--accent-bg: #F5F7FF;
+	--bg: #ffffff;
+	--accent-bg: #f5f7ff;
 	--text: #212121;
 	--text-light: #585858;
-	--border: #D8DAE1;
-	--accent: #58A8E1;
-	--accent-light: #58A8E1;
-	--code: #D81B60;
+	--border: #d8dae1;
+	--accent: #0d47a1;
+	--code: #d81b60;
 	--preformatted: #444;
-	--marked: #FFDD33;
-	--disabled: #EFEFEF;
+	--marked: #ffdd33;
 }
 
 nav a:hover,
@@ -24,22 +22,14 @@ nav a.current {
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
-
 	:root {
-		--bg: #14161B;
-		--accent-bg: #20232C;
-		--text: #E8E6E3;
-		--text-light: #FFFDF9;
-		--border: #A0988B;
-		--accent: #58A8E1;
-		--accent-light: #58A8E1;
-		--code: #F06292;
-		--preformatted: #CCCCCC;
-		--disabled: #111111;
-	}
-
-	/* I feel that simple.css's default of 0.6 has the right idea, but is a bit extreme */
-	img, video {
-		opacity: .8;
+		--bg: #14161b;
+		--accent-bg: #20232c;
+		--text: #e8e6e3;
+		--text-light: #fffdf9;
+		--border: #a0988b;
+		--accent: #58a8e1;
+		--code: #de4177;
+		--preformatted: #cccccc;
 	}
 }
