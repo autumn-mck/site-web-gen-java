@@ -16,7 +16,7 @@ It's also nice to have small things like template strings again, having loved st
 JSON is also entirely new to me, and so far I like it! It's a nicely human-readable way of storing data, and I significantly prefer it to the extreme verbosity of XML.  
 Destructuring assignments also seems like a very useful feature to have, and I'm looking forward to seeing what else javascript has to offer.
 
-All that said however, I've really only just started using it. It's very possible my opinion on it will change after I begin to get fed up with its quirks a few months from now. I'm just happy that I was wrong in my initial impression of javascript.
+All that said however, I've really only just started using it. It's very possible my opinion on it will change after I begin to get fed up with its quirks a few months from now. I'm just happy that I was wrong in my initial impression.
 
 
 
