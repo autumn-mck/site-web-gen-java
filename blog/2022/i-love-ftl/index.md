@@ -7,7 +7,7 @@ This blog post was written to be the content of a page for one of my university 
 I had originally intended for this to be a list of some of my favourite indie games, but it quickly spiralled into just being about FTL. (Still might do that list later though)
 
 ## FTL: Faster Than Light
-![I should probably have put out those fires...](images/FTLjpg.jpg)
+![I should probably have put out those fires...](images/FTL.png)
 *Genre: indie, rogue-like, strategy*
 
 FTL was a first in several ways for me. It was my first PC game (Now the only platform I play on), my first indie game (Now the vast majority of games that I play), and the first game I ever chose to buy myself, instead of having it bought for me. As a result, it's probably not possible for me to talk about it without looking through rose-tinted glasses to some extent, so take my opinion with a grain of salt.
