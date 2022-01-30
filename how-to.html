@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="/assets/icons/favicon.svg">
+    <link rel="icon" href="/assets/icons/favicon.svg" />
+    <title>How to deal with Project Sonar's data | mck.is</title>
+    <meta name="description" content="From the beginning" />
+    <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self' https://cdn.simplecss.org/">
+  </head>
+
+
+  <body>
+
+    <header>
+      <h1>💻 James' Blog</h1>
+      <p>Technologic.</p>
+
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/projects">Projects</a>
+        <a href="/about#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+<h1>How to deal with Project Sonar's data</h1>
+<em>From the beginning</em><br/>
+<small>Published on Sun 30 Jan 2022. 475 words.</small><br/>
+<small>Tags: <a href="/blog/tags/untagged">untagged</a></small>
+<hr/>
+<h2> IDE</h2>
+<p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
+
+<p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
+
+<p>Once you have one of these installed (Note: On windows, you may have to restart to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the seccond command with <code>sudo</code> on linux/mac) and run <code>nvm install 16</code>. This will install the latest version of Node 16, currently 16.13.2 (We have to use Node 16 instead of the newer 17 as not all packages are currently compatible with it), then run <code>nvm use 16.13.2</code>. Now we have node.js installed and set up!</p>
+
+<p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
+
+<p>Now we can begin to get to the interesting stuff: create a file called <code>index.js</code>. At the top of it, we can add
+<pre><code>import { MongoClient } from "mongodb";
+import { parse as tldParse } from &#34;tldts-experimental&#34;;
+import zlib from &#34;zlib&#34;;
+import fs from &#34;fs&#34;;
+import { get as getHttps } from &#34;https&#34;;
+import readline from &#34;readline&#34;; </code></pre>This imports what we need from the two packages we just installed, along with what we'll need from node's core modules.</p>
+
+<p>We'll then add our main function:
+<pre><code>/**
+ * Main function
+ */
+async function main() {
+	// Content of main function goes here
+}
+
+
+// Run the main function
+main().catch(console.error); </code></pre></p>
+
+<p>To make sure everything is up and running, add the typical "Hello World" to the main function with <code>console.log(&#34;Hello World!&#34;);</code>. To run the program, go to the terminal and run <code>node index.js</code> - Hopefully you should be greeted with "Hello World!" being logged.</p>
+
+    </main>
+
+    <footer>
+      <p><small>
+        This page was handmade by James McKee using <code>&lt;\&gt;</code> and <a href="https://simplecss.org">Simple.css</a>, and is currently hosted on GitHub Pages.<br/><br/>
+        <a href="https://512kb.club"><img src="/assets/images/green-team.svg" alt="Green team member of the 512kb club"/></a><br/>
+      </small></p>
+    </footer>
+  </body>
+</html>
