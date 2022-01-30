@@ -20,7 +20,7 @@
 
     <header>
       <h1>💻 James' Blog</h1>
-      <p>Technologic.</p>
+      <p>Inane ramblings on whatever?</p>
 
       <nav>
         <a href="/">Home</a>
@@ -47,7 +47,7 @@
 <p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
 
 <p>Now we can begin to get to the interesting stuff: create a file called <code>index.js</code>. At the top of it, we can add
-<pre><code>import { MongoClient } from "mongodb";
+<pre><code>import { MongoClient } from &#34;mongodb&#34;;
 import { parse as tldParse } from &#34;tldts-experimental&#34;;
 import zlib from &#34;zlib&#34;;
 import fs from &#34;fs&#34;;
