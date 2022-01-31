@@ -34,18 +34,21 @@
     <main>
 <h1>How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Sun 30 Jan 2022. 475 words.</small><br/>
+<small>Published on Sun 30 Jan 2022. 1164 words.</small><br/>
 <small>Tags: <a href="/blog/tags/untagged">untagged</a></small>
 <hr/>
-<h2> IDE</h2>
+<h2> Setup</h2>
 <p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
 
 <p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
 
 <p>Once you have one of these installed (Note: On windows, you may have to restart to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the seccond command with <code>sudo</code> on linux/mac) and run <code>nvm install 16</code>. This will install the latest version of Node 16, currently 16.13.2 (We have to use Node 16 instead of the newer 17 as not all packages are currently compatible with it), then run <code>nvm use 16.13.2</code>. Now we have node.js installed and set up!</p>
 
+<p>We're also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at <a href="https://docs.mongodb.com/manual/installation/">https://docs.mongodb.com/manual/installation/</a> MongoDB compass might be installed along side it, but if not, I'd reccommend installing it too.</p>
+
 <p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
 
+<h2> Start programming</h2>
 <p>Now we can begin to get to the interesting stuff: create a file called <code>index.js</code>. At the top of it, we can add
 <pre><code>import { MongoClient } from &#34;mongodb&#34;;
 import { parse as tldParse } from &#34;tldts-experimental&#34;;
@@ -67,6 +70,99 @@ async function main() {
 main().catch(console.error); </code></pre></p>
 
 <p>To make sure everything is up and running, add the typical "Hello World" to the main function with <code>console.log(&#34;Hello World!&#34;);</code>. To run the program, go to the terminal and run <code>node index.js</code> - Hopefully you should be greeted with "Hello World!" being logged.</p>
+
+<p>Next up we'll connect to MongoDB. Since we're using a local database, the connection URI should be as simple as <code>&#34;mongodb://localhost:27017&#34;</code>. Then we can create a new MongoClient, and pass our connection string to its constructor. Then we can open the connection with <code>await client.connect();</code> To make sure everything is working, we can print a list of all databases. Let's make a function for it!</p>
+
+
+<p><pre><code>async function listDatabases(client) {
+    let dbList = await client.db().admin().listDatabases();
+ 
+    console.log(&#34;Databases:&#34;);
+    dbList.databases.forEach(db =&#62; console.log(` - ${db.name}`));
+}; </code></pre></p>
+
+<p>Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with <code>node index.js</code>) we should get something like this: <img src="ListDatabases.png" alt="List of databases" loading="lazy"></p>
+
+<p>Your code so far should be similar to
+<pre><code>import { MongoClient } from &#34;mongodb&#34;;
+import { parse as tldParse } from &#34;tldts-experimental&#34;;
+import zlib from &#34;zlib&#34;;
+import fs from &#34;fs&#34;;
+import { get as getHttps } from &#34;https&#34;;
+import readline from &#34;readline&#34;;
+
+/**
+ * Main function
+ */
+async function main() {
+	// Database is currently hosted on same machine
+	const uri = &#34;mongodb://localhost:27017&#34;;
+	const client = new MongoClient(uri);
+
+	try {
+		// Connect to MongoDB
+		await client.connect();
+		
+		// List databases
+		await listDatabases(client);
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+async function listDatabases(client) {
+	let dbList = await client.db().admin().listDatabases();
+
+	console.log(&#34;Databases:&#34;);
+	dbList.databases.forEach((db) =&#62; console.log(` - ${db.name}`));
+}
+
+// Run the main function
+main().catch(console.error); </code></pre></p>
+
+<p>You'll probably have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.</p>
+
+<p>2 Options:</p>
+
+<h2> Fetching a local copy of Project Sonar</h2>
+<p>Project Sonar's data can be found at <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>. I'll be using the DNS 'A' records for this guide, but I'll be talking more about what the other items are later. Since we're using the A records, we need the file ending in <code>-fdns_a.json.gz</code>. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!</p>
+
+<p>Let's add a new function, <code>readFromFile</code>.</p>
+
+
+<p><pre><code>async function readFromFile() {
+ const sonarDataLocation = &#34;fdns_a.json.gz&#34;;
+ return fs.createReadStream(sonarDataLocation);
+} </code></pre></p>
+
+<p><code>sonarDataLocation</code> should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like <code>C:\\Users\\James\\Downloads\\fdns_a.json.gz</code>. This function returns a read stream - not the actual data itself - that we can later read through and parse.</p>
+
+<p><code>fs</code> is Node.js's filesystem module, allowing us to interact with local files.</p>
+
+<p>Alternatively:</p>
+
+<h2> Fetching an online version of Project Sonar</h2>
+<p>This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.</p>
+
+<p>Let's add a new function, <code>readFromWeb</code>.
+<pre><code>async function readFromWeb(url) {
+	getHttps(url, function (res) {
+		// Code here
+	}).on(&#34;error&#34;, function (e) {
+		console.error(e);
+	});
+} </code></pre>This function calls the get method from node's https package that we imported earlier as <code>getHttps</code>. It gets the result of this call as <code>res</code>, currently does northing with it, and will log any errors. So what do we do with this result? First of all, we need to deal with redirects. <a href="https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz">https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz</a>, The link on Project Sonar's site, actually redirects to backblaze, where the data is actually hosted, before allowing you to download it.</p>
+
+<p>Fortunately, we can check if we need to redirect based on the result's <a href="https://httpstatuses.com/">HTTP status code</a>. If the status is 200, we're in the right place, and can return the result to be used elsewhere. If the status is 301 or 303, we should follow the redirect by calling the readFromWeb method again, with the new URL being passed in as an argument. I've added the following code inside the above <code>getHttps</code> call:
+<pre><code>if (res.statusCode === 200) {
+	return res;
+} else if (res.statusCode === 301 || res.statusCode === 302) {
+	// Recursively follow redirects, only a 200 will resolve.
+	console.log(`Redirecting to: ${res.headers.location}`);
+	readFromWeb(res.headers.location);
+} else {
+	console.log(`Download request failed, response status: ${res.statusCode} ${res.statusMessage}`);
+} </code></pre>This function returns a read stream - not the actual data itself - that we can later read through and parse.</p>
 
     </main>
 
