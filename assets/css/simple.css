@@ -173,9 +173,13 @@ nav a, nav a:visited {
   text-decoration: none;
 }
 
-nav a:hover {
-  color: var(--accent);
+nav a:hover,
+nav a.nav-current,
+nav a.current {
   border-color: var(--accent);
+	background: var(--bg);
+	color: var(--accent) !important;
+	opacity: 1;
 }
 
 /* Reduce nav size on mobile */
