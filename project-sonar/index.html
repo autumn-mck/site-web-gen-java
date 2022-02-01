@@ -32,12 +32,12 @@
     </header>
 
     <main>
-<h1>How to deal with Project Sonar's data</h1>
+<h1 id="title">How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Tue 01 Feb 2022. 2469 words.</small><br/>
+<small>Published on Tue 01 Feb 2022. 2476 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
-<h2> Setup</h2>
+<h2 id="setup"> Setup</h2>
 <p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
 
 <p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
@@ -48,7 +48,7 @@
 
 <p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
 
-<h2> Start programming</h2>
+<h2 id="start-programming"> Start programming</h2>
 <p>Now we can begin to get to the interesting stuff: create a file called <code>fetchData.js</code>. At the top of it, we can add TODO: Move these to where they're actually needed?
 <pre><code>import { MongoClient } from &#34;mongodb&#34;;
 import { parse as tldParse } from &#34;tldts-experimental&#34;;
@@ -124,7 +124,7 @@ main().catch(console.error); </code></pre></p>
 
 <p>2 Options:</p>
 
-<h2> Fetching a local copy of Project Sonar</h2>
+<h2 id="fetching-a-local-copy-of-project-sonar"> Fetching a local copy of Project Sonar</h2>
 <p>Project Sonar's data can be found at <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>. I'll be using the DNS 'A' records for this guide, but I'll be talking more about what the other items are later. Since we're using the A records, we need the file ending in <code>-fdns_a.json.gz</code>. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!</p>
 
 <p>Let's add a new function, <code>readFromFile</code>.</p>
@@ -142,7 +142,7 @@ main().catch(console.error); </code></pre></p>
 
 <p>Alternatively:</p>
 
-<h2> Fetching an online version of Project Sonar</h2>
+<h2 id="fetching-an-online-version-of-project-sonar"> Fetching an online version of Project Sonar</h2>
 <p>This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.</p>
 
 <p>Let's add a new function, <code>readFromWeb</code>.
@@ -171,7 +171,7 @@ readFromWeb(client, dataUrl); </code></pre></p>
 
 <p>Note that if this doesn't work, make sure you have the latest link from <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>, as downloading older/newer versions requires an account.</p>
 
-<h2> Parsing our input</h2>
+<h2 id="parsing-our-input"> Parsing our input</h2>
 <p>So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we've been given - it's currently still gzipped.</p>
 
 <p>Luckily, we can deal with both of those problems pretty quickly! Let's create a new function:
@@ -216,7 +216,7 @@ console.log(tldParsed); </code></pre></p>
 <p>You should now hopefully see lines of JSON being printed! We should probably remove that <code>console.log</code> for now though - printing out every single line hurts our performance.  <br/>
 Note that there are still a few invalid hostnames - Some beginning with <code>/</code>, <code>-</code> or <code>*</code>. I don't know why these are here, but given that only around 0.2% of the results are invalid, it's probably safe enough to ignore them for now.</p>
 
-<h2> MongoDB</h2>
+<h2 id="mongodb"> MongoDB</h2>
 <p>Now we need to start thinking about MongoDB. Whilst MongoDB is fast, it is unfortunately not fast enough to get us a quick result from 1.7 billion items. To speed it up, we'll make use of <a href="https://docs.mongodb.com/manual/core/index-text/">text indexes</a>.</p>
 
 <p>Back in our main function, let's add a line to create this text index.  
@@ -274,7 +274,7 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
 } </code></pre>The only thing to note here is that we're telling MongoDB that our data is not/does not need to be ordered, helping increase our performance. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse!</p>
 
-<h2> Querying MongoDB</h2>
+<h2 id="querying-mongodb"> Querying MongoDB</h2>
 <p>So, we have our data sitting in a collection in MongoDB. Now what?</p>
 
 <p>Create a new file called <code>queryData.js</code>. We can follow the basic template of the previous file to get started:
