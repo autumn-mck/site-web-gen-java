@@ -34,7 +34,7 @@
     <main>
 <h1>How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Sun 30 Jan 2022. 1164 words.</small><br/>
+<small>Published on Sun 30 Jan 2022. 1510 words.</small><br/>
 <small>Tags: <a href="/blog/tags/untagged">untagged</a></small>
 <hr/>
 <h2> Setup</h2>
@@ -120,7 +120,7 @@ async function listDatabases(client) {
 // Run the main function
 main().catch(console.error); </code></pre></p>
 
-<p>You'll probably have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.</p>
+<p>You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.</p>
 
 <p>2 Options:</p>
 
@@ -131,13 +131,14 @@ main().catch(console.error); </code></pre></p>
 
 
 <p><pre><code>async function readFromFile() {
- const sonarDataLocation = &#34;fdns_a.json.gz&#34;;
- return fs.createReadStream(sonarDataLocation);
+	const sonarDataLocation = &#34;fdns_a.json.gz&#34;;
+	return fs.createReadStream(sonarDataLocation);
 } </code></pre></p>
 
-<p><code>sonarDataLocation</code> should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like <code>C:\\Users\\James\\Downloads\\fdns_a.json.gz</code>. This function returns a read stream - not the actual data itself - that we can later read through and parse.</p>
+<p><code>sonarDataLocation</code> should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like <code>C:\\Users\\James\\Downloads\\fdns_a.json.gz</code>. This function returns a read stream - not the actual data itself - that we can later read through and parse. <code>fs</code> is Node.js's filesystem module, allowing us to interact with local files.</p>
 
-<p><code>fs</code> is Node.js's filesystem module, allowing us to interact with local files.</p>
+<p>Now we can return to our main method and add in something to call our new function
+<pre><code>let stream = readFromFile(); </code></pre></p>
 
 <p>Alternatively:</p>
 
@@ -163,6 +164,40 @@ main().catch(console.error); </code></pre></p>
 } else {
 	console.log(`Download request failed, response status: ${res.statusCode} ${res.statusMessage}`);
 } </code></pre>This function returns a read stream - not the actual data itself - that we can later read through and parse.</p>
+
+<p>Now we can return to our main method and add in something to call our new function
+<pre><code>const dataUrl = &#34;https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz&#34;;
+let stream = readFromWeb(dataUrl); </code></pre></p>
+
+<h2> Parsing our input</h2>
+<p>So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we've been given - it's currently still gzipped.</p>
+
+<p>Luckily, we can deal with both of those problems pretty quickly! Let's create a new function:
+<pre><code>async function parseSonar(client, readstream) {
+	// Pipe the response into gunzip to decompress
+	let gunzip = zlib.createGunzip();
+
+	let lineReader = readline.createInterface({
+		input: readstream.pipe(gunzip),
+	});
+} </code></pre></p>
+
+<p>What we're doing here is: <ul>
+	<li>Creating a writable stream called <code>gunzip</code> with <code>zlib</code>, node.js's module for compression/decompression</li> 
+	<li>Piping our readstream of compressed Project Sonar data to this <code>gunzip</code> object</li> 
+	<li>Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don't have to worry about buffers stopping mid-line.)</li></p>
+
+
+</ul>
+
+<p>Quite a lot for a few lines of code!  <br/>
+Now, we still need to get our data out of this linereader. To do this, we can use the <code>&#34;line&#34;</code> event that the linereader emits to let us know when we have a new line to parse, with:
+<pre><code>lineReader.on(&#34;line&#34;, (line) =&#62; {
+	// We&#39;ll parse the line in here
+}); </code></pre></p>
+
+<p>So we've got a line of data - now what?  <br/>
+The data is in JSON form, and luckily for us, we can simply use javascript's <code>JSON.parse()</code> to parse it. Next up, we need to break the hostname (eg <code>subdomain.example.com/path</code>) into it parts - we need just the <code>example</code> bit (This is required for performance - I'll explain more once we get to that point). We can do this pretty easily by using the <code>tldts</code> package's <code>parse</code> function we imported earlier as <code>tldParse</code>. </p>
 
     </main>
 

@@ -95,7 +95,7 @@ async function listDatabases(client) {
 main().catch(console.error);
 ```
 
-You'll probably have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.
+You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.
 
 2 Options:
 
@@ -106,14 +106,17 @@ Let's add a new function, `readFromFile`.
 
 ```
 async function readFromFile() {
- const sonarDataLocation = "fdns_a.json.gz";
- return fs.createReadStream(sonarDataLocation);
+	const sonarDataLocation = "fdns_a.json.gz";
+	return fs.createReadStream(sonarDataLocation);
 }
 ```
 
-`sonarDataLocation` should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like `C:\\Users\\James\\Downloads\\fdns_a.json.gz`. This function returns a read stream - not the actual data itself - that we can later read through and parse.
+`sonarDataLocation` should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like `C:\\Users\\James\\Downloads\\fdns_a.json.gz`. This function returns a read stream - not the actual data itself - that we can later read through and parse. `fs` is Node.js's filesystem module, allowing us to interact with local files.
 
-`fs` is Node.js's filesystem module, allowing us to interact with local files.
+Now we can return to our main method and add in something to call our new function
+```
+let stream = readFromFile();
+```
 
 Alternatively:
 
@@ -145,3 +148,40 @@ if (res.statusCode === 200) {
 }
 ```
 This function returns a read stream - not the actual data itself - that we can later read through and parse.
+
+Now we can return to our main method and add in something to call our new function
+```
+const dataUrl = "https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz";
+let stream = readFromWeb(dataUrl);
+```
+
+## Parsing our input
+So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we've been given - it's currently still gzipped.
+
+Luckily, we can deal with both of those problems pretty quickly! Let's create a new function:
+```
+async function parseSonar(client, readstream) {
+	// Pipe the response into gunzip to decompress
+	let gunzip = zlib.createGunzip();
+
+	let lineReader = readline.createInterface({
+		input: readstream.pipe(gunzip),
+	});
+}
+```
+
+What we're doing here is:
+ - Creating a writable stream called `gunzip` with `zlib`, node.js's module for compression/decompression
+ - Piping our readstream of compressed Project Sonar data to this `gunzip` object
+ - Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don't have to worry about buffers stopping mid-line.)
+
+Quite a lot for a few lines of code!  
+Now, we still need to get our data out of this linereader. To do this, we can use the `"line"` event that the linereader emits to let us know when we have a new line to parse, with:
+```
+lineReader.on("line", (line) => {
+	// We'll parse the line in here
+});
+```
+
+So we've got a line of data - now what?  
+The data is in JSON form, and luckily for us, we can simply use javascript's `JSON.parse()` to parse it. Next up, we need to break the hostname (eg `subdomain.example.com/path`) into it parts - we need just the `example` bit (This is required for performance - I'll explain more once we get to that point). We can do this pretty easily by using the `tldts` package's `parse` function we imported earlier as `tldParse`. 
