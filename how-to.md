@@ -105,18 +105,16 @@ Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/
 Let's add a new function, `readFromFile`.
 
 ```
-async function readFromFile() {
+async function readFromFile(client) {
 	const sonarDataLocation = "fdns_a.json.gz";
-	return fs.createReadStream(sonarDataLocation);
+	let stream = fs.createReadStream(sonarDataLocation);
+	parseSonar(client, stream);
 }
 ```
 
-`sonarDataLocation` should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like `C:\\Users\\James\\Downloads\\fdns_a.json.gz`. This function returns a read stream - not the actual data itself - that we can later read through and parse. `fs` is Node.js's filesystem module, allowing us to interact with local files.
+`sonarDataLocation` should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like `C:\\Users\\James\\Downloads\\fdns_a.json.gz`. We then create a read stream - not the actual data itself - that we can later read through and parse. `fs` is Node.js's filesystem module, allowing us to interact with local files. We then pass this stream, and the MongoClient passed into the function, to a function that does not yet exist - it's next to do.
 
-Now we can return to our main method and add in something to call our new function
-```
-let stream = readFromFile();
-```
+Finally, let's call this method from the main function with `readFromFile(client);`
 
 Alternatively:
 
@@ -125,7 +123,7 @@ This method is a bit more complicated, but means that we do not have to keep a c
 
 Let's add a new function, `readFromWeb`.
 ```
-async function readFromWeb(url) {
+async function readFromWeb(client, url) {
 	getHttps(url, function (res) {
 		// Code here
 	}).on("error", function (e) {
@@ -133,27 +131,29 @@ async function readFromWeb(url) {
 	});
 }
 ```
-This function calls the get method from node's https package that we imported earlier as `getHttps`. It gets the result of this call as `res`, currently does northing with it, and will log any errors. So what do we do with this result? First of all, we need to deal with redirects. <https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz>, The link on Project Sonar's site, actually redirects to backblaze, where the data is actually hosted, before allowing you to download it.
+This function calls the get method from node's https package that we imported earlier as `getHttps`. It gets the result of this call as `res`, currently does northing with it, and will log any errors. So what do we do with this result? First of all, we need to deal with redirects. <https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz>, The link on Project Sonar's site, actually redirects to backblaze, where the data is actually hosted, before allowing you to download it.
 
 Fortunately, we can check if we need to redirect based on the result's [HTTP status code](https://httpstatuses.com/). If the status is 200, we're in the right place, and can return the result to be used elsewhere. If the status is 301 or 303, we should follow the redirect by calling the readFromWeb method again, with the new URL being passed in as an argument. I've added the following code inside the above `getHttps` call:
 ```
 if (res.statusCode === 200) {
-	return res;
+	parseSonar(client, res);
 } else if (res.statusCode === 301 || res.statusCode === 302) {
 	// Recursively follow redirects, only a 200 will resolve.
 	console.log(`Redirecting to: ${res.headers.location}`);
-	readFromWeb(res.headers.location);
+	readFromWeb(client, res.headers.location);
 } else {
 	console.log(`Download request failed, response status: ${res.statusCode} ${res.statusMessage}`);
 }
 ```
-This function returns a read stream - not the actual data itself - that we can later read through and parse.
+This function gets a read stream - not the actual data itself - that we can later read through and parse. We can then pass it to a function that does not yet exist (We'll add it shortly) along with the MongoClient this function was passed.
 
-Now we can return to our main method and add in something to call our new function
+Now we can return to our main method and add in something to call our function
 ```
-const dataUrl = "https://opendata.rapid7.com/sonar.fdns_v2/2021-12-31-1640909088-fdns_a.json.gz";
-let stream = readFromWeb(dataUrl);
+const dataUrl = "https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz";
+readFromWeb(client, dataUrl);
 ```
+
+Note that if this doesn't work, make sure you have the latest link from <https://opendata.rapid7.com/sonar.fdns_v2/>, as downloading older/newer versions requires an account.
 
 ## Parsing our input
 So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we've been given - it's currently still gzipped.
@@ -175,7 +175,7 @@ What we're doing here is:
  - Piping our readstream of compressed Project Sonar data to this `gunzip` object
  - Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don't have to worry about buffers stopping mid-line.)
 
-Quite a lot for a few lines of code!  
+Quite a lot for a few lines of code! We also need to remember to call this new function from within our main function -   
 Now, we still need to get our data out of this linereader. To do this, we can use the `"line"` event that the linereader emits to let us know when we have a new line to parse, with:
 ```
 lineReader.on("line", (line) => {
@@ -184,4 +184,91 @@ lineReader.on("line", (line) => {
 ```
 
 So we've got a line of data - now what?  
-The data is in JSON form, and luckily for us, we can simply use javascript's `JSON.parse()` to parse it. Next up, we need to break the hostname (eg `subdomain.example.com/path`) into it parts - we need just the `example` bit (This is required for performance - I'll explain more once we get to that point). We can do this pretty easily by using the `tldts` package's `parse` function we imported earlier as `tldParse`. 
+The data is in JSON form, and luckily for us, we can simply use javascript's `JSON.parse()` to parse it. Next up, we need to break the hostname (eg `subdomain.example.com/path`) into it parts - we need just the `example` bit (This is required for performance - I'll explain more once we get to that point). We can do this pretty easily by using the `tldts` package's `parse` function we imported earlier as `tldParse`.
+
+First, we need to deal with many records beginning with `*.`. If we don't remove this from the start of the hostname, we cannot properly parse it. Then, let's parse it with `tldParse` and log it, to make sure everything is working so far.
+
+```
+let lineJson = JSON.parse(line);
+let hostname = lineJson.name;
+
+if (hostname.substring(0, 2) === "*.") hostname = hostname.substring(2);
+
+let tldParsed = tldParse(hostname);
+
+console.log(tldParsed);
+```
+
+You should now hopefully see lines of JSON being printed! We should probably remove that `console.log` for now though - printing out every single line hurts our performance.  
+Note that there are still a few invalid hostnames - Some beginning with `/`, `-` or `*`. I don't know why these are here, but given that only around 0.2% of the results are invalid, it's probably safe enough to ignore them for now.
+
+## MongoDB
+Now we need to start thinking about MongoDB. Whilst MongoDB is fast, it is unfortunately not fast enough to get us a quick result from 1.7 billion items. To speed it up, we'll make use of [text indexes](https://docs.mongodb.com/manual/core/index-text/).
+
+Back in our main function, let's add a line to create this text index.  
+```
+await client.db("test_db").collection("sonardata").createIndex({ domainWithoutSuffix: "text" });
+```
+You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that allows us to more easily make interesting queries to the database in the future.
+
+We also don't want redundant data building up each time we run our program - let's add something to drop the collection each time the program is run. (We don't need to add anything to create the collection again - MongoDB does this automatically for us whenever we try to add data to it.)
+```
+// Drop the collection containg Project Sonar data
+try {
+	await client.db("test_db").collection("sonardata").drop();
+} catch {}
+```
+
+Nice! Now we can begin actually adding the data to MongoDB.  
+Returning back to our parseSonar function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let's do that. After we've created the linereader, let's create an array and a counter to keep track of how many items we have.
+
+Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our parseSonar function should now look something like:
+```
+async function parseSonar(client, readstream) {
+	// Pipe the response into gunzip to decompress
+	let gunzip = zlib.createGunzip();
+
+	let lineReader = readline.createInterface({
+		input: readstream.pipe(gunzip),
+	});
+
+	let arr = [];
+	let count = 0;
+	lineReader.on("line", (line) => {
+		let lineJson = JSON.parse(line);
+		let hostname = lineJson.name;
+		if (hostname.substring(0, 2) === "*.") hostname = hostname.substring(2);
+
+		let tldParsed = tldParse(hostname);
+
+		if (tldParsed.domainWithoutSuffix) {
+			count++;
+			arr.push({
+				domainWithoutSuffix: tldParsed.domainWithoutSuffix,
+				publicSuffix: tldParsed.publicSuffix,
+				subdomain: tldParsed.subdomain,
+				name: lineJson.name,
+				type: lineJson.type,
+				value: lineJson.value,
+			});
+			
+			if (count % 100000 === 0) {
+				console.log(`${count} lines parsed`);
+				createManyListings(client, arr, "sonardata");
+				arr = [];
+			}
+		}
+	});
+}
+```
+
+Nearly done now! We just need to add the `createManyListings` function. Thankfully, it's pretty simple:
+```
+async function createManyListings(client, newListing, collection, dbName = "test_db") {
+	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
+}
+```
+The only thing to note here is that we're telling MongoDB that our data is not/does not need to be ordered, helping increase our performance. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse!
+
+## Querying MongoDB
+So, we have our data sitting in a collection in MongoDB. Now what?
