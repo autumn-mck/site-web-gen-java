@@ -34,8 +34,8 @@
     <main>
 <h1>How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Sun 30 Jan 2022. 2160 words.</small><br/>
-<small>Tags: <a href="/blog/tags/untagged">untagged</a></small>
+<small>Published on Tue 01 Feb 2022. 2469 words.</small><br/>
+<small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h2> Setup</h2>
 <p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
@@ -49,7 +49,7 @@
 <p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
 
 <h2> Start programming</h2>
-<p>Now we can begin to get to the interesting stuff: create a file called <code>index.js</code>. At the top of it, we can add
+<p>Now we can begin to get to the interesting stuff: create a file called <code>fetchData.js</code>. At the top of it, we can add TODO: Move these to where they're actually needed?
 <pre><code>import { MongoClient } from &#34;mongodb&#34;;
 import { parse as tldParse } from &#34;tldts-experimental&#34;;
 import zlib from &#34;zlib&#34;;
@@ -69,7 +69,7 @@ async function main() {
 // Run the main function
 main().catch(console.error); </code></pre></p>
 
-<p>To make sure everything is up and running, add the typical "Hello World" to the main function with <code>console.log(&#34;Hello World!&#34;);</code>. To run the program, go to the terminal and run <code>node index.js</code> - Hopefully you should be greeted with "Hello World!" being logged.</p>
+<p>To make sure everything is up and running, add the typical "Hello World" to the main function with <code>console.log(&#34;Hello World!&#34;);</code>. To run the program, go to the terminal and run <code>node fetchData.js</code> - Hopefully you should be greeted with "Hello World!" being logged.</p>
 
 <p>Next up we'll connect to MongoDB. Since we're using a local database, the connection URI should be as simple as <code>&#34;mongodb://localhost:27017&#34;</code>. Then we can create a new MongoClient, and pass our connection string to its constructor. Then we can open the connection with <code>await client.connect();</code> To make sure everything is working, we can print a list of all databases. Let's make a function for it!</p>
 
@@ -81,7 +81,7 @@ main().catch(console.error); </code></pre></p>
     dbList.databases.forEach(db =&#62; console.log(` - ${db.name}`));
 }; </code></pre></p>
 
-<p>Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with <code>node index.js</code>) we should get something like this: <img src="ListDatabases.png" alt="List of databases" loading="lazy"></p>
+<p>Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with <code>node fetchData.js</code>) we should get something like this: <img src="ListDatabases.png" alt="List of databases" loading="lazy"></p>
 
 <p>Your code so far should be similar to
 <pre><code>import { MongoClient } from &#34;mongodb&#34;;
@@ -220,7 +220,7 @@ Note that there are still a few invalid hostnames - Some beginning with <code>/<
 <p>Now we need to start thinking about MongoDB. Whilst MongoDB is fast, it is unfortunately not fast enough to get us a quick result from 1.7 billion items. To speed it up, we'll make use of <a href="https://docs.mongodb.com/manual/core/index-text/">text indexes</a>.</p>
 
 <p>Back in our main function, let's add a line to create this text index.  
-<pre><code>await client.db(&#34;test_db&#34;).collection(&#34;sonardata&#34;).createIndex({ domainWithoutSuffix: &#34;text&#34; }); </code></pre>You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that allows us to more easily make interesting queries to the database in the future.</p>
+<pre><code>await client.db(&#34;test_db&#34;).collection(&#34;sonardata&#34;).createIndex({ domainWithoutSuffix: &#34;text&#34; }); </code></pre>You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that's what I'm wanting to query later on. If, however, you wanted to query IP address, to find out which domains point to a given IP address, you'd use it as your text index instead.</p>
 
 <p>We also don't want redundant data building up each time we run our program - let's add something to drop the collection each time the program is run. (We don't need to add anything to create the collection again - MongoDB does this automatically for us whenever we try to add data to it.)
 <pre><code>// Drop the collection containg Project Sonar data
@@ -276,6 +276,63 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 
 <h2> Querying MongoDB</h2>
 <p>So, we have our data sitting in a collection in MongoDB. Now what?</p>
+
+<p>Create a new file called <code>queryData.js</code>. We can follow the basic template of the previous file to get started:
+<pre><code>import { MongoClient } from &#34;mongodb&#34;;
+
+/**
+ * Main function
+ */
+async function main() {
+	// Database is currently hosted on same machine
+	const uri = &#34;mongodb://localhost:27017&#34;;
+	const client = new MongoClient(uri);
+
+	try {
+		// Connect to the MongoDB cluster
+		await client.connect();
+		
+		// Run query here
+	} catch (e) {
+		// Log any errors
+		console.error(e);
+	} finally {
+		await client.close();
+	}
+}
+
+// Run the main function
+main().catch(console.error); </code></pre></p>
+
+<p>Now we need to come up with a query! As an example, I'll search for domains ...  <br/>
+To actually query this, I'll use:
+<pre><code>let query = { $text: { $search: &#34;rapid7&#34; }, domainWithoutSuffix: &#34;rapid7&#34; };
+await findMany(client, query, &#34;sonardata&#34;); </code></pre>To explain what the query actually means: <ul>
+	<li><code>$text: { $search: &#34;rapid7&#34; }</code> is how we're able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  <code>domainWithoutSuffix</code>s that <strong>contain</strong> (<em>not</em> match exactly) the given query.</li> 
+	<li><code>domainWithoutSuffix: &#34;rapid7&#34;</code> narrows that down further to only the exact matches.</li></p>
+
+
+</ul>
+
+<p>We could continue to further narrow this down if we wanted (For more info, see <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">https://docs.mongodb.com/manual/tutorial/query-documents/</a>). First though, we need to add in the <code>findMany</code> function that we're calling.</p>
+
+
+<p><pre><code>async function findMany(client, query, collection, db_name = &#34;test_db&#34;, maxResults = 500) {
+	const cursor = client.db(db_name).collection(collection).find(query).limit(maxResults);
+
+	const results = await cursor.toArray();
+
+	if (results.length &#62; 0) {
+		console.log(&#34;Found items:&#34;);
+		results.forEach((result, i) =&#62; {
+			console.log(result);
+		});
+	} else {
+		console.log(&#34;No results found with the given query!&#34;);
+	}
+} </code></pre></p>
+
+<p>This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that's it! Now you're able to query Project Sonar's data! What you do with the results you get are up to you.</p>
 
     </main>
 

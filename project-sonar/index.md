@@ -1,6 +1,7 @@
 How to deal with Project Sonar's data
 From the beginning
-30/01/2022
+01/02/2022
+nodejs, project sonar, programming
 -----
 ## Setup
 To start, you're going to want to be using an IDE - I'd reccommend [Visual Studio Code](https://code.visualstudio.com/). This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.
@@ -15,7 +16,7 @@ Returning to VS Code, we can open up its built in terminal with `ctrl + '`. We'r
 
 ## Start programming
 
-Now we can begin to get to the interesting stuff: create a file called `index.js`. At the top of it, we can add
+Now we can begin to get to the interesting stuff: create a file called `fetchData.js`. At the top of it, we can add TODO: Move these to where they're actually needed?
 ```
 import { MongoClient } from "mongodb";
 import { parse as tldParse } from "tldts-experimental";
@@ -40,7 +41,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-To make sure everything is up and running, add the typical "Hello World" to the main function with `console.log("Hello World!");`. To run the program, go to the terminal and run `node index.js` - Hopefully you should be greeted with "Hello World!" being logged.
+To make sure everything is up and running, add the typical "Hello World" to the main function with `console.log("Hello World!");`. To run the program, go to the terminal and run `node fetchData.js` - Hopefully you should be greeted with "Hello World!" being logged.
 
 Next up we'll connect to MongoDB. Since we're using a local database, the connection URI should be as simple as `"mongodb://localhost:27017"`. Then we can create a new MongoClient, and pass our connection string to its constructor. Then we can open the connection with `await client.connect();` To make sure everything is working, we can print a list of all databases. Let's make a function for it!
 
@@ -53,7 +54,7 @@ async function listDatabases(client) {
 };
 ```
 
-Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with `node index.js`) we should get something like this:
+Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with `node fetchData.js`) we should get something like this:
 ![List of databases](ListDatabases.png)
 
 Your code so far should be similar to
@@ -209,7 +210,7 @@ Back in our main function, let's add a line to create this text index.
 ```
 await client.db("test_db").collection("sonardata").createIndex({ domainWithoutSuffix: "text" });
 ```
-You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that allows us to more easily make interesting queries to the database in the future.
+You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that's what I'm wanting to query later on. If, however, you wanted to query IP address, to find out which domains point to a given IP address, you'd use it as your text index instead.
 
 We also don't want redundant data building up each time we run our program - let's add something to drop the collection each time the program is run. (We don't need to add anything to create the collection again - MongoDB does this automatically for us whenever we try to add data to it.)
 ```
@@ -272,3 +273,63 @@ The only thing to note here is that we're telling MongoDB that our data is not/d
 
 ## Querying MongoDB
 So, we have our data sitting in a collection in MongoDB. Now what?
+
+Create a new file called `queryData.js`. We can follow the basic template of the previous file to get started:
+```
+import { MongoClient } from "mongodb";
+
+/**
+ * Main function
+ */
+async function main() {
+	// Database is currently hosted on same machine
+	const uri = "mongodb://localhost:27017";
+	const client = new MongoClient(uri);
+
+	try {
+		// Connect to the MongoDB cluster
+		await client.connect();
+		
+		// Run query here
+	} catch (e) {
+		// Log any errors
+		console.error(e);
+	} finally {
+		await client.close();
+	}
+}
+
+// Run the main function
+main().catch(console.error);
+```
+
+Now we need to come up with a query! As an example, I'll search for domains ...  
+To actually query this, I'll use:
+```
+let query = { $text: { $search: "rapid7" }, domainWithoutSuffix: "rapid7" };
+await findMany(client, query, "sonardata");
+```
+To explain what the query actually means:
+ - `$text: { $search: "rapid7" }` is how we're able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  `domainWithoutSuffix`s that **contain** (*not* match exactly) the given query.
+ - `domainWithoutSuffix: "rapid7"` narrows that down further to only the exact matches.
+
+We could continue to further narrow this down if we wanted (For more info, see <https://docs.mongodb.com/manual/tutorial/query-documents/>). First though, we need to add in the `findMany` function that we're calling.
+
+```
+async function findMany(client, query, collection, db_name = "test_db", maxResults = 500) {
+	const cursor = client.db(db_name).collection(collection).find(query).limit(maxResults);
+
+	const results = await cursor.toArray();
+
+	if (results.length > 0) {
+		console.log("Found items:");
+		results.forEach((result, i) => {
+			console.log(result);
+		});
+	} else {
+		console.log("No results found with the given query!");
+	}
+}
+```
+
+This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that's it! Now you're able to query Project Sonar's data! What you do with the results you get are up to you.
