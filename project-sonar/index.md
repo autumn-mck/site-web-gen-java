@@ -16,7 +16,7 @@ Returning to VS Code, we can open up its built in terminal with `ctrl + '`. We'r
 
 ## Start programming
 
-Now we can begin to get to the interesting stuff: create a file called `fetchData.js`. At the top of it, we can add TODO: Move these to where they're actually needed?
+Now we can begin to get to the interesting stuff: create a file called `fetchData.js`. At the top of it, we can add:
 ```
 import { MongoClient } from "mongodb";
 import { parse as tldParse } from "tldts-experimental";
