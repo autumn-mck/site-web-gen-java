@@ -1,41 +1,21 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico" />
-    <title>How to deal with Project Sonar's data | mck.is</title>
-    <meta name="description" content="From the beginning" />
-    <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
-
-    <link rel="stylesheet" href="/assets/css/simple.min.css">
-    <!--<link rel="stylesheet" href="/C:/Users/James/Desktop/Website/james-mck.github.io/assets/css/simple.css">-->
-
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self';">
-  </head>
-
-
-  <body>
-
-    <header>
-      <h1>💻 James' Blog</h1>
-      <p>Inane ramblings on whatever.</p>
-
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/blog">Blog</a>
-        <a href="/projects">Projects</a>
-        <a href="/about#contact">Contact</a>
-      </nav>
-    </header>
-
-    <main>
-<h1 id="title">How to deal with Project Sonar's data</h1>
-<em>From the beginning</em><br/>
-<small>Published on Tue 01 Feb 2022. 2469 words.</small><br/>
-<small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
-<hr/>
+<feed xml:lang="en">
+<link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
+<link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
+<updated>2022-02-01T00:00</updated>
+<id>https://mck.is/feed.xml</id>
+<title type="html">Joelchrono12’s Blog</title>
+<subtitle>
+My personal blog, where I ramble about whatever I'm currently interested in.
+</subtitle>
+<author>
+<name>James McKee</name>
+</author><entry>
+<title type="html">How to deal with Project Sonar's data</title>
+<link href="https://mck.isproject-sonar\index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
+<published>2022-02-01T00:00</published>
+<updated>2022-02-01T00:00</updated>
+<id>https://mck.isproject-sonar\index.html</id>
+<content type="html" xml:base="https://mck.isproject-sonar\index.html">
 <h2 id="setup"> Setup</h2>
 <p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
 
@@ -333,13 +313,187 @@ await findMany(client, query, &#34;sonardata&#34;); </code></pre>To explain what
 
 <p>This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that's it! Now you're able to query Project Sonar's data! What you do with the results you get are up to you.</p>
 
-    </main>
+</content>
+<author>
+<name>James McKee</name>
+</author>
+<category term="nodejs"/>
+<category term="project sonar"/>
+<category term="programming"/>
+<summary type="html">
+From the beginning
+</summary></entry>
+<entry>
+<title type="html">I love FTL: Faster Than Light</title>
+<link href="https://mck.isblog\2022\i-love-ftl\index.html" rel="alternate" type="text/html" title="I love FTL: Faster Than Light"/>
+<published>2022-01-29T23:23</published>
+<updated>2022-01-29T23:23</updated>
+<id>https://mck.isblog\2022\i-love-ftl\index.html</id>
+<content type="html" xml:base="https://mck.isblog\2022\i-love-ftl\index.html">
+<p>This blog post was written to be the content of a page for one of my university modules where we were required to write about something we were interested in, and unlikely to be picked by anybody else. I've decided to stick it up here too, because why not?  <br/>
+I had originally intended for this to be a list of some of my favourite indie games, but it quickly spiralled into just being about FTL. (Still might do that list later though)</p>
 
-    <footer>
-      <p><small>
-        This page was handmade by James McKee using <code>&lt;\&gt;</code> and <a href="https://simplecss.org">Simple.css</a>, and is currently hosted on GitHub Pages.<br/><br/>
-        <a href="https://512kb.club"><img src="/assets/images/green-team.svg" alt="Green team member of the 512kb club"/></a><br/>
-      </small></p>
-    </footer>
-  </body>
-</html>
+<h2 id="ftl:-faster-than-light"> FTL: Faster Than Light</h2>
+<p><img src="images/FTL.png" alt="I should probably have put out those fires..." loading="lazy" /> <em>Genre: indie, rogue-like, strategy</em></p>
+
+<p>FTL was a first in several ways for me. It was my first PC game (Now the only platform I play on), my first indie game (Now the vast majority of games that I play), and the first game I ever chose to buy myself, instead of having it bought for me. As a result, it's probably not possible for me to talk about it without looking through rose-tinted glasses to some extent, so take my opinion with a grain of salt.</p>
+
+<p>You play as the captain of a ship, belonging to the federation. You must manage your crew and energy usage and make decisions on how to survive throughout your journey and help defend the federation against the rebels.</p>
+
+<p>FTL is a "rougelike" game, meaning on each playthrough you start from scratch. Weak and with little to defend yourself, you must upgrade your ship and take on new crewmembers to hope to survive the many dangers you find as you explore the universe. With a wide range of weapons, from laser machine guns that take time to start up but are deadly once unleashed, to fire beams to kill your enemy ship's crew while leaving their ship (mostly) intact, and systems like hacking to take over a ship's navigation or teleporters to form boarding crews, there are many ways to play the game. Unfortunately for you, enemy ships also have access to the same arsenal of systems, and they aren't willing to go down without a fight.</p>
+
+<p>The game also has an <a href="https://benprunty.bandcamp.com/album/ftl">amazing soundtrack</a> (+<a href="https://benprunty.bandcamp.com/album/ftl-advanced-edition-soundtrack">advanced edition soundtrack</a>) by Ben Prunty, which perfectly fits the atmosphere of the game. It really wouldn't be the same without this great music.</p>
+
+<p>To make each run more different, the game also has unlockable ships (8 ships with 3 variants, and 2 more hidden ships with 2 variants each, for a total of a lot of ships), offering several different playstyles and extra challenges.</p>
+
+<h3 id="choices"> Choices</h3>
+<p><img src="images/FTLChoice.jpg" alt="Choices in FTL" loading="lazy" /> <em>Extra options you have access to are highlighted in blue</em></p>
+
+<p>Another one of my favourite things about FTL is the choices it gives you. As an example:</p>
+
+<p><em>"You arrive at the distress beacon near a small asteroid belt and find a ship with pirate markings partially crushed between two large rocks. It must have been illegally mining the belt without proper equipment."</em>  <br/>
+Your choices to respond to this are:  <br/>
+<em>"Try to dislodge the pirates by shooting at the rocks."</em> - Will you damage their ship by doing this? What if they think you're trying to attack them, or since they're pirates, decide to attack you anyway? However, they may also reward you for your assistance.  <br/>
+<em>"Destroy and loot the ship. They're just pirates."</em> - You might get some scrap (The game's currency) from destroying them, but what if they have friends around that see you?  <br/>
+However, if you have a beam weapon or beam drone, you can <em>"(Beam Weapon) Carefully cut the ship out."</em> - Guaranteed to work, and you'll get your scrap reward, however it requires having specific equipment on your ship.</p>
+
+<p>This is just one single simple event that you can come across in your exploration, and even it has complexity in its choices. There never is a perfect choice, and you can only guess at what the outcome of your actions will be.</p>
+
+<p>The game costs £7, and <a href="https://steamdb.info/app/212680/">regularly goes on sale</a> for the incredibly low price of £1.74 - well worth the hundreds of hours of fun I've gotten from this game (Note: At the time of writing, it is 75% off on steam!). As a warning though - FTL is hard. You'll die. A lot. Easy mode is a must when starting out, and I'm still not convinced hard mode is actually beatable.  <br/>
+<a href="https://store.steampowered.com/app/212680/FTL_Faster_Than_Light/">Steam</a>  <br/>
+<a href="https://www.gog.com/game/faster_than_light">GOG</a> (Although the Steam version is also DRM free)  <br/>
+<a href="https://www.humblebundle.com/store/ftl-faster-than-light">Humble</a>  <br/>
+And even <a href="https://apps.apple.com/us/app/ftl-faster-than-light/id833951143">iPad</a>, although if you buy it here you'll miss out on what I'm next to talk about...</p>
+
+<h2 id="ftl:-multiverse"> FTL: Multiverse</h2>
+<p><img src="images/Multiverse.png" alt="FTL: Multiverse Mod" loading="lazy" /></p>
+
+<p>Finally, the game has some amazing mods, particularly <a href="https://www.subsetgames.com/forum/viewtopic.php?t&#61;35332">FTL: Multiverse</a>. (The base game is good enough that I put over 100 hours into the vanilla game before looking at mods, but I recommend you try some out eventually). It essentially acts as a sequel, building significantly on the vanilla game - everything from significantly expanding the base game's atmospheric world building, to completely overhauling many mechanics of the base game and adding a <strong><em>lot</em></strong> of new content, and <a href="https://www.youtube.com/watch?v&#61;nM0B5zZ74Pw&list&#61;PLXARrpodicQsHXiZoecojFMsoXvrTN1Hv">20 new great music tracks</a> to the vanilla's already stellar soundtrack. It essentially overhauls, expands, or refurbishes nearly every aspect of the game, whether it's ships, crew, events, weapons, etc. while still feeling balanced, and retaining what made the original game so great.</p>
+
+<p>The mod released in 2019, 7 years after the game released, and is still under active development, being on version 5.0 at the time of writing, with 5.1 set to release a few weeks from now, bringing a new mechanic, questline and sector. Multiverse is seriously one of my favourite mods I have ever played, and I love it.</p>
+
+<h3 id="conclusion:-what-was-this-blog-post?"> Conclusion: What was this blog post?</h3>
+<p>Very rambly. Next blog post will probably be on something completely different, possibly how I'm making this blog? Probably equally rambly though.</p>
+
+</content>
+<author>
+<name>James McKee</name>
+</author>
+<category term="faster-than-light"/>
+<category term="gaming"/>
+<category term="indie-games"/>
+<summary type="html">
+I ramble about a game I like for too long
+</summary></entry>
+<entry>
+<title type="html">I kinda like JavaScript</title>
+<link href="https://mck.isblog\2022\i-kinda-like-javascript\index.html" rel="alternate" type="text/html" title="I kinda like JavaScript"/>
+<published>2022-01-25T14:59</published>
+<updated>2022-01-25T14:59</updated>
+<id>https://mck.isblog\2022\i-kinda-like-javascript\index.html</id>
+<content type="html" xml:base="https://mck.isblog\2022\i-kinda-like-javascript\index.html">
+<p>Recently, as part of one of my university modules, I had to go and learn javascript.  <br/>
+Going in, I had been dreading the prospect - Over the years I had built up a pretty negative image of javascript in my head.</p>
+
+<p>I'd heard a lot about its oddities and weird behaviour over the years, and reading about NPM's many security issues and vulnerable packages over the years from the perspective of an outsider didn't exactly inspire me with confidence.</p>
+
+<p>Even after starting, I felt as if my worries were confirmed. Coming from having previously worked with C# and Java, it was a bigger change than I was expecting - Where were the types, why was everything <code>var</code>? Semi-colons are optional? Why does everything seem to be <code>async</code>?</p>
+
+<p>But after a while of pushing through these difficulties, it's really grown on me! My biggest initial hurdle - the dynamic typing - has now become one of my favourite things about it from the amount of flexibility it provides. It's also less different than I thought it was - the syntax is mostly familiar to me, as opposed to other languages like Python's whitespace-dependant syntax.</p>
+
+<p>It's also nice to have small things like template strings again, having loved string interpolation in C# then missing it when using Java.  <br/>
+JSON is also entirely new to me, and so far I like it! It's a nicely human-readable way of storing data, and I significantly prefer it to the extreme verbosity of XML.  <br/>
+Destructuring assignments also seems like a very useful feature to have, and I'm looking forward to seeing what else javascript has to offer.</p>
+
+<p>All that said however, I've really only just started using it. It's very possible my opinion on it will change after I begin to get fed up with its quirks a few months from now. I'm just happy that I was wrong in my initial impression.</p>
+
+<br/>
+<p>Finally - there's people reading this? That was unexpected! I was fully prepared for nobody to ever read anything I posted, so the fact that my first post received a few replies was a bit of a shock. Please, expect nothing high-quality out of this blog. Posts will be irregular and on whatever topic I feel like writing about. I have no experience with doing this sort of thing, I just thought it might be a neat idea.</p>
+
+</content>
+<author>
+<name>James McKee</name>
+</author>
+<category term="javascript"/>
+<category term="programming"/>
+<summary type="html">
+... And I wasn't really expecting to.
+</summary></entry>
+<entry>
+<title type="html">Hello World!</title>
+<link href="https://mck.isblog\2022\hello-world\index.html" rel="alternate" type="text/html" title="Hello World!"/>
+<published>2022-01-23T00:00</published>
+<updated>2022-01-23T00:00</updated>
+<id>https://mck.isblog\2022\hello-world\index.html</id>
+<content type="html" xml:base="https://mck.isblog\2022\hello-world\index.html">
+<p>Hello world! This is just a short blog post to say that I'm starting to make some blog posts.</p>
+
+<p>If you poke around the site, you'll very quickly realise how unfinished most of it is - however I've now got a working setup that allows me to make and post blog posts, so I'm starting that now. (I'll talk about how I'm doing it in some of my later posts)</p>
+
+<p>I've got some ideas in mind for what I'll be putting here, so hopefully I'll be able to get a few more of these out in the coming weeks!</p>
+
+</content>
+<author>
+<name>James McKee</name>
+</author>
+<category term="hello world"/>
+<category term="about the blog"/>
+<summary type="html">
+What is this blog?
+</summary></entry>
+<entry>
+<title type="html">Title</title>
+<link href="https://mck.isexample.html" rel="alternate" type="text/html" title="Title"/>
+<published>2021-12-28T20:27</published>
+<updated>2021-12-29T00:00</updated>
+<id>https://mck.isexample.html</id>
+<content type="html" xml:base="https://mck.isexample.html">
+<p>This page is a demonstration of the elements that can be formatted using Simple.css. Each section includes a code block on how to include it in your site’s design.</p>
+
+<p>This may be a little basic for some people, but I wanted to barrier for entry to be as low as possible for this project.</p>
+
+<h2 id="basic-typography"> Basic Typography</h2>
+<p>All the typography of Simple.css uses <code>rem</code> for sizing. This means that accessibility is maintained for those who change their browser font size. The <code>body</code> element has a size of <code>1.15rem</code> which makes all the standard font sizes slightly larger. This equates to <code>18.4px</code> for paragraph text, instead of the standard <code>16px</code>.</p>
+
+<p>The heading elements also have an increased top margin in order to break blocks of text up better.</p>
+
+<h1 id="heading-1-<code>2.8rem</code>">Heading 1 <code>2.8rem</code></h1>
+<h2 id="heading-2-<code>2.25rem</code>">Heading 2 <code>2.25rem</code></h2>
+<h3 id="heading-3-<code>1.8rem</code>">Heading 3 <code>1.8rem</code></h3>
+<h4 id="heading-4-<code>1.44rem</code>">Heading 4 <code>1.44rem</code></h4>
+<h5 id="heading-5-<code>1.15rem</code>">Heading 5 <code>1.15rem</code></h5>
+<h6 id="heading-6-<code>.92rem</code>">Heading 6 <code>.92rem</code></h6>
+
+<p><pre><code>&#60;h2&#62;This is a H2 header&#60;h2&#62;
+
+&#60;p&#62;This is some paragraph text.&#60;/p&#62; </code></pre></p>
+
+<h2 id="links"> Links</h2>
+<p>Links are formatted very simply on Simple.css (shock horror). They use the accent CSS variable and are underlined. There is a :hover effect that removes the underline. Here is an <a href="https://example.com" title="Alt text">example link</a>.</p>
+
+<h2 id="other-typography-elements"> Other typography elements</h2>
+<p>There are a number of other typography elements that you can use with Simple.css. Some of the common ones are:</p>
+
+<ul>
+	<li>All the standard stuff, like <strong>bold</strong>, <em>italic</em> and <strong><em>both</em></strong>.</li>
+ 	<li>Adding <code>inline code</code> using the <code>code</code> element.</li>
+</ul>
+
+<h1 id="images"> Images</h1>
+<p>In Simple.css, images within the <code>main</code> element are always full width and have rounded edges to them. The <code>figcaption</code> element is also formatted in Simple.css. Here are examples of images with and without a caption:</p>
+
+<p><img src="https://simplecss.org/assets/images/dog-ipad.jpg" alt="Dog with a tablet" loading="lazy" /></p>
+
+<p><img src="https://simplecss.org/assets/images/goose.jpg" alt="A black swan" loading="lazy" /></p>
+
+</content>
+<author>
+<name>James McKee</name>
+</author>
+<category term="example"/>
+<category term="tags"/>
+<category term="blog post"/>
+<summary type="html">
+Short description follows
+</summary></entry>
+<eed>

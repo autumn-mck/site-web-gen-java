@@ -1,0 +1,12 @@
+<feed xml:lang="en">
+<link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
+<link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
+<updated>%1$s</updated>
+<id>https://mck.is/feed.xml</id>
+<title type="html">Joelchrono12’s Blog</title>
+<subtitle>
+My personal blog, where I ramble about whatever I'm currently interested in.
+</subtitle>
+<author>
+<name>James McKee</name>
+</author>
