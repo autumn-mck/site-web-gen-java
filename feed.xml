@@ -1,7 +1,8 @@
-<feed xml:lang="en">
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
 <link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
-<updated>2022-02-01T00:00</updated>
+<updated>2022-02-01T00:00:00Z</updated>
 <id>https://mck.is/feed.xml</id>
 <title type="html">Joelchrono12’s Blog</title>
 <subtitle>
@@ -9,13 +10,14 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 </subtitle>
 <author>
 <name>James McKee</name>
-</author><entry>
+</author>
+<entry>
 <title type="html">How to deal with Project Sonar's data</title>
-<link href="https://mck.isproject-sonar\index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
-<published>2022-02-01T00:00</published>
-<updated>2022-02-01T00:00</updated>
-<id>https://mck.isproject-sonar\index.html</id>
-<content type="html" xml:base="https://mck.isproject-sonar\index.html">
+<link href="https://mck.is/project-sonar\index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
+<published>2022-02-01T00:00:00Z</published>
+<updated>2022-02-01T00:00:00Z</updated>
+<id>https://mck.is/project-sonar/index.html</id>
+<content type="html" xml:base="https://mck.is/project-sonar/index.html">
 <h2 id="setup"> Setup</h2>
 <p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
 
@@ -313,6 +315,7 @@ await findMany(client, query, &#34;sonardata&#34;); </code></pre>To explain what
 
 <p>This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that's it! Now you're able to query Project Sonar's data! What you do with the results you get are up to you.</p>
 
+
 </content>
 <author>
 <name>James McKee</name>
@@ -322,14 +325,16 @@ await findMany(client, query, &#34;sonardata&#34;); </code></pre>To explain what
 <category term="programming"/>
 <summary type="html">
 From the beginning
-</summary></entry>
+</summary>
+</entry>
+
 <entry>
 <title type="html">I love FTL: Faster Than Light</title>
-<link href="https://mck.isblog\2022\i-love-ftl\index.html" rel="alternate" type="text/html" title="I love FTL: Faster Than Light"/>
-<published>2022-01-29T23:23</published>
-<updated>2022-01-29T23:23</updated>
-<id>https://mck.isblog\2022\i-love-ftl\index.html</id>
-<content type="html" xml:base="https://mck.isblog\2022\i-love-ftl\index.html">
+<link href="https://mck.is/blog\2022\i-love-ftl\index.html" rel="alternate" type="text/html" title="I love FTL: Faster Than Light"/>
+<published>2022-01-29T23:23:00Z</published>
+<updated>2022-01-29T23:23:00Z</updated>
+<id>https://mck.is/blog/2022/i-love-ftl/index.html</id>
+<content type="html" xml:base="https://mck.is/blog/2022/i-love-ftl/index.html">
 <p>This blog post was written to be the content of a page for one of my university modules where we were required to write about something we were interested in, and unlikely to be picked by anybody else. I've decided to stick it up here too, because why not?  <br/>
 I had originally intended for this to be a list of some of my favourite indie games, but it quickly spiralled into just being about FTL. (Still might do that list later though)</p>
 
@@ -368,12 +373,13 @@ And even <a href="https://apps.apple.com/us/app/ftl-faster-than-light/id83395114
 <h2 id="ftl:-multiverse"> FTL: Multiverse</h2>
 <p><img src="images/Multiverse.png" alt="FTL: Multiverse Mod" loading="lazy" /></p>
 
-<p>Finally, the game has some amazing mods, particularly <a href="https://www.subsetgames.com/forum/viewtopic.php?t&#61;35332">FTL: Multiverse</a>. (The base game is good enough that I put over 100 hours into the vanilla game before looking at mods, but I recommend you try some out eventually). It essentially acts as a sequel, building significantly on the vanilla game - everything from significantly expanding the base game's atmospheric world building, to completely overhauling many mechanics of the base game and adding a <strong><em>lot</em></strong> of new content, and <a href="https://www.youtube.com/watch?v&#61;nM0B5zZ74Pw&list&#61;PLXARrpodicQsHXiZoecojFMsoXvrTN1Hv">20 new great music tracks</a> to the vanilla's already stellar soundtrack. It essentially overhauls, expands, or refurbishes nearly every aspect of the game, whether it's ships, crew, events, weapons, etc. while still feeling balanced, and retaining what made the original game so great.</p>
+<p>Finally, the game has some amazing mods, particularly <a href="https://www.subsetgames.com/forum/viewtopic.php?t=35332">FTL: Multiverse</a>. (The base game is good enough that I put over 100 hours into the vanilla game before looking at mods, but I recommend you try some out eventually). It essentially acts as a sequel, building significantly on the vanilla game - everything from significantly expanding the base game's atmospheric world building, to completely overhauling many mechanics of the base game and adding a <strong><em>lot</em></strong> of new content, and <a href="https://www.youtube.com/playlist?list=PLXARrpodicQsHXiZoecojFMsoXvrTN1Hv">20 new great music tracks</a> to the vanilla's already stellar soundtrack. It essentially overhauls, expands, or refurbishes nearly every aspect of the game, whether it's ships, crew, events, weapons, etc. while still feeling balanced, and retaining what made the original game so great.</p>
 
 <p>The mod released in 2019, 7 years after the game released, and is still under active development, being on version 5.0 at the time of writing, with 5.1 set to release a few weeks from now, bringing a new mechanic, questline and sector. Multiverse is seriously one of my favourite mods I have ever played, and I love it.</p>
 
 <h3 id="conclusion:-what-was-this-blog-post?"> Conclusion: What was this blog post?</h3>
 <p>Very rambly. Next blog post will probably be on something completely different, possibly how I'm making this blog? Probably equally rambly though.</p>
+
 
 </content>
 <author>
@@ -384,14 +390,16 @@ And even <a href="https://apps.apple.com/us/app/ftl-faster-than-light/id83395114
 <category term="indie-games"/>
 <summary type="html">
 I ramble about a game I like for too long
-</summary></entry>
+</summary>
+</entry>
+
 <entry>
 <title type="html">I kinda like JavaScript</title>
-<link href="https://mck.isblog\2022\i-kinda-like-javascript\index.html" rel="alternate" type="text/html" title="I kinda like JavaScript"/>
-<published>2022-01-25T14:59</published>
-<updated>2022-01-25T14:59</updated>
-<id>https://mck.isblog\2022\i-kinda-like-javascript\index.html</id>
-<content type="html" xml:base="https://mck.isblog\2022\i-kinda-like-javascript\index.html">
+<link href="https://mck.is/blog\2022\i-kinda-like-javascript\index.html" rel="alternate" type="text/html" title="I kinda like JavaScript"/>
+<published>2022-01-25T14:59:00Z</published>
+<updated>2022-01-25T14:59:00Z</updated>
+<id>https://mck.is/blog/2022/i-kinda-like-javascript/index.html</id>
+<content type="html" xml:base="https://mck.is/blog/2022/i-kinda-like-javascript/index.html">
 <p>Recently, as part of one of my university modules, I had to go and learn javascript.  <br/>
 Going in, I had been dreading the prospect - Over the years I had built up a pretty negative image of javascript in my head.</p>
 
@@ -410,6 +418,7 @@ Destructuring assignments also seems like a very useful feature to have, and I'm
 <br/>
 <p>Finally - there's people reading this? That was unexpected! I was fully prepared for nobody to ever read anything I posted, so the fact that my first post received a few replies was a bit of a shock. Please, expect nothing high-quality out of this blog. Posts will be irregular and on whatever topic I feel like writing about. I have no experience with doing this sort of thing, I just thought it might be a neat idea.</p>
 
+
 </content>
 <author>
 <name>James McKee</name>
@@ -418,19 +427,22 @@ Destructuring assignments also seems like a very useful feature to have, and I'm
 <category term="programming"/>
 <summary type="html">
 ... And I wasn't really expecting to.
-</summary></entry>
+</summary>
+</entry>
+
 <entry>
 <title type="html">Hello World!</title>
-<link href="https://mck.isblog\2022\hello-world\index.html" rel="alternate" type="text/html" title="Hello World!"/>
-<published>2022-01-23T00:00</published>
-<updated>2022-01-23T00:00</updated>
-<id>https://mck.isblog\2022\hello-world\index.html</id>
-<content type="html" xml:base="https://mck.isblog\2022\hello-world\index.html">
+<link href="https://mck.is/blog\2022\hello-world\index.html" rel="alternate" type="text/html" title="Hello World!"/>
+<published>2022-01-23T00:00:00Z</published>
+<updated>2022-01-23T00:00:00Z</updated>
+<id>https://mck.is/blog/2022/hello-world/index.html</id>
+<content type="html" xml:base="https://mck.is/blog/2022/hello-world/index.html">
 <p>Hello world! This is just a short blog post to say that I'm starting to make some blog posts.</p>
 
 <p>If you poke around the site, you'll very quickly realise how unfinished most of it is - however I've now got a working setup that allows me to make and post blog posts, so I'm starting that now. (I'll talk about how I'm doing it in some of my later posts)</p>
 
 <p>I've got some ideas in mind for what I'll be putting here, so hopefully I'll be able to get a few more of these out in the coming weeks!</p>
+
 
 </content>
 <author>
@@ -440,14 +452,16 @@ Destructuring assignments also seems like a very useful feature to have, and I'm
 <category term="about the blog"/>
 <summary type="html">
 What is this blog?
-</summary></entry>
+</summary>
+</entry>
+
 <entry>
 <title type="html">Title</title>
-<link href="https://mck.isexample.html" rel="alternate" type="text/html" title="Title"/>
-<published>2021-12-28T20:27</published>
-<updated>2021-12-29T00:00</updated>
-<id>https://mck.isexample.html</id>
-<content type="html" xml:base="https://mck.isexample.html">
+<link href="https://mck.is/example.html" rel="alternate" type="text/html" title="Title"/>
+<published>2021-12-28T20:27:00Z</published>
+<updated>2021-12-29T00:00:00Z</updated>
+<id>https://mck.is/example.html</id>
+<content type="html" xml:base="https://mck.is/example.html">
 <p>This page is a demonstration of the elements that can be formatted using Simple.css. Each section includes a code block on how to include it in your site’s design.</p>
 
 <p>This may be a little basic for some people, but I wanted to barrier for entry to be as low as possible for this project.</p>
@@ -457,12 +471,12 @@ What is this blog?
 
 <p>The heading elements also have an increased top margin in order to break blocks of text up better.</p>
 
-<h1 id="heading-1-<code>2.8rem</code>">Heading 1 <code>2.8rem</code></h1>
-<h2 id="heading-2-<code>2.25rem</code>">Heading 2 <code>2.25rem</code></h2>
-<h3 id="heading-3-<code>1.8rem</code>">Heading 3 <code>1.8rem</code></h3>
-<h4 id="heading-4-<code>1.44rem</code>">Heading 4 <code>1.44rem</code></h4>
-<h5 id="heading-5-<code>1.15rem</code>">Heading 5 <code>1.15rem</code></h5>
-<h6 id="heading-6-<code>.92rem</code>">Heading 6 <code>.92rem</code></h6>
+<h1 id="heading-1-code2.8rem/code">Heading 1 <code>2.8rem</code></h1>
+<h2 id="heading-2-code2.25rem/code">Heading 2 <code>2.25rem</code></h2>
+<h3 id="heading-3-code1.8rem/code">Heading 3 <code>1.8rem</code></h3>
+<h4 id="heading-4-code1.44rem/code">Heading 4 <code>1.44rem</code></h4>
+<h5 id="heading-5-code1.15rem/code">Heading 5 <code>1.15rem</code></h5>
+<h6 id="heading-6-code.92rem/code">Heading 6 <code>.92rem</code></h6>
 
 <p><pre><code>&#60;h2&#62;This is a H2 header&#60;h2&#62;
 
@@ -486,6 +500,7 @@ What is this blog?
 
 <p><img src="https://simplecss.org/assets/images/goose.jpg" alt="A black swan" loading="lazy" /></p>
 
+
 </content>
 <author>
 <name>James McKee</name>
@@ -495,5 +510,6 @@ What is this blog?
 <category term="blog post"/>
 <summary type="html">
 Short description follows
-</summary></entry>
-<eed>
+</summary>
+</entry>
+</feed>
