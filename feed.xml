@@ -18,28 +18,28 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <updated>2022-02-01T00:00:00Z</updated>
 <id>https://mck.is/project-sonar/index.html</id>
 <content type="html" xml:base="https://mck.is/project-sonar/index.html">
-<h2 id="setup"> Setup</h2>
-<p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
+&#60;h2 id=&#34;setup&#34;&#62; Setup&#60;/h2&#62;
+&#60;p&#62;To start, you&#39;re going to want to be using an IDE - I&#39;d reccommend &#60;a href=&#34;https://code.visualstudio.com/&#34;&#62;Visual Studio Code&#60;/a&#62;. This guide is written assuming you&#39;re using VS Code, but everything will still work if you choose a different IDE.&#60;/p&#62;
 
-<p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
+&#60;p&#62;Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We&#39;re going to need to install Node.js too - a convenient way to do so is using a version manager like &#60;a href=&#34;https://github.com/nvm-sh/nvm&#34;&#62;nvm&#60;/a&#62; for Linux and MacOS, or &#60;a href=&#34;https://github.com/coreybutler/nvm-windows&#34;&#62;nvm-windows&#60;/a&#62; for Windows.&#60;/p&#62;
 
-<p>Once you have one of these installed (Note: On windows, you may have to restart to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the seccond command with <code>sudo</code> on linux/mac) and run <code>nvm install 16</code>. This will install the latest version of Node 16, currently 16.13.2 (We have to use Node 16 instead of the newer 17 as not all packages are currently compatible with it), then run <code>nvm use 16.13.2</code>. Now we have node.js installed and set up!</p>
+&#60;p&#62;Once you have one of these installed (Note: On windows, you may have to restart to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the seccond command with &#60;code&#62;sudo&#60;/code&#62; on linux/mac) and run &#60;code&#62;nvm install 16&#60;/code&#62;. This will install the latest version of Node 16, currently 16.13.2 (We have to use Node 16 instead of the newer 17 as not all packages are currently compatible with it), then run &#60;code&#62;nvm use 16.13.2&#60;/code&#62;. Now we have node.js installed and set up!&#60;/p&#62;
 
-<p>We're also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at <a href="https://docs.mongodb.com/manual/installation/">https://docs.mongodb.com/manual/installation/</a> MongoDB compass might be installed along side it, but if not, I'd reccommend installing it too.</p>
+&#60;p&#62;We&#39;re also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at &#60;a href=&#34;https://docs.mongodb.com/manual/installation/&#34;&#62;https://docs.mongodb.com/manual/installation/&#60;/a&#62; MongoDB compass might be installed along side it, but if not, I&#39;d reccommend installing it too.&#60;/p&#62;
 
-<p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on) is stored, by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import</code> syntax instead of the older <code>require</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.  (Explain generated package.json etc?)</p>
+&#60;p&#62;Returning to VS Code, we can open up its built in terminal with &#60;code&#62;ctrl + &#38;#39;&#60;/code&#62;. We&#39;re going to need a few external packages later, so we might as well install them now. First up, we&#39;ll generate the package.json file (Where information like what packages your program depends on) is stored, by running &#60;code&#62;npm init&#60;/code&#62;. &#60;code&#62;npm&#60;/code&#62; stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. &#60;code&#62;npm init&#60;/code&#62;&#39;s defaults are good enough, however you can change them if you wish. Next up, open the &#60;code&#62;package.json&#60;/code&#62; file that was created, and add the line &#60;code&#62;&#38;#34;type&#38;#34;: &#38;#34;module&#38;#34;,&#60;/code&#62; below the description line - This marks our program as using the newer &#60;code&#62;import&#60;/code&#62; syntax instead of the older &#60;code&#62;require&#60;/code&#62; syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run &#60;code&#62;npm install mongodb&#60;/code&#62; and &#60;code&#62;npm install tldts-experimental&#60;/code&#62; to install the packages that we need.  (Explain generated package.json etc?)&#60;/p&#62;
 
-<h2 id="start-programming"> Start programming</h2>
-<p>Now we can begin to get to the interesting stuff: create a file called <code>fetchData.js</code>. At the top of it, we can add:
-<pre><code>import { MongoClient } from &#34;mongodb&#34;;
-import { parse as tldParse } from &#34;tldts-experimental&#34;;
-import zlib from &#34;zlib&#34;;
-import fs from &#34;fs&#34;;
-import { get as getHttps } from &#34;https&#34;;
-import readline from &#34;readline&#34;; </code></pre>This imports what we need from the two packages we just installed, along with what we'll need from node's core modules.</p>
+&#60;h2 id=&#34;start-programming&#34;&#62; Start programming&#60;/h2&#62;
+&#60;p&#62;Now we can begin to get to the interesting stuff: create a file called &#60;code&#62;fetchData.js&#60;/code&#62;. At the top of it, we can add:
+&#60;pre&#62;&#60;code&#62;import { MongoClient } from &#38;#34;mongodb&#38;#34;;
+import { parse as tldParse } from &#38;#34;tldts-experimental&#38;#34;;
+import zlib from &#38;#34;zlib&#38;#34;;
+import fs from &#38;#34;fs&#38;#34;;
+import { get as getHttps } from &#38;#34;https&#38;#34;;
+import readline from &#38;#34;readline&#38;#34;; &#60;/code&#62;&#60;/pre&#62;This imports what we need from the two packages we just installed, along with what we&#39;ll need from node&#39;s core modules.&#60;/p&#62;
 
-<p>We'll then add our main function:
-<pre><code>/**
+&#60;p&#62;We&#39;ll then add our main function:
+&#60;pre&#62;&#60;code&#62;/**
  * Main function
  */
 async function main() {
@@ -48,36 +48,36 @@ async function main() {
 
 
 // Run the main function
-main().catch(console.error); </code></pre></p>
+main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>To make sure everything is up and running, add the typical "Hello World" to the main function with <code>console.log(&#34;Hello World!&#34;);</code>. To run the program, go to the terminal and run <code>node fetchData.js</code> - Hopefully you should be greeted with "Hello World!" being logged.</p>
+&#60;p&#62;To make sure everything is up and running, add the typical &#34;Hello World&#34; to the main function with &#60;code&#62;console.log(&#38;#34;Hello World!&#38;#34;);&#60;/code&#62;. To run the program, go to the terminal and run &#60;code&#62;node fetchData.js&#60;/code&#62; - Hopefully you should be greeted with &#34;Hello World!&#34; being logged.&#60;/p&#62;
 
-<p>Next up we'll connect to MongoDB. Since we're using a local database, the connection URI should be as simple as <code>&#34;mongodb://localhost:27017&#34;</code>. Then we can create a new MongoClient, and pass our connection string to its constructor. Then we can open the connection with <code>await client.connect();</code> To make sure everything is working, we can print a list of all databases. Let's make a function for it!</p>
+&#60;p&#62;Next up we&#39;ll connect to MongoDB. Since we&#39;re using a local database, the connection URI should be as simple as &#60;code&#62;&#38;#34;mongodb://localhost:27017&#38;#34;&#60;/code&#62;. Then we can create a new MongoClient, and pass our connection string to its constructor. Then we can open the connection with &#60;code&#62;await client.connect();&#60;/code&#62; To make sure everything is working, we can print a list of all databases. Let&#39;s make a function for it!&#60;/p&#62;
 
 
-<p><pre><code>async function listDatabases(client) {
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
  
-    console.log(&#34;Databases:&#34;);
-    dbList.databases.forEach(db =&#62; console.log(` - ${db.name}`));
-}; </code></pre></p>
+    console.log(&#38;#34;Databases:&#38;#34;);
+    dbList.databases.forEach(db =&#38;#62; console.log(` - ${db.name}`));
+}; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with <code>node fetchData.js</code>) we should get something like this: <img src="ListDatabases.png" alt="List of databases" loading="lazy" /></p>
+&#60;p&#62;Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with &#60;code&#62;node fetchData.js&#60;/code&#62;) we should get something like this: &#60;img src=&#34;ListDatabases.png&#34; alt=&#34;List of databases&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
-<p>Your code so far should be similar to
-<pre><code>import { MongoClient } from &#34;mongodb&#34;;
-import { parse as tldParse } from &#34;tldts-experimental&#34;;
-import zlib from &#34;zlib&#34;;
-import fs from &#34;fs&#34;;
-import { get as getHttps } from &#34;https&#34;;
-import readline from &#34;readline&#34;;
+&#60;p&#62;Your code so far should be similar to
+&#60;pre&#62;&#60;code&#62;import { MongoClient } from &#38;#34;mongodb&#38;#34;;
+import { parse as tldParse } from &#38;#34;tldts-experimental&#38;#34;;
+import zlib from &#38;#34;zlib&#38;#34;;
+import fs from &#38;#34;fs&#38;#34;;
+import { get as getHttps } from &#38;#34;https&#38;#34;;
+import readline from &#38;#34;readline&#38;#34;;
 
 /**
  * Main function
  */
 async function main() {
 	// Database is currently hosted on same machine
-	const uri = &#34;mongodb://localhost:27017&#34;;
+	const uri = &#38;#34;mongodb://localhost:27017&#38;#34;;
 	const client = new MongoClient(uri);
 
 	try {
@@ -94,49 +94,49 @@ async function main() {
 async function listDatabases(client) {
 	let dbList = await client.db().admin().listDatabases();
 
-	console.log(&#34;Databases:&#34;);
-	dbList.databases.forEach((db) =&#62; console.log(` - ${db.name}`));
+	console.log(&#38;#34;Databases:&#38;#34;);
+	dbList.databases.forEach((db) =&#38;#62; console.log(` - ${db.name}`));
 }
 
 // Run the main function
-main().catch(console.error); </code></pre></p>
+main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.</p>
+&#60;p&#62;You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.&#60;/p&#62;
 
-<p>2 Options:</p>
+&#60;p&#62;2 Options:&#60;/p&#62;
 
-<h2 id="fetching-a-local-copy-of-project-sonar"> Fetching a local copy of Project Sonar</h2>
-<p>Project Sonar's data can be found at <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>. I'll be using the DNS 'A' records for this guide, but I'll be talking more about what the other items are later. Since we're using the A records, we need the file ending in <code>-fdns_a.json.gz</code>. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!</p>
+&#60;h2 id=&#34;fetching-a-local-copy-of-project-sonar&#34;&#62; Fetching a local copy of Project Sonar&#60;/h2&#62;
+&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;. I&#39;ll be using the DNS &#39;A&#39; records for this guide, but I&#39;ll be talking more about what the other items are later. Since we&#39;re using the A records, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
 
-<p>Let's add a new function, <code>readFromFile</code>.</p>
+&#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromFile&#60;/code&#62;.&#60;/p&#62;
 
 
-<p><pre><code>async function readFromFile(client) {
-	const sonarDataLocation = &#34;fdns_a.json.gz&#34;;
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;async function readFromFile(client) {
+	const sonarDataLocation = &#38;#34;fdns_a.json.gz&#38;#34;;
 	let stream = fs.createReadStream(sonarDataLocation);
 	parseSonar(client, stream);
-} </code></pre></p>
+} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p><code>sonarDataLocation</code> should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like <code>C:\\Users\\James\\Downloads\\fdns_a.json.gz</code>. We then create a read stream - not the actual data itself - that we can later read through and parse. <code>fs</code> is Node.js's filesystem module, allowing us to interact with local files. We then pass this stream, and the MongoClient passed into the function, to a function that does not yet exist - it's next to do.</p>
+&#60;p&#62;&#60;code&#62;sonarDataLocation&#60;/code&#62; should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like &#60;code&#62;C:\\Users\\James\\Downloads\\fdns_a.json.gz&#60;/code&#62;. We then create a read stream - not the actual data itself - that we can later read through and parse. &#60;code&#62;fs&#60;/code&#62; is Node.js&#39;s filesystem module, allowing us to interact with local files. We then pass this stream, and the MongoClient passed into the function, to a function that does not yet exist - it&#39;s next to do.&#60;/p&#62;
 
-<p>Finally, let's call this method from the main function with <code>readFromFile(client);</code></p>
+&#60;p&#62;Finally, let&#39;s call this method from the main function with &#60;code&#62;readFromFile(client);&#60;/code&#62;&#60;/p&#62;
 
-<p>Alternatively:</p>
+&#60;p&#62;Alternatively:&#60;/p&#62;
 
-<h2 id="fetching-an-online-version-of-project-sonar"> Fetching an online version of Project Sonar</h2>
-<p>This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.</p>
+&#60;h2 id=&#34;fetching-an-online-version-of-project-sonar&#34;&#62; Fetching an online version of Project Sonar&#60;/h2&#62;
+&#60;p&#62;This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.&#60;/p&#62;
 
-<p>Let's add a new function, <code>readFromWeb</code>.
-<pre><code>async function readFromWeb(client, url) {
+&#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromWeb&#60;/code&#62;.
+&#60;pre&#62;&#60;code&#62;async function readFromWeb(client, url) {
 	getHttps(url, function (res) {
 		// Code here
-	}).on(&#34;error&#34;, function (e) {
+	}).on(&#38;#34;error&#38;#34;, function (e) {
 		console.error(e);
 	});
-} </code></pre>This function calls the get method from node's https package that we imported earlier as <code>getHttps</code>. It gets the result of this call as <code>res</code>, currently does northing with it, and will log any errors. So what do we do with this result? First of all, we need to deal with redirects. <a href="https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz">https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz</a>, The link on Project Sonar's site, actually redirects to backblaze, where the data is actually hosted, before allowing you to download it.</p>
+} &#60;/code&#62;&#60;/pre&#62;This function calls the get method from node&#39;s https package that we imported earlier as &#60;code&#62;getHttps&#60;/code&#62;. It gets the result of this call as &#60;code&#62;res&#60;/code&#62;, currently does northing with it, and will log any errors. So what do we do with this result? First of all, we need to deal with redirects. &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz&#60;/a&#62;, The link on Project Sonar&#39;s site, actually redirects to backblaze, where the data is actually hosted, before allowing you to download it.&#60;/p&#62;
 
-<p>Fortunately, we can check if we need to redirect based on the result's <a href="https://httpstatuses.com/">HTTP status code</a>. If the status is 200, we're in the right place, and can return the result to be used elsewhere. If the status is 301 or 303, we should follow the redirect by calling the readFromWeb method again, with the new URL being passed in as an argument. I've added the following code inside the above <code>getHttps</code> call:
-<pre><code>if (res.statusCode === 200) {
+&#60;p&#62;Fortunately, we can check if we need to redirect based on the result&#39;s &#60;a href=&#34;https://httpstatuses.com/&#34;&#62;HTTP status code&#60;/a&#62;. If the status is 200, we&#39;re in the right place, and can return the result to be used elsewhere. If the status is 301 or 303, we should follow the redirect by calling the readFromWeb method again, with the new URL being passed in as an argument. I&#39;ve added the following code inside the above &#60;code&#62;getHttps&#60;/code&#62; call:
+&#60;pre&#62;&#60;code&#62;if (res.statusCode === 200) {
 	parseSonar(client, res);
 } else if (res.statusCode === 301 || res.statusCode === 302) {
 	// Recursively follow redirects, only a 200 will resolve.
@@ -144,76 +144,76 @@ main().catch(console.error); </code></pre></p>
 	readFromWeb(client, res.headers.location);
 } else {
 	console.log(`Download request failed, response status: ${res.statusCode} ${res.statusMessage}`);
-} </code></pre>This function gets a read stream - not the actual data itself - that we can later read through and parse. We can then pass it to a function that does not yet exist (We'll add it shortly) along with the MongoClient this function was passed.</p>
+} &#60;/code&#62;&#60;/pre&#62;This function gets a read stream - not the actual data itself - that we can later read through and parse. We can then pass it to a function that does not yet exist (We&#39;ll add it shortly) along with the MongoClient this function was passed.&#60;/p&#62;
 
-<p>Now we can return to our main method and add in something to call our function
-<pre><code>const dataUrl = &#34;https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz&#34;;
-readFromWeb(client, dataUrl); </code></pre></p>
+&#60;p&#62;Now we can return to our main method and add in something to call our function
+&#60;pre&#62;&#60;code&#62;const dataUrl = &#38;#34;https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz&#38;#34;;
+readFromWeb(client, dataUrl); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>Note that if this doesn't work, make sure you have the latest link from <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>, as downloading older/newer versions requires an account.</p>
+&#60;p&#62;Note that if this doesn&#39;t work, make sure you have the latest link from &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;, as downloading older/newer versions requires an account.&#60;/p&#62;
 
-<h2 id="parsing-our-input"> Parsing our input</h2>
-<p>So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we've been given - it's currently still gzipped.</p>
+&#60;h2 id=&#34;parsing-our-input&#34;&#62; Parsing our input&#60;/h2&#62;
+&#60;p&#62;So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we&#39;ve been given - it&#39;s currently still gzipped.&#60;/p&#62;
 
-<p>Luckily, we can deal with both of those problems pretty quickly! Let's create a new function:
-<pre><code>async function parseSonar(client, readstream) {
+&#60;p&#62;Luckily, we can deal with both of those problems pretty quickly! Let&#39;s create a new function:
+&#60;pre&#62;&#60;code&#62;async function parseSonar(client, readstream) {
 	// Pipe the response into gunzip to decompress
 	let gunzip = zlib.createGunzip();
 
 	let lineReader = readline.createInterface({
 		input: readstream.pipe(gunzip),
 	});
-} </code></pre></p>
+} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>What we're doing here is:<ul>
- 	<li>Creating a writable stream called <code>gunzip</code> with <code>zlib</code>, node.js's module for compression/decompression</li>
- 	<li>Piping our readstream of compressed Project Sonar data to this <code>gunzip</code> object</li>
- 	<li>Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don't have to worry about buffers stopping mid-line.)</li>
-</ul>
+&#60;p&#62;What we&#39;re doing here is:&#60;ul&#62;
+ 	&#60;li&#62;Creating a writable stream called &#60;code&#62;gunzip&#60;/code&#62; with &#60;code&#62;zlib&#60;/code&#62;, node.js&#39;s module for compression/decompression&#60;/li&#62;
+ 	&#60;li&#62;Piping our readstream of compressed Project Sonar data to this &#60;code&#62;gunzip&#60;/code&#62; object&#60;/li&#62;
+ 	&#60;li&#62;Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don&#39;t have to worry about buffers stopping mid-line.)&#60;/li&#62;
+&#60;/ul&#62;
 
-</p>
+&#60;/p&#62;
 
-<p>Quite a lot for a few lines of code! We also need to remember to call this new function from within our main function -   <br/>
-Now, we still need to get our data out of this linereader. To do this, we can use the <code>&#34;line&#34;</code> event that the linereader emits to let us know when we have a new line to parse, with:
-<pre><code>lineReader.on(&#34;line&#34;, (line) =&#62; {
-	// We&#39;ll parse the line in here
-}); </code></pre></p>
+&#60;p&#62;Quite a lot for a few lines of code! We also need to remember to call this new function from within our main function -   &#60;br/&#62;
+Now, we still need to get our data out of this linereader. To do this, we can use the &#60;code&#62;&#38;#34;line&#38;#34;&#60;/code&#62; event that the linereader emits to let us know when we have a new line to parse, with:
+&#60;pre&#62;&#60;code&#62;lineReader.on(&#38;#34;line&#38;#34;, (line) =&#38;#62; {
+	// We&#38;#39;ll parse the line in here
+}); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>So we've got a line of data - now what?  <br/>
-The data is in JSON form, and luckily for us, we can simply use javascript's <code>JSON.parse()</code> to parse it. Next up, we need to break the hostname (eg <code>subdomain.example.com/path</code>) into it parts - we need just the <code>example</code> bit (This is required for performance - I'll explain more once we get to that point). We can do this pretty easily by using the <code>tldts</code> package's <code>parse</code> function we imported earlier as <code>tldParse</code>.</p>
+&#60;p&#62;So we&#39;ve got a line of data - now what?  &#60;br/&#62;
+The data is in JSON form, and luckily for us, we can simply use javascript&#39;s &#60;code&#62;JSON.parse()&#60;/code&#62; to parse it. Next up, we need to break the hostname (eg &#60;code&#62;subdomain.example.com/path&#60;/code&#62;) into it parts - we need just the &#60;code&#62;example&#60;/code&#62; bit (This is required for performance - I&#39;ll explain more once we get to that point). We can do this pretty easily by using the &#60;code&#62;tldts&#60;/code&#62; package&#39;s &#60;code&#62;parse&#60;/code&#62; function we imported earlier as &#60;code&#62;tldParse&#60;/code&#62;.&#60;/p&#62;
 
-<p>First, we need to deal with many records beginning with <code>*.</code>. If we don't remove this from the start of the hostname, we cannot properly parse it. Then, let's parse it with <code>tldParse</code> and log it, to make sure everything is working so far.</p>
+&#60;p&#62;First, we need to deal with many records beginning with &#60;code&#62;*.&#60;/code&#62;. If we don&#39;t remove this from the start of the hostname, we cannot properly parse it. Then, let&#39;s parse it with &#60;code&#62;tldParse&#60;/code&#62; and log it, to make sure everything is working so far.&#60;/p&#62;
 
 
-<p><pre><code>let lineJson = JSON.parse(line);
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;let lineJson = JSON.parse(line);
 let hostname = lineJson.name;
 
-if (hostname.substring(0, 2) === &#34;*.&#34;) hostname = hostname.substring(2);
+if (hostname.substring(0, 2) === &#38;#34;*.&#38;#34;) hostname = hostname.substring(2);
 
 let tldParsed = tldParse(hostname);
 
-console.log(tldParsed); </code></pre></p>
+console.log(tldParsed); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>You should now hopefully see lines of JSON being printed! We should probably remove that <code>console.log</code> for now though - printing out every single line hurts our performance.  <br/>
-Note that there are still a few invalid hostnames - Some beginning with <code>/</code>, <code>-</code> or <code>*</code>. I don't know why these are here, but given that only around 0.2% of the results are invalid, it's probably safe enough to ignore them for now.</p>
+&#60;p&#62;You should now hopefully see lines of JSON being printed! We should probably remove that &#60;code&#62;console.log&#60;/code&#62; for now though - printing out every single line hurts our performance.  &#60;br/&#62;
+Note that there are still a few invalid hostnames - Some beginning with &#60;code&#62;/&#60;/code&#62;, &#60;code&#62;-&#60;/code&#62; or &#60;code&#62;*&#60;/code&#62;. I don&#39;t know why these are here, but given that only around 0.2% of the results are invalid, it&#39;s probably safe enough to ignore them for now.&#60;/p&#62;
 
-<h2 id="mongodb"> MongoDB</h2>
-<p>Now we need to start thinking about MongoDB. Whilst MongoDB is fast, it is unfortunately not fast enough to get us a quick result from 1.7 billion items. To speed it up, we'll make use of <a href="https://docs.mongodb.com/manual/core/index-text/">text indexes</a>.</p>
+&#60;h2 id=&#34;mongodb&#34;&#62; MongoDB&#60;/h2&#62;
+&#60;p&#62;Now we need to start thinking about MongoDB. Whilst MongoDB is fast, it is unfortunately not fast enough to get us a quick result from 1.7 billion items. To speed it up, we&#39;ll make use of &#60;a href=&#34;https://docs.mongodb.com/manual/core/index-text/&#34;&#62;text indexes&#60;/a&#62;.&#60;/p&#62;
 
-<p>Back in our main function, let's add a line to create this text index.  
-<pre><code>await client.db(&#34;test_db&#34;).collection(&#34;sonardata&#34;).createIndex({ domainWithoutSuffix: &#34;text&#34; }); </code></pre>You can call your database and collection whatever you want - this is just what I'm using. We're using the domain without the suffix as our index, as that's what I'm wanting to query later on. If, however, you wanted to query IP address, to find out which domains point to a given IP address, you'd use it as your text index instead.</p>
+&#60;p&#62;Back in our main function, let&#39;s add a line to create this text index.  
+&#60;pre&#62;&#60;code&#62;await client.db(&#38;#34;test_db&#38;#34;).collection(&#38;#34;sonardata&#38;#34;).createIndex({ domainWithoutSuffix: &#38;#34;text&#38;#34; }); &#60;/code&#62;&#60;/pre&#62;You can call your database and collection whatever you want - this is just what I&#39;m using. We&#39;re using the domain without the suffix as our index, as that&#39;s what I&#39;m wanting to query later on. If, however, you wanted to query IP address, to find out which domains point to a given IP address, you&#39;d use it as your text index instead.&#60;/p&#62;
 
-<p>We also don't want redundant data building up each time we run our program - let's add something to drop the collection each time the program is run. (We don't need to add anything to create the collection again - MongoDB does this automatically for us whenever we try to add data to it.)
-<pre><code>// Drop the collection containg Project Sonar data
+&#60;p&#62;We also don&#39;t want redundant data building up each time we run our program - let&#39;s add something to drop the collection each time the program is run. (We don&#39;t need to add anything to create the collection again - MongoDB does this automatically for us whenever we try to add data to it.)
+&#60;pre&#62;&#60;code&#62;// Drop the collection containg Project Sonar data
 try {
-	await client.db(&#34;test_db&#34;).collection(&#34;sonardata&#34;).drop();
-} catch {} </code></pre></p>
+	await client.db(&#38;#34;test_db&#38;#34;).collection(&#38;#34;sonardata&#38;#34;).drop();
+} catch {} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>Nice! Now we can begin actually adding the data to MongoDB.  <br/>
-Returning back to our parseSonar function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let's do that. After we've created the linereader, let's create an array and a counter to keep track of how many items we have.</p>
+&#60;p&#62;Nice! Now we can begin actually adding the data to MongoDB.  &#60;br/&#62;
+Returning back to our parseSonar function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let&#39;s do that. After we&#39;ve created the linereader, let&#39;s create an array and a counter to keep track of how many items we have.&#60;/p&#62;
 
-<p>Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our parseSonar function should now look something like:
-<pre><code>async function parseSonar(client, readstream) {
+&#60;p&#62;Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our parseSonar function should now look something like:
+&#60;pre&#62;&#60;code&#62;async function parseSonar(client, readstream) {
 	// Pipe the response into gunzip to decompress
 	let gunzip = zlib.createGunzip();
 
@@ -223,10 +223,10 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 
 	let arr = [];
 	let count = 0;
-	lineReader.on(&#34;line&#34;, (line) =&#62; {
+	lineReader.on(&#38;#34;line&#38;#34;, (line) =&#38;#62; {
 		let lineJson = JSON.parse(line);
 		let hostname = lineJson.name;
-		if (hostname.substring(0, 2) === &#34;*.&#34;) hostname = hostname.substring(2);
+		if (hostname.substring(0, 2) === &#38;#34;*.&#38;#34;) hostname = hostname.substring(2);
 
 		let tldParsed = tldParse(hostname);
 
@@ -243,30 +243,30 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 			
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
-				createManyListings(client, arr, &#34;sonardata&#34;);
+				createManyListings(client, arr, &#38;#34;sonardata&#38;#34;);
 				arr = [];
 			}
 		}
 	});
-} </code></pre></p>
+} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>Nearly done now! We just need to add the <code>createManyListings</code> function. Thankfully, it's pretty simple:
-<pre><code>async function createManyListings(client, newListing, collection, dbName = &#34;test_db&#34;) {
+&#60;p&#62;Nearly done now! We just need to add the &#60;code&#62;createManyListings&#60;/code&#62; function. Thankfully, it&#39;s pretty simple:
+&#60;pre&#62;&#60;code&#62;async function createManyListings(client, newListing, collection, dbName = &#38;#34;test_db&#38;#34;) {
 	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
-} </code></pre>The only thing to note here is that we're telling MongoDB that our data is not/does not need to be ordered, helping increase our performance. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse!</p>
+} &#60;/code&#62;&#60;/pre&#62;The only thing to note here is that we&#39;re telling MongoDB that our data is not/does not need to be ordered, helping increase our performance. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse!&#60;/p&#62;
 
-<h2 id="querying-mongodb"> Querying MongoDB</h2>
-<p>So, we have our data sitting in a collection in MongoDB. Now what?</p>
+&#60;h2 id=&#34;querying-mongodb&#34;&#62; Querying MongoDB&#60;/h2&#62;
+&#60;p&#62;So, we have our data sitting in a collection in MongoDB. Now what?&#60;/p&#62;
 
-<p>Create a new file called <code>queryData.js</code>. We can follow the basic template of the previous file to get started:
-<pre><code>import { MongoClient } from &#34;mongodb&#34;;
+&#60;p&#62;Create a new file called &#60;code&#62;queryData.js&#60;/code&#62;. We can follow the basic template of the previous file to get started:
+&#60;pre&#62;&#60;code&#62;import { MongoClient } from &#38;#34;mongodb&#38;#34;;
 
 /**
  * Main function
  */
 async function main() {
 	// Database is currently hosted on same machine
-	const uri = &#34;mongodb://localhost:27017&#34;;
+	const uri = &#38;#34;mongodb://localhost:27017&#38;#34;;
 	const client = new MongoClient(uri);
 
 	try {
@@ -283,37 +283,37 @@ async function main() {
 }
 
 // Run the main function
-main().catch(console.error); </code></pre></p>
+main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>Now we need to come up with a query! As an example, I'll search for domains ...  <br/>
-To actually query this, I'll use:
-<pre><code>let query = { $text: { $search: &#34;rapid7&#34; }, domainWithoutSuffix: &#34;rapid7&#34; };
-await findMany(client, query, &#34;sonardata&#34;); </code></pre>To explain what the query actually means:<ul>
- 	<li><code>$text: { $search: &#34;rapid7&#34; }</code> is how we're able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  <code>domainWithoutSuffix</code>s that <strong>contain</strong> (<em>not</em> match exactly) the given query.</li>
- 	<li><code>domainWithoutSuffix: &#34;rapid7&#34;</code> narrows that down further to only the exact matches.</li>
-</ul>
+&#60;p&#62;Now we need to come up with a query! As an example, I&#39;ll search for domains ...  &#60;br/&#62;
+To actually query this, I&#39;ll use:
+&#60;pre&#62;&#60;code&#62;let query = { $text: { $search: &#38;#34;rapid7&#38;#34; }, domainWithoutSuffix: &#38;#34;rapid7&#38;#34; };
+await findMany(client, query, &#38;#34;sonardata&#38;#34;); &#60;/code&#62;&#60;/pre&#62;To explain what the query actually means:&#60;ul&#62;
+ 	&#60;li&#62;&#60;code&#62;$text: { $search: &#38;#34;rapid7&#38;#34; }&#60;/code&#62; is how we&#39;re able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  &#60;code&#62;domainWithoutSuffix&#60;/code&#62;s that &#60;strong&#62;contain&#60;/strong&#62; (&#60;em&#62;not&#60;/em&#62; match exactly) the given query.&#60;/li&#62;
+ 	&#60;li&#62;&#60;code&#62;domainWithoutSuffix: &#38;#34;rapid7&#38;#34;&#60;/code&#62; narrows that down further to only the exact matches.&#60;/li&#62;
+&#60;/ul&#62;
 
-</p>
+&#60;/p&#62;
 
-<p>We could continue to further narrow this down if we wanted (For more info, see <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">https://docs.mongodb.com/manual/tutorial/query-documents/</a>). First though, we need to add in the <code>findMany</code> function that we're calling.</p>
+&#60;p&#62;We could continue to further narrow this down if we wanted (For more info, see &#60;a href=&#34;https://docs.mongodb.com/manual/tutorial/query-documents/&#34;&#62;https://docs.mongodb.com/manual/tutorial/query-documents/&#60;/a&#62;). First though, we need to add in the &#60;code&#62;findMany&#60;/code&#62; function that we&#39;re calling.&#60;/p&#62;
 
 
-<p><pre><code>async function findMany(client, query, collection, db_name = &#34;test_db&#34;, maxResults = 500) {
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;async function findMany(client, query, collection, db_name = &#38;#34;test_db&#38;#34;, maxResults = 500) {
 	const cursor = client.db(db_name).collection(collection).find(query).limit(maxResults);
 
 	const results = await cursor.toArray();
 
-	if (results.length &#62; 0) {
-		console.log(&#34;Found items:&#34;);
-		results.forEach((result, i) =&#62; {
+	if (results.length &#38;#62; 0) {
+		console.log(&#38;#34;Found items:&#38;#34;);
+		results.forEach((result, i) =&#38;#62; {
 			console.log(result);
 		});
 	} else {
-		console.log(&#34;No results found with the given query!&#34;);
+		console.log(&#38;#34;No results found with the given query!&#38;#34;);
 	}
-} </code></pre></p>
+} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<p>This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that's it! Now you're able to query Project Sonar's data! What you do with the results you get are up to you.</p>
+&#60;p&#62;This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that&#39;s it! Now you&#39;re able to query Project Sonar&#39;s data! What you do with the results you get are up to you.&#60;/p&#62;
 
 
 </content>
@@ -335,50 +335,50 @@ From the beginning
 <updated>2022-01-29T23:23:00Z</updated>
 <id>https://mck.is/blog/2022/i-love-ftl/index.html</id>
 <content type="html" xml:base="https://mck.is/blog/2022/i-love-ftl/index.html">
-<p>This blog post was written to be the content of a page for one of my university modules where we were required to write about something we were interested in, and unlikely to be picked by anybody else. I've decided to stick it up here too, because why not?  <br/>
-I had originally intended for this to be a list of some of my favourite indie games, but it quickly spiralled into just being about FTL. (Still might do that list later though)</p>
+&#60;p&#62;This blog post was written to be the content of a page for one of my university modules where we were required to write about something we were interested in, and unlikely to be picked by anybody else. I&#39;ve decided to stick it up here too, because why not?  &#60;br/&#62;
+I had originally intended for this to be a list of some of my favourite indie games, but it quickly spiralled into just being about FTL. (Still might do that list later though)&#60;/p&#62;
 
-<h2 id="ftl:-faster-than-light"> FTL: Faster Than Light</h2>
-<p><img src="images/FTL.png" alt="I should probably have put out those fires..." loading="lazy" /> <em>Genre: indie, rogue-like, strategy</em></p>
+&#60;h2 id=&#34;ftl:-faster-than-light&#34;&#62; FTL: Faster Than Light&#60;/h2&#62;
+&#60;p&#62;&#60;img src=&#34;images/FTL.png&#34; alt=&#34;I should probably have put out those fires...&#34; loading=&#34;lazy&#34; /&#62; &#60;em&#62;Genre: indie, rogue-like, strategy&#60;/em&#62;&#60;/p&#62;
 
-<p>FTL was a first in several ways for me. It was my first PC game (Now the only platform I play on), my first indie game (Now the vast majority of games that I play), and the first game I ever chose to buy myself, instead of having it bought for me. As a result, it's probably not possible for me to talk about it without looking through rose-tinted glasses to some extent, so take my opinion with a grain of salt.</p>
+&#60;p&#62;FTL was a first in several ways for me. It was my first PC game (Now the only platform I play on), my first indie game (Now the vast majority of games that I play), and the first game I ever chose to buy myself, instead of having it bought for me. As a result, it&#39;s probably not possible for me to talk about it without looking through rose-tinted glasses to some extent, so take my opinion with a grain of salt.&#60;/p&#62;
 
-<p>You play as the captain of a ship, belonging to the federation. You must manage your crew and energy usage and make decisions on how to survive throughout your journey and help defend the federation against the rebels.</p>
+&#60;p&#62;You play as the captain of a ship, belonging to the federation. You must manage your crew and energy usage and make decisions on how to survive throughout your journey and help defend the federation against the rebels.&#60;/p&#62;
 
-<p>FTL is a "rougelike" game, meaning on each playthrough you start from scratch. Weak and with little to defend yourself, you must upgrade your ship and take on new crewmembers to hope to survive the many dangers you find as you explore the universe. With a wide range of weapons, from laser machine guns that take time to start up but are deadly once unleashed, to fire beams to kill your enemy ship's crew while leaving their ship (mostly) intact, and systems like hacking to take over a ship's navigation or teleporters to form boarding crews, there are many ways to play the game. Unfortunately for you, enemy ships also have access to the same arsenal of systems, and they aren't willing to go down without a fight.</p>
+&#60;p&#62;FTL is a &#34;rougelike&#34; game, meaning on each playthrough you start from scratch. Weak and with little to defend yourself, you must upgrade your ship and take on new crewmembers to hope to survive the many dangers you find as you explore the universe. With a wide range of weapons, from laser machine guns that take time to start up but are deadly once unleashed, to fire beams to kill your enemy ship&#39;s crew while leaving their ship (mostly) intact, and systems like hacking to take over a ship&#39;s navigation or teleporters to form boarding crews, there are many ways to play the game. Unfortunately for you, enemy ships also have access to the same arsenal of systems, and they aren&#39;t willing to go down without a fight.&#60;/p&#62;
 
-<p>The game also has an <a href="https://benprunty.bandcamp.com/album/ftl">amazing soundtrack</a> (+<a href="https://benprunty.bandcamp.com/album/ftl-advanced-edition-soundtrack">advanced edition soundtrack</a>) by Ben Prunty, which perfectly fits the atmosphere of the game. It really wouldn't be the same without this great music.</p>
+&#60;p&#62;The game also has an &#60;a href=&#34;https://benprunty.bandcamp.com/album/ftl&#34;&#62;amazing soundtrack&#60;/a&#62; (+&#60;a href=&#34;https://benprunty.bandcamp.com/album/ftl-advanced-edition-soundtrack&#34;&#62;advanced edition soundtrack&#60;/a&#62;) by Ben Prunty, which perfectly fits the atmosphere of the game. It really wouldn&#39;t be the same without this great music.&#60;/p&#62;
 
-<p>To make each run more different, the game also has unlockable ships (8 ships with 3 variants, and 2 more hidden ships with 2 variants each, for a total of a lot of ships), offering several different playstyles and extra challenges.</p>
+&#60;p&#62;To make each run more different, the game also has unlockable ships (8 ships with 3 variants, and 2 more hidden ships with 2 variants each, for a total of a lot of ships), offering several different playstyles and extra challenges.&#60;/p&#62;
 
-<h3 id="choices"> Choices</h3>
-<p><img src="images/FTLChoice.jpg" alt="Choices in FTL" loading="lazy" /> <em>Extra options you have access to are highlighted in blue</em></p>
+&#60;h3 id=&#34;choices&#34;&#62; Choices&#60;/h3&#62;
+&#60;p&#62;&#60;img src=&#34;images/FTLChoice.jpg&#34; alt=&#34;Choices in FTL&#34; loading=&#34;lazy&#34; /&#62; &#60;em&#62;Extra options you have access to are highlighted in blue&#60;/em&#62;&#60;/p&#62;
 
-<p>Another one of my favourite things about FTL is the choices it gives you. As an example:</p>
+&#60;p&#62;Another one of my favourite things about FTL is the choices it gives you. As an example:&#60;/p&#62;
 
-<p><em>"You arrive at the distress beacon near a small asteroid belt and find a ship with pirate markings partially crushed between two large rocks. It must have been illegally mining the belt without proper equipment."</em>  <br/>
-Your choices to respond to this are:  <br/>
-<em>"Try to dislodge the pirates by shooting at the rocks."</em> - Will you damage their ship by doing this? What if they think you're trying to attack them, or since they're pirates, decide to attack you anyway? However, they may also reward you for your assistance.  <br/>
-<em>"Destroy and loot the ship. They're just pirates."</em> - You might get some scrap (The game's currency) from destroying them, but what if they have friends around that see you?  <br/>
-However, if you have a beam weapon or beam drone, you can <em>"(Beam Weapon) Carefully cut the ship out."</em> - Guaranteed to work, and you'll get your scrap reward, however it requires having specific equipment on your ship.</p>
+&#60;p&#62;&#60;em&#62;&#34;You arrive at the distress beacon near a small asteroid belt and find a ship with pirate markings partially crushed between two large rocks. It must have been illegally mining the belt without proper equipment.&#34;&#60;/em&#62;  &#60;br/&#62;
+Your choices to respond to this are:  &#60;br/&#62;
+&#60;em&#62;&#34;Try to dislodge the pirates by shooting at the rocks.&#34;&#60;/em&#62; - Will you damage their ship by doing this? What if they think you&#39;re trying to attack them, or since they&#39;re pirates, decide to attack you anyway? However, they may also reward you for your assistance.  &#60;br/&#62;
+&#60;em&#62;&#34;Destroy and loot the ship. They&#39;re just pirates.&#34;&#60;/em&#62; - You might get some scrap (The game&#39;s currency) from destroying them, but what if they have friends around that see you?  &#60;br/&#62;
+However, if you have a beam weapon or beam drone, you can &#60;em&#62;&#34;(Beam Weapon) Carefully cut the ship out.&#34;&#60;/em&#62; - Guaranteed to work, and you&#39;ll get your scrap reward, however it requires having specific equipment on your ship.&#60;/p&#62;
 
-<p>This is just one single simple event that you can come across in your exploration, and even it has complexity in its choices. There never is a perfect choice, and you can only guess at what the outcome of your actions will be.</p>
+&#60;p&#62;This is just one single simple event that you can come across in your exploration, and even it has complexity in its choices. There never is a perfect choice, and you can only guess at what the outcome of your actions will be.&#60;/p&#62;
 
-<p>The game costs £7, and <a href="https://steamdb.info/app/212680/">regularly goes on sale</a> for the incredibly low price of £1.74 - well worth the hundreds of hours of fun I've gotten from this game (Note: At the time of writing, it is 75% off on steam!). As a warning though - FTL is hard. You'll die. A lot. Easy mode is a must when starting out, and I'm still not convinced hard mode is actually beatable.  <br/>
-<a href="https://store.steampowered.com/app/212680/FTL_Faster_Than_Light/">Steam</a>  <br/>
-<a href="https://www.gog.com/game/faster_than_light">GOG</a> (Although the Steam version is also DRM free)  <br/>
-<a href="https://www.humblebundle.com/store/ftl-faster-than-light">Humble</a>  <br/>
-And even <a href="https://apps.apple.com/us/app/ftl-faster-than-light/id833951143">iPad</a>, although if you buy it here you'll miss out on what I'm next to talk about...</p>
+&#60;p&#62;The game costs &#163;7, and &#60;a href=&#34;https://steamdb.info/app/212680/&#34;&#62;regularly goes on sale&#60;/a&#62; for the incredibly low price of &#163;1.74 - well worth the hundreds of hours of fun I&#39;ve gotten from this game (Note: At the time of writing, it is 75% off on steam!). As a warning though - FTL is hard. You&#39;ll die. A lot. Easy mode is a must when starting out, and I&#39;m still not convinced hard mode is actually beatable.  &#60;br/&#62;
+&#60;a href=&#34;https://store.steampowered.com/app/212680/FTL_Faster_Than_Light/&#34;&#62;Steam&#60;/a&#62;  &#60;br/&#62;
+&#60;a href=&#34;https://www.gog.com/game/faster_than_light&#34;&#62;GOG&#60;/a&#62; (Although the Steam version is also DRM free)  &#60;br/&#62;
+&#60;a href=&#34;https://www.humblebundle.com/store/ftl-faster-than-light&#34;&#62;Humble&#60;/a&#62;  &#60;br/&#62;
+And even &#60;a href=&#34;https://apps.apple.com/us/app/ftl-faster-than-light/id833951143&#34;&#62;iPad&#60;/a&#62;, although if you buy it here you&#39;ll miss out on what I&#39;m next to talk about...&#60;/p&#62;
 
-<h2 id="ftl:-multiverse"> FTL: Multiverse</h2>
-<p><img src="images/Multiverse.png" alt="FTL: Multiverse Mod" loading="lazy" /></p>
+&#60;h2 id=&#34;ftl:-multiverse&#34;&#62; FTL: Multiverse&#60;/h2&#62;
+&#60;p&#62;&#60;img src=&#34;images/Multiverse.png&#34; alt=&#34;FTL: Multiverse Mod&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
-<p>Finally, the game has some amazing mods, particularly <a href="https://www.subsetgames.com/forum/viewtopic.php?t=35332">FTL: Multiverse</a>. (The base game is good enough that I put over 100 hours into the vanilla game before looking at mods, but I recommend you try some out eventually). It essentially acts as a sequel, building significantly on the vanilla game - everything from significantly expanding the base game's atmospheric world building, to completely overhauling many mechanics of the base game and adding a <strong><em>lot</em></strong> of new content, and <a href="https://www.youtube.com/playlist?list=PLXARrpodicQsHXiZoecojFMsoXvrTN1Hv">20 new great music tracks</a> to the vanilla's already stellar soundtrack. It essentially overhauls, expands, or refurbishes nearly every aspect of the game, whether it's ships, crew, events, weapons, etc. while still feeling balanced, and retaining what made the original game so great.</p>
+&#60;p&#62;Finally, the game has some amazing mods, particularly &#60;a href=&#34;https://www.subsetgames.com/forum/viewtopic.php?t=35332&#34;&#62;FTL: Multiverse&#60;/a&#62;. (The base game is good enough that I put over 100 hours into the vanilla game before looking at mods, but I recommend you try some out eventually). It essentially acts as a sequel, building significantly on the vanilla game - everything from significantly expanding the base game&#39;s atmospheric world building, to completely overhauling many mechanics of the base game and adding a &#60;strong&#62;&#60;em&#62;lot&#60;/em&#62;&#60;/strong&#62; of new content, and &#60;a href=&#34;https://www.youtube.com/playlist?list=PLXARrpodicQsHXiZoecojFMsoXvrTN1Hv&#34;&#62;20 new great music tracks&#60;/a&#62; to the vanilla&#39;s already stellar soundtrack. It essentially overhauls, expands, or refurbishes nearly every aspect of the game, whether it&#39;s ships, crew, events, weapons, etc. while still feeling balanced, and retaining what made the original game so great.&#60;/p&#62;
 
-<p>The mod released in 2019, 7 years after the game released, and is still under active development, being on version 5.0 at the time of writing, with 5.1 set to release a few weeks from now, bringing a new mechanic, questline and sector. Multiverse is seriously one of my favourite mods I have ever played, and I love it.</p>
+&#60;p&#62;The mod released in 2019, 7 years after the game released, and is still under active development, being on version 5.0 at the time of writing, with 5.1 set to release a few weeks from now, bringing a new mechanic, questline and sector. Multiverse is seriously one of my favourite mods I have ever played, and I love it.&#60;/p&#62;
 
-<h3 id="conclusion:-what-was-this-blog-post?"> Conclusion: What was this blog post?</h3>
-<p>Very rambly. Next blog post will probably be on something completely different, possibly how I'm making this blog? Probably equally rambly though.</p>
+&#60;h3 id=&#34;conclusion:-what-was-this-blog-post?&#34;&#62; Conclusion: What was this blog post?&#60;/h3&#62;
+&#60;p&#62;Very rambly. Next blog post will probably be on something completely different, possibly how I&#39;m making this blog? Probably equally rambly though.&#60;/p&#62;
 
 
 </content>
@@ -400,23 +400,23 @@ I ramble about a game I like for too long
 <updated>2022-01-25T14:59:00Z</updated>
 <id>https://mck.is/blog/2022/i-kinda-like-javascript/index.html</id>
 <content type="html" xml:base="https://mck.is/blog/2022/i-kinda-like-javascript/index.html">
-<p>Recently, as part of one of my university modules, I had to go and learn javascript.  <br/>
-Going in, I had been dreading the prospect - Over the years I had built up a pretty negative image of javascript in my head.</p>
+&#60;p&#62;Recently, as part of one of my university modules, I had to go and learn javascript.  &#60;br/&#62;
+Going in, I had been dreading the prospect - Over the years I had built up a pretty negative image of javascript in my head.&#60;/p&#62;
 
-<p>I'd heard a lot about its oddities and weird behaviour over the years, and reading about NPM's many security issues and vulnerable packages over the years from the perspective of an outsider didn't exactly inspire me with confidence.</p>
+&#60;p&#62;I&#39;d heard a lot about its oddities and weird behaviour over the years, and reading about NPM&#39;s many security issues and vulnerable packages over the years from the perspective of an outsider didn&#39;t exactly inspire me with confidence.&#60;/p&#62;
 
-<p>Even after starting, I felt as if my worries were confirmed. Coming from having previously worked with C# and Java, it was a bigger change than I was expecting - Where were the types, why was everything <code>var</code>? Semi-colons are optional? Why does everything seem to be <code>async</code>?</p>
+&#60;p&#62;Even after starting, I felt as if my worries were confirmed. Coming from having previously worked with C# and Java, it was a bigger change than I was expecting - Where were the types, why was everything &#60;code&#62;var&#60;/code&#62;? Semi-colons are optional? Why does everything seem to be &#60;code&#62;async&#60;/code&#62;?&#60;/p&#62;
 
-<p>But after a while of pushing through these difficulties, it's really grown on me! My biggest initial hurdle - the dynamic typing - has now become one of my favourite things about it from the amount of flexibility it provides. It's also less different than I thought it was - the syntax is mostly familiar to me, as opposed to other languages like Python's whitespace-dependant syntax.</p>
+&#60;p&#62;But after a while of pushing through these difficulties, it&#39;s really grown on me! My biggest initial hurdle - the dynamic typing - has now become one of my favourite things about it from the amount of flexibility it provides. It&#39;s also less different than I thought it was - the syntax is mostly familiar to me, as opposed to other languages like Python&#39;s whitespace-dependant syntax.&#60;/p&#62;
 
-<p>It's also nice to have small things like template strings again, having loved string interpolation in C# then missing it when using Java.  <br/>
-JSON is also entirely new to me, and so far I like it! It's a nicely human-readable way of storing data, and I significantly prefer it to the extreme verbosity of XML.  <br/>
-Destructuring assignments also seems like a very useful feature to have, and I'm looking forward to seeing what else javascript has to offer.</p>
+&#60;p&#62;It&#39;s also nice to have small things like template strings again, having loved string interpolation in C# then missing it when using Java.  &#60;br/&#62;
+JSON is also entirely new to me, and so far I like it! It&#39;s a nicely human-readable way of storing data, and I significantly prefer it to the extreme verbosity of XML.  &#60;br/&#62;
+Destructuring assignments also seems like a very useful feature to have, and I&#39;m looking forward to seeing what else javascript has to offer.&#60;/p&#62;
 
-<p>All that said however, I've really only just started using it. It's very possible my opinion on it will change after I begin to get fed up with its quirks a few months from now. I'm just happy that I was wrong in my initial impression.</p>
+&#60;p&#62;All that said however, I&#39;ve really only just started using it. It&#39;s very possible my opinion on it will change after I begin to get fed up with its quirks a few months from now. I&#39;m just happy that I was wrong in my initial impression.&#60;/p&#62;
 
-<br/>
-<p>Finally - there's people reading this? That was unexpected! I was fully prepared for nobody to ever read anything I posted, so the fact that my first post received a few replies was a bit of a shock. Please, expect nothing high-quality out of this blog. Posts will be irregular and on whatever topic I feel like writing about. I have no experience with doing this sort of thing, I just thought it might be a neat idea.</p>
+&#60;br/&#62;
+&#60;p&#62;Finally - there&#39;s people reading this? That was unexpected! I was fully prepared for nobody to ever read anything I posted, so the fact that my first post received a few replies was a bit of a shock. Please, expect nothing high-quality out of this blog. Posts will be irregular and on whatever topic I feel like writing about. I have no experience with doing this sort of thing, I just thought it might be a neat idea.&#60;/p&#62;
 
 
 </content>
@@ -437,11 +437,11 @@ Destructuring assignments also seems like a very useful feature to have, and I'm
 <updated>2022-01-23T00:00:00Z</updated>
 <id>https://mck.is/blog/2022/hello-world/index.html</id>
 <content type="html" xml:base="https://mck.is/blog/2022/hello-world/index.html">
-<p>Hello world! This is just a short blog post to say that I'm starting to make some blog posts.</p>
+&#60;p&#62;Hello world! This is just a short blog post to say that I&#39;m starting to make some blog posts.&#60;/p&#62;
 
-<p>If you poke around the site, you'll very quickly realise how unfinished most of it is - however I've now got a working setup that allows me to make and post blog posts, so I'm starting that now. (I'll talk about how I'm doing it in some of my later posts)</p>
+&#60;p&#62;If you poke around the site, you&#39;ll very quickly realise how unfinished most of it is - however I&#39;ve now got a working setup that allows me to make and post blog posts, so I&#39;m starting that now. (I&#39;ll talk about how I&#39;m doing it in some of my later posts)&#60;/p&#62;
 
-<p>I've got some ideas in mind for what I'll be putting here, so hopefully I'll be able to get a few more of these out in the coming weeks!</p>
+&#60;p&#62;I&#39;ve got some ideas in mind for what I&#39;ll be putting here, so hopefully I&#39;ll be able to get a few more of these out in the coming weeks!&#60;/p&#62;
 
 
 </content>
@@ -462,43 +462,43 @@ What is this blog?
 <updated>2021-12-29T00:00:00Z</updated>
 <id>https://mck.is/example.html</id>
 <content type="html" xml:base="https://mck.is/example.html">
-<p>This page is a demonstration of the elements that can be formatted using Simple.css. Each section includes a code block on how to include it in your site’s design.</p>
+&#60;p&#62;This page is a demonstration of the elements that can be formatted using Simple.css. Each section includes a code block on how to include it in your site&#8217;s design.&#60;/p&#62;
 
-<p>This may be a little basic for some people, but I wanted to barrier for entry to be as low as possible for this project.</p>
+&#60;p&#62;This may be a little basic for some people, but I wanted to barrier for entry to be as low as possible for this project.&#60;/p&#62;
 
-<h2 id="basic-typography"> Basic Typography</h2>
-<p>All the typography of Simple.css uses <code>rem</code> for sizing. This means that accessibility is maintained for those who change their browser font size. The <code>body</code> element has a size of <code>1.15rem</code> which makes all the standard font sizes slightly larger. This equates to <code>18.4px</code> for paragraph text, instead of the standard <code>16px</code>.</p>
+&#60;h2 id=&#34;basic-typography&#34;&#62; Basic Typography&#60;/h2&#62;
+&#60;p&#62;All the typography of Simple.css uses &#60;code&#62;rem&#60;/code&#62; for sizing. This means that accessibility is maintained for those who change their browser font size. The &#60;code&#62;body&#60;/code&#62; element has a size of &#60;code&#62;1.15rem&#60;/code&#62; which makes all the standard font sizes slightly larger. This equates to &#60;code&#62;18.4px&#60;/code&#62; for paragraph text, instead of the standard &#60;code&#62;16px&#60;/code&#62;.&#60;/p&#62;
 
-<p>The heading elements also have an increased top margin in order to break blocks of text up better.</p>
+&#60;p&#62;The heading elements also have an increased top margin in order to break blocks of text up better.&#60;/p&#62;
 
-<h1 id="heading-1-code2.8rem/code">Heading 1 <code>2.8rem</code></h1>
-<h2 id="heading-2-code2.25rem/code">Heading 2 <code>2.25rem</code></h2>
-<h3 id="heading-3-code1.8rem/code">Heading 3 <code>1.8rem</code></h3>
-<h4 id="heading-4-code1.44rem/code">Heading 4 <code>1.44rem</code></h4>
-<h5 id="heading-5-code1.15rem/code">Heading 5 <code>1.15rem</code></h5>
-<h6 id="heading-6-code.92rem/code">Heading 6 <code>.92rem</code></h6>
+&#60;h1 id=&#34;heading-1-code2.8rem/code&#34;&#62;Heading 1 &#60;code&#62;2.8rem&#60;/code&#62;&#60;/h1&#62;
+&#60;h2 id=&#34;heading-2-code2.25rem/code&#34;&#62;Heading 2 &#60;code&#62;2.25rem&#60;/code&#62;&#60;/h2&#62;
+&#60;h3 id=&#34;heading-3-code1.8rem/code&#34;&#62;Heading 3 &#60;code&#62;1.8rem&#60;/code&#62;&#60;/h3&#62;
+&#60;h4 id=&#34;heading-4-code1.44rem/code&#34;&#62;Heading 4 &#60;code&#62;1.44rem&#60;/code&#62;&#60;/h4&#62;
+&#60;h5 id=&#34;heading-5-code1.15rem/code&#34;&#62;Heading 5 &#60;code&#62;1.15rem&#60;/code&#62;&#60;/h5&#62;
+&#60;h6 id=&#34;heading-6-code.92rem/code&#34;&#62;Heading 6 &#60;code&#62;.92rem&#60;/code&#62;&#60;/h6&#62;
 
-<p><pre><code>&#60;h2&#62;This is a H2 header&#60;h2&#62;
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;&#38;#60;h2&#38;#62;This is a H2 header&#38;#60;h2&#38;#62;
 
-&#60;p&#62;This is some paragraph text.&#60;/p&#62; </code></pre></p>
+&#38;#60;p&#38;#62;This is some paragraph text.&#38;#60;/p&#38;#62; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-<h2 id="links"> Links</h2>
-<p>Links are formatted very simply on Simple.css (shock horror). They use the accent CSS variable and are underlined. There is a :hover effect that removes the underline. Here is an <a href="https://example.com" title="Alt text">example link</a>.</p>
+&#60;h2 id=&#34;links&#34;&#62; Links&#60;/h2&#62;
+&#60;p&#62;Links are formatted very simply on Simple.css (shock horror). They use the accent CSS variable and are underlined. There is a :hover effect that removes the underline. Here is an &#60;a href=&#34;https://example.com&#34; title=&#34;Alt text&#34;&#62;example link&#60;/a&#62;.&#60;/p&#62;
 
-<h2 id="other-typography-elements"> Other typography elements</h2>
-<p>There are a number of other typography elements that you can use with Simple.css. Some of the common ones are:</p>
+&#60;h2 id=&#34;other-typography-elements&#34;&#62; Other typography elements&#60;/h2&#62;
+&#60;p&#62;There are a number of other typography elements that you can use with Simple.css. Some of the common ones are:&#60;/p&#62;
 
-<ul>
-	<li>All the standard stuff, like <strong>bold</strong>, <em>italic</em> and <strong><em>both</em></strong>.</li>
- 	<li>Adding <code>inline code</code> using the <code>code</code> element.</li>
-</ul>
+&#60;ul&#62;
+	&#60;li&#62;All the standard stuff, like &#60;strong&#62;bold&#60;/strong&#62;, &#60;em&#62;italic&#60;/em&#62; and &#60;strong&#62;&#60;em&#62;both&#60;/em&#62;&#60;/strong&#62;.&#60;/li&#62;
+ 	&#60;li&#62;Adding &#60;code&#62;inline code&#60;/code&#62; using the &#60;code&#62;code&#60;/code&#62; element.&#60;/li&#62;
+&#60;/ul&#62;
 
-<h1 id="images"> Images</h1>
-<p>In Simple.css, images within the <code>main</code> element are always full width and have rounded edges to them. The <code>figcaption</code> element is also formatted in Simple.css. Here are examples of images with and without a caption:</p>
+&#60;h1 id=&#34;images&#34;&#62; Images&#60;/h1&#62;
+&#60;p&#62;In Simple.css, images within the &#60;code&#62;main&#60;/code&#62; element are always full width and have rounded edges to them. The &#60;code&#62;figcaption&#60;/code&#62; element is also formatted in Simple.css. Here are examples of images with and without a caption:&#60;/p&#62;
 
-<p><img src="https://simplecss.org/assets/images/dog-ipad.jpg" alt="Dog with a tablet" loading="lazy" /></p>
+&#60;p&#62;&#60;img src=&#34;https://simplecss.org/assets/images/dog-ipad.jpg&#34; alt=&#34;Dog with a tablet&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
-<p><img src="https://simplecss.org/assets/images/goose.jpg" alt="A black swan" loading="lazy" /></p>
+&#60;p&#62;&#60;img src=&#34;https://simplecss.org/assets/images/goose.jpg&#34; alt=&#34;A black swan&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
 
 </content>
