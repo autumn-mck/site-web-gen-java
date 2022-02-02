@@ -13,7 +13,7 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 </author>
 <entry>
 <title type="html">How to deal with Project Sonar's data</title>
-<link href="https://mck.is/project-sonar\index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
+<link href="https://mck.is/project-sonar/index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
 <published>2022-02-01T00:00:00Z</published>
 <updated>2022-02-01T00:00:00Z</updated>
 <id>https://mck.is/project-sonar/index.html</id>
@@ -330,7 +330,7 @@ From the beginning
 
 <entry>
 <title type="html">I love FTL: Faster Than Light</title>
-<link href="https://mck.is/blog\2022\i-love-ftl\index.html" rel="alternate" type="text/html" title="I love FTL: Faster Than Light"/>
+<link href="https://mck.is/blog/2022/i-love-ftl/index.html" rel="alternate" type="text/html" title="I love FTL: Faster Than Light"/>
 <published>2022-01-29T23:23:00Z</published>
 <updated>2022-01-29T23:23:00Z</updated>
 <id>https://mck.is/blog/2022/i-love-ftl/index.html</id>
@@ -395,7 +395,7 @@ I ramble about a game I like for too long
 
 <entry>
 <title type="html">I kinda like JavaScript</title>
-<link href="https://mck.is/blog\2022\i-kinda-like-javascript\index.html" rel="alternate" type="text/html" title="I kinda like JavaScript"/>
+<link href="https://mck.is/blog/2022/i-kinda-like-javascript/index.html" rel="alternate" type="text/html" title="I kinda like JavaScript"/>
 <published>2022-01-25T14:59:00Z</published>
 <updated>2022-01-25T14:59:00Z</updated>
 <id>https://mck.is/blog/2022/i-kinda-like-javascript/index.html</id>
@@ -432,7 +432,7 @@ Destructuring assignments also seems like a very useful feature to have, and I'm
 
 <entry>
 <title type="html">Hello World!</title>
-<link href="https://mck.is/blog\2022\hello-world\index.html" rel="alternate" type="text/html" title="Hello World!"/>
+<link href="https://mck.is/blog/2022/hello-world/index.html" rel="alternate" type="text/html" title="Hello World!"/>
 <published>2022-01-23T00:00:00Z</published>
 <updated>2022-01-23T00:00:00Z</updated>
 <id>https://mck.is/blog/2022/hello-world/index.html</id>
