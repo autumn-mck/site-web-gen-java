@@ -1,6 +1,10 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-Disallow: /harming/humans
-Disallow: /ignoring/human/orders
-Disallow: /harm/to/self
+Disallow: /*.png$
+Disallow: /*.jpg$
+Disallow: /*.webp$
+
+Disallow: /harming-humans
+Disallow: /ignoring-human-orders
+Disallow: /harm-to-self
