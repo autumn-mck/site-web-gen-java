@@ -301,7 +301,7 @@ async function main() {
 // Run the main function
 main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-&#60;p&#62;Now we need to come up with a query! As an example, I&#39;ll search for domains ...  &#60;br/&#62;
+&#60;p&#62;Now we need to come up with a query! As an example, I&#39;ll search for subdomains of rapid7.  &#60;br/&#62;
 To actually query this, I&#39;ll use:
 &#60;pre&#62;&#60;code&#62;let query = { $text: { $search: &#38;#34;rapid7&#38;#34; }, domainWithoutSuffix: &#38;#34;rapid7&#38;#34; };
 await findMany(client, query, &#38;#34;sonardata&#38;#34;); &#60;/code&#62;&#60;/pre&#62;To explain what the query actually means:&#60;ul&#62;

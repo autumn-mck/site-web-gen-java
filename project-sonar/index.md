@@ -318,7 +318,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-Now we need to come up with a query! As an example, I'll search for domains ...  
+Now we need to come up with a query! As an example, I'll search for subdomains of rapid7.  
 To actually query this, I'll use:
 ```
 let query = { $text: { $search: "rapid7" }, domainWithoutSuffix: "rapid7" };
