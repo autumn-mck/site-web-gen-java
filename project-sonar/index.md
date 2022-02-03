@@ -3,8 +3,19 @@ From the beginning
 01/02/2022
 nodejs, project sonar, programming
 -----
+## What is Project Sonar?
+[Project Sonar](https://opendata.rapid7.com/) is a data collection project containing information from scans across the internet: [DNS records](https://en.wikipedia.org/wiki/Domain_Name_System), SSL Certificates, and also scans many commonly used ports for TCP/UDP.
+
+### Why should you use it?
+Project Sonar's forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method ([PTR Records](https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/)).
+
+It can also be used for subdomain enumeration (Finding subdomains under the given domain), which can reveal web applications and other services are publicly exposed to the Internet.
+
+The port scans can also be used to guess at what software is running and publicly exposed.
+
+
 ## Setup
-To start, you're going to want to be using an IDE - I'd reccommend [Visual Studio Code](https://code.visualstudio.com/). This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.
+To start, you're going to want to be using an IDE - I'd reccommend [Visual Studio Code](https://code.visualstudio.com/). This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE. It's also assuming you've not used Node.js before - if you have, you might want to skip to [Start Programming](#start-programming)
 
 Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like [nvm](https://github.com/nvm-sh/nvm) for Linux and MacOS, or [nvm-windows](https://github.com/coreybutler/nvm-windows) for Windows.
 

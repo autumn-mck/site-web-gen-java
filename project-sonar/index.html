@@ -19,7 +19,7 @@
 
     <header>
       <h1>💻 James' Blog</h1>
-      <p>Inane ramblings on whatever.</p>
+      <p>Searching for a tagline.</p>
 
       <nav>
         <a href="/">Home</a>
@@ -33,11 +33,21 @@
     <main>
 <h1 id="title">How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Tue 01 Feb 2022. 2469 words.</small><br/>
+<small>Published on Tue 01 Feb 2022. 2605 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
+<h2 id="what-is-project-sonar?"> What is Project Sonar?</h2>
+<p><a href="https://opendata.rapid7.com/">Project Sonar</a> is a data collection project containing information from scans across the internet: <a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS records</a>, SSL Certificates, and also scans many commonly used ports for TCP/UDP.</p>
+
+<h3 id="why-should-you-use-it?"> Why should you use it?</h3>
+<p>Project Sonar's forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method (<a href="https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/">PTR Records</a>).</p>
+
+<p>It can also be used for subdomain enumeration (Finding subdomains under the given domain), which can reveal web applications and other services are publicly exposed to the Internet.</p>
+
+<p>The port scans can also be used to guess at what software is running and publicly exposed.</p>
+
 <h2 id="setup"> Setup</h2>
-<p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE.</p>
+<p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE. It's also assuming you've not used Node.js before - if you have, you might want to skip to <a href="#start-programming">Start Programming</a></p>
 
 <p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
 
