@@ -29,7 +29,7 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 &#60;p&#62;The port scans can also be used to guess at what software is running and publicly exposed.&#60;/p&#62;
 
 &#60;h2 id=&#34;setup&#34;&#62; Setup&#60;/h2&#62;
-&#60;p&#62;To start, you&#39;re going to want to be using an IDE - I&#39;d reccommend &#60;a href=&#34;https://code.visualstudio.com/&#34;&#62;Visual Studio Code&#60;/a&#62;. This guide is written assuming you&#39;re using VS Code, but everything will still work if you choose a different IDE. It&#39;s also assuming you&#39;ve not used Node.js before - if you have, you might want to skip to &#60;a href=&#34;#start-programming&#34;&#62;Start Programming&#60;/a&#62;&#60;/p&#62;
+&#60;p&#62;To start, you&#39;re going to want to be using an IDE - I&#39;d reccommend &#60;a href=&#34;https://code.visualstudio.com/&#34;&#62;Visual Studio Code&#60;/a&#62;. This guide is written assuming you&#39;re using VS Code, but everything will still work if you choose a different IDE. It&#39;s also assuming you&#39;ve not used Node.js before - if you have, you might want to skip to &#60;a href=&#34;#start-programming&#34;&#62;Start Programming&#60;/a&#62;. Finally, all the code for this guide is also &#60;a href=&#34;https://github.com/James-McK/ProjectSonarTutorial&#34;&#62;up on GitHub&#60;/a&#62;!&#60;/p&#62;
 
 &#60;p&#62;Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We&#39;re going to need to install Node.js too - a convenient way to do so is using a version manager like &#60;a href=&#34;https://github.com/nvm-sh/nvm&#34;&#62;nvm&#60;/a&#62; for Linux and MacOS, or &#60;a href=&#34;https://github.com/coreybutler/nvm-windows&#34;&#62;nvm-windows&#60;/a&#62; for Windows.&#60;/p&#62;
 
@@ -37,7 +37,7 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 
 &#60;p&#62;We&#39;re also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at &#60;a href=&#34;https://docs.mongodb.com/manual/installation/&#34;&#62;https://docs.mongodb.com/manual/installation/&#60;/a&#62; MongoDB compass might be installed along side it, but if not, I&#39;d reccommend installing it too.&#60;/p&#62;
 
-&#60;p&#62;Returning to VS Code, we can open up its built in terminal with &#60;code&#62;ctrl + &#38;#39;&#60;/code&#62;. We&#39;re going to need a few external packages later, so we might as well install them now. First up, we&#39;ll generate the package.json file (Where information like what packages your program depends on) is stored, by running &#60;code&#62;npm init&#60;/code&#62;. &#60;code&#62;npm&#60;/code&#62; stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. &#60;code&#62;npm init&#60;/code&#62;&#39;s defaults are good enough, however you can change them if you wish. Next up, open the &#60;code&#62;package.json&#60;/code&#62; file that was created, and add the line &#60;code&#62;&#38;#34;type&#38;#34;: &#38;#34;module&#38;#34;,&#60;/code&#62; below the description line - This marks our program as using the newer &#60;code&#62;import&#60;/code&#62; syntax instead of the older &#60;code&#62;require&#60;/code&#62; syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run &#60;code&#62;npm install mongodb&#60;/code&#62; and &#60;code&#62;npm install tldts-experimental&#60;/code&#62; to install the packages that we need.  (Explain generated package.json etc?)&#60;/p&#62;
+&#60;p&#62;Returning to VS Code, we can open up its built in terminal with &#60;code&#62;ctrl + &#38;#39;&#60;/code&#62;. We&#39;re going to need a few external packages later, so we might as well install them now. First up, we&#39;ll generate the package.json file (Where information like what packages your program depends on) is stored, by running &#60;code&#62;npm init&#60;/code&#62;. &#60;code&#62;npm&#60;/code&#62; stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. &#60;code&#62;npm init&#60;/code&#62;&#39;s defaults are good enough, however you can change them if you wish. Next up, open the &#60;code&#62;package.json&#60;/code&#62; file that was created, and add the line &#60;code&#62;&#38;#34;type&#38;#34;: &#38;#34;module&#38;#34;,&#60;/code&#62; below the description line - This marks our program as using the newer &#60;code&#62;import&#60;/code&#62; syntax instead of the older &#60;code&#62;require&#60;/code&#62; syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run &#60;code&#62;npm install mongodb&#60;/code&#62; and &#60;code&#62;npm install tldts-experimental&#60;/code&#62; to install the packages that we need.&#60;/p&#62;
 
 &#60;h2 id=&#34;start-programming&#34;&#62; Start programming&#60;/h2&#62;
 &#60;p&#62;Now we can begin to get to the interesting stuff: create a file called &#60;code&#62;fetchData.js&#60;/code&#62;. At the top of it, we can add:
@@ -56,7 +56,6 @@ async function main() {
 	// Content of main function goes here
 }
 
-
 // Run the main function
 main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
@@ -67,7 +66,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;&#60;pre&#62;&#60;code&#62;async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log(&#38;#34;Databases:&#38;#34;);
     dbList.databases.forEach(db =&#38;#62; console.log(` - ${db.name}`));
 }; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
@@ -93,7 +92,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -111,13 +110,20 @@ async function listDatabases(client) {
 // Run the main function
 main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-&#60;p&#62;You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press Ctrl + c when focused on the terminal to stop the currently running program at any time.&#60;/p&#62;
+&#60;p&#62;You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press &#60;code&#62;Ctrl + c&#60;/code&#62; when focused on the terminal to stop the currently running program at any time.&#60;/p&#62;
 
-&#60;p&#62;2 Options:&#60;/p&#62;
+&#60;p&#62;Next, we need to fetch the data. There are 2 options for this:&#60;ul&#62;
+ 	&#60;li&#62;Use a local copy of the file that we can parse&#60;/li&#62;
+ 	&#60;li&#62;Stream the data from the web and parse it as we receive it&#60;/li&#62;
+&#60;/ul&#62;
 
-&#60;h2 id=&#34;fetching-a-local-copy-of-project-sonar&#34;&#62; Fetching a local copy of Project Sonar&#60;/h2&#62;
-&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;. I&#39;ll be using the DNS &#39;A&#39; records for this guide, but I&#39;ll be talking more about what the other items are later. Since we&#39;re using the A records, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
+ Both options are shown in this tutorial (See &#60;a href=&#34;#parsing-a-local-copy-of-project-sonar&#34;&#62;Parsing a local copy of Project Sonar&#60;/a&#62; and &#60;a href=&#34;#fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62;Fetching and parsing an online version of Project Sonar&#60;/a&#62;).&#60;/p&#62;
 
+&#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file.&#60;/p&#62;
+
+&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  Since we&#39;re using the A records, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
+
+&#60;h2 id=&#34;parsing-a-local-copy-of-project-sonar&#34;&#62; Parsing a local copy of Project Sonar&#60;/h2&#62;
 &#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromFile&#60;/code&#62;.&#60;/p&#62;
 
 
@@ -133,7 +139,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;Alternatively:&#60;/p&#62;
 
-&#60;h2 id=&#34;fetching-an-online-version-of-project-sonar&#34;&#62; Fetching an online version of Project Sonar&#60;/h2&#62;
+&#60;h2 id=&#34;fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62; Fetching and parsing an online version of Project Sonar&#60;/h2&#62;
 &#60;p&#62;This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.&#60;/p&#62;
 
 &#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromWeb&#60;/code&#62;.
@@ -163,7 +169,7 @@ readFromWeb(client, dataUrl); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 &#60;p&#62;Note that if this doesn&#39;t work, make sure you have the latest link from &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;, as downloading older/newer versions requires an account.&#60;/p&#62;
 
 &#60;h2 id=&#34;parsing-our-input&#34;&#62; Parsing our input&#60;/h2&#62;
-&#60;p&#62;So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the streams, and then we have to decompress the data we&#39;ve been given - it&#39;s currently still gzipped.&#60;/p&#62;
+&#60;p&#62;So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the stream, and then we have to decompress the data we&#39;ve been given - it&#39;s currently still gzipped.&#60;/p&#62;
 
 &#60;p&#62;Luckily, we can deal with both of those problems pretty quickly! Let&#39;s create a new function:
 &#60;pre&#62;&#60;code&#62;async function parseSonar(client, readstream) {
@@ -250,7 +256,7 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, &#38;#34;sonardata&#38;#34;);
@@ -282,7 +288,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors
@@ -323,7 +329,9 @@ await findMany(client, query, &#38;#34;sonardata&#38;#34;); &#60;/code&#62;&#60;
 	}
 } &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-&#60;p&#62;This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them. And that&#39;s it! Now you&#39;re able to query Project Sonar&#39;s data! What you do with the results you get are up to you.&#60;/p&#62;
+&#60;p&#62;This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them.&#60;/p&#62;
+
+&#60;p&#62;And that&#39;s it! Now you&#39;re able to query Project Sonar&#39;s data! Although this guide only covered the DNS A records, the same principles apply to the port scans, SSL certificates, etc.&#60;/p&#62;
 
 
 </content>
