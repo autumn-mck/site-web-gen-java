@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
 <link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
-<updated>2022-02-01T00:00:00Z</updated>
+<updated>2022-02-03T00:00:00Z</updated>
 <id>https://mck.is/feed.xml</id>
 <title type="html">James McKee’s Blog</title>
 <subtitle>
@@ -15,7 +15,7 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <title type="html">How to deal with Project Sonar's data</title>
 <link href="https://mck.is/project-sonar/index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
 <published>2022-02-01T00:00:00Z</published>
-<updated>2022-02-01T00:00:00Z</updated>
+<updated>2022-02-03T00:00:00Z</updated>
 <id>https://mck.is/project-sonar/index.html</id>
 <content type="html" xml:base="https://mck.is/project-sonar/index.html">
 &#60;h2 id=&#34;what-is-project-sonar?&#34;&#62; What is Project Sonar?&#60;/h2&#62;

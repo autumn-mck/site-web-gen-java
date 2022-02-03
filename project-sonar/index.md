@@ -1,6 +1,7 @@
 How to deal with Project Sonar's data
 From the beginning
 01/02/2022
+03/02/2022
 nodejs, project sonar, programming
 -----
 ## What is Project Sonar?
