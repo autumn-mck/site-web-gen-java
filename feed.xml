@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
 <link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
-<updated>2022-02-03T00:00:00Z</updated>
+<updated>2022-02-04T00:00:00Z</updated>
 <id>https://mck.is/feed.xml</id>
 <title type="html">James McKee’s Blog</title>
 <subtitle>
@@ -15,29 +15,29 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <title type="html">How to deal with Project Sonar's data</title>
 <link href="https://mck.is/project-sonar/index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
 <published>2022-02-01T00:00:00Z</published>
-<updated>2022-02-03T00:00:00Z</updated>
+<updated>2022-02-04T00:00:00Z</updated>
 <id>https://mck.is/project-sonar/index.html</id>
 <content type="html" xml:base="https://mck.is/project-sonar/index.html">
 &#60;h2 id=&#34;what-is-project-sonar?&#34;&#62; What is Project Sonar?&#60;/h2&#62;
-&#60;p&#62;&#60;a href=&#34;https://opendata.rapid7.com/&#34;&#62;Project Sonar&#60;/a&#62; is a data collection project containing information from scans across the internet: &#60;a href=&#34;https://en.wikipedia.org/wiki/Domain_Name_System&#34;&#62;DNS records&#60;/a&#62;, SSL Certificates, and also scans many commonly used ports for TCP/UDP.&#60;/p&#62;
+&#60;p&#62;&#60;a href=&#34;https://opendata.rapid7.com/&#34;&#62;Project Sonar&#60;/a&#62; is a data collection project containing information from scans across the internet: DNS records, SSL Certificates, and also scans of many commonly used ports with TCP/UDP.&#60;/p&#62;
 
 &#60;h3 id=&#34;why-should-you-use-it?&#34;&#62; Why should you use it?&#60;/h3&#62;
 &#60;p&#62;Project Sonar&#39;s forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method (&#60;a href=&#34;https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/&#34;&#62;PTR Records&#60;/a&#62;).&#60;/p&#62;
 
 &#60;p&#62;It can also be used for subdomain enumeration (Finding subdomains under the given domain), which can reveal web applications and other services are publicly exposed to the Internet.&#60;/p&#62;
 
-&#60;p&#62;The port scans can also be used to guess at what software is running and publicly exposed.&#60;/p&#62;
+&#60;p&#62;The port scans can also be used to guess at what software a server is running and publicly exposed.&#60;/p&#62;
 
 &#60;h2 id=&#34;setup&#34;&#62; Setup&#60;/h2&#62;
 &#60;p&#62;To start, you&#39;re going to want to be using an IDE - I&#39;d reccommend &#60;a href=&#34;https://code.visualstudio.com/&#34;&#62;Visual Studio Code&#60;/a&#62;. This guide is written assuming you&#39;re using VS Code, but everything will still work if you choose a different IDE. It&#39;s also assuming you&#39;ve not used Node.js before - if you have, you might want to skip to &#60;a href=&#34;#start-programming&#34;&#62;Start Programming&#60;/a&#62;. Finally, all the code for this guide is also &#60;a href=&#34;https://github.com/James-McK/ProjectSonarTutorial&#34;&#62;up on GitHub&#60;/a&#62;!&#60;/p&#62;
 
 &#60;p&#62;Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We&#39;re going to need to install Node.js too - a convenient way to do so is using a version manager like &#60;a href=&#34;https://github.com/nvm-sh/nvm&#34;&#62;nvm&#60;/a&#62; for Linux and MacOS, or &#60;a href=&#34;https://github.com/coreybutler/nvm-windows&#34;&#62;nvm-windows&#60;/a&#62; for Windows.&#60;/p&#62;
 
-&#60;p&#62;Once you have one of these installed (Note: On windows, you may have to restart to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the seccond command with &#60;code&#62;sudo&#60;/code&#62; on linux/mac) and run &#60;code&#62;nvm install 16&#60;/code&#62;. This will install the latest version of Node 16, currently 16.13.2 (We have to use Node 16 instead of the newer 17 as not all packages are currently compatible with it), then run &#60;code&#62;nvm use 16.13.2&#60;/code&#62;. Now we have node.js installed and set up!&#60;/p&#62;
+&#60;p&#62;Once you have one of these installed (Note: On windows, you may have to restart your computer to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the commands with &#60;code&#62;sudo&#60;/code&#62; on linux/mac) and run &#60;code&#62;nvm install 16&#60;/code&#62;. This will install the latest version of Node 16, currently 16.13.2 (We&#39;re using Node 16 instead of the newer 17 as some packages are currently incompatible with it), then run &#60;code&#62;nvm use 16.13.2&#60;/code&#62;. Now we have node.js installed and set up!&#60;/p&#62;
 
-&#60;p&#62;We&#39;re also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at &#60;a href=&#34;https://docs.mongodb.com/manual/installation/&#34;&#62;https://docs.mongodb.com/manual/installation/&#60;/a&#62; MongoDB compass might be installed along side it, but if not, I&#39;d reccommend installing it too.&#60;/p&#62;
+&#60;p&#62;We&#39;re also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at &#60;a href=&#34;https://docs.mongodb.com/manual/installation/&#34;&#62;https://docs.mongodb.com/manual/installation/&#60;/a&#62;. MongoDB compass might be installed along side it, but if not, I&#39;d reccommend installing it too - it&#39;s a useful tool for inspecting your databases.&#60;/p&#62;
 
-&#60;p&#62;Returning to VS Code, we can open up its built in terminal with &#60;code&#62;ctrl + &#38;#39;&#60;/code&#62;. We&#39;re going to need a few external packages later, so we might as well install them now. First up, we&#39;ll generate the package.json file (Where information like what packages your program depends on) is stored, by running &#60;code&#62;npm init&#60;/code&#62;. &#60;code&#62;npm&#60;/code&#62; stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. &#60;code&#62;npm init&#60;/code&#62;&#39;s defaults are good enough, however you can change them if you wish. Next up, open the &#60;code&#62;package.json&#60;/code&#62; file that was created, and add the line &#60;code&#62;&#38;#34;type&#38;#34;: &#38;#34;module&#38;#34;,&#60;/code&#62; below the description line - This marks our program as using the newer &#60;code&#62;import&#60;/code&#62; syntax instead of the older &#60;code&#62;require&#60;/code&#62; syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run &#60;code&#62;npm install mongodb&#60;/code&#62; and &#60;code&#62;npm install tldts-experimental&#60;/code&#62; to install the packages that we need.&#60;/p&#62;
+&#60;p&#62;Returning to VS Code, we can open up its built in terminal with &#60;code&#62;ctrl + &#38;#39;&#60;/code&#62;. We&#39;re going to need a few external packages later, so we might as well install them now. First up, we&#39;ll generate the package.json file (Where information like what packages your program depends on  is stored), by running &#60;code&#62;npm init&#60;/code&#62;. &#60;code&#62;npm&#60;/code&#62; stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. &#60;code&#62;npm init&#60;/code&#62;&#39;s defaults are probably good enough, however you can change them if you wish. Next up, open the &#60;code&#62;package.json&#60;/code&#62; file that was created, and add the line &#60;code&#62;&#38;#34;type&#38;#34;: &#38;#34;module&#38;#34;,&#60;/code&#62; below the description line - This marks our program as using the newer &#60;code&#62;import ... from ...&#60;/code&#62; syntax instead of the older &#60;code&#62;var ... = require(...)&#60;/code&#62; syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run &#60;code&#62;npm install mongodb&#60;/code&#62; and &#60;code&#62;npm install tldts-experimental&#60;/code&#62; to install the packages that we need.&#60;/p&#62;
 
 &#60;h2 id=&#34;start-programming&#34;&#62; Start programming&#60;/h2&#62;
 &#60;p&#62;Now we can begin to get to the interesting stuff: create a file called &#60;code&#62;fetchData.js&#60;/code&#62;. At the top of it, we can add:
@@ -66,12 +66,12 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;&#60;pre&#62;&#60;code&#62;async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
-
+ 
     console.log(&#38;#34;Databases:&#38;#34;);
     dbList.databases.forEach(db =&#38;#62; console.log(` - ${db.name}`));
 }; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-&#60;p&#62;Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening its collection. Running our code so far (with &#60;code&#62;node fetchData.js&#60;/code&#62;) we should get something like this: &#60;img src=&#34;ListDatabases.png&#34; alt=&#34;List of databases&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
+&#60;p&#62;Call the new listDatabases function from within our main function, and pass it the MongoClient we created, after opening the client&#39;s connection. Running our code so far (with &#60;code&#62;node fetchData.js&#60;/code&#62;) we should get something like this: &#60;img src=&#34;ListDatabases.png&#34; alt=&#34;List of databases&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
 &#60;p&#62;Your code so far should be similar to
 &#60;pre&#62;&#60;code&#62;import { MongoClient } from &#38;#34;mongodb&#38;#34;;
@@ -92,7 +92,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-
+		
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -119,9 +119,9 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
  Both options are shown in this tutorial (See &#60;a href=&#34;#parsing-a-local-copy-of-project-sonar&#34;&#62;Parsing a local copy of Project Sonar&#60;/a&#62; and &#60;a href=&#34;#fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62;Fetching and parsing an online version of Project Sonar&#60;/a&#62;).&#60;/p&#62;
 
-&#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file.&#60;/p&#62;
+&#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.&#60;/p&#62;
 
-&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  Since we&#39;re using the A records, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
+&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  In this guide, I&#39;m going to be parsing the DNS A Records, so, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! &#60;/p&#62;
 
 &#60;h2 id=&#34;parsing-a-local-copy-of-project-sonar&#34;&#62; Parsing a local copy of Project Sonar&#60;/h2&#62;
 &#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromFile&#60;/code&#62;.&#60;/p&#62;
@@ -133,11 +133,11 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 	parseSonar(client, stream);
 } &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
-&#60;p&#62;&#60;code&#62;sonarDataLocation&#60;/code&#62; should be wherever you saved the data to - either a relative path, in the current case, or an absolute path, like &#60;code&#62;C:\\Users\\James\\Downloads\\fdns_a.json.gz&#60;/code&#62;. We then create a read stream - not the actual data itself - that we can later read through and parse. &#60;code&#62;fs&#60;/code&#62; is Node.js&#39;s filesystem module, allowing us to interact with local files. We then pass this stream, and the MongoClient passed into the function, to a function that does not yet exist - it&#39;s next to do.&#60;/p&#62;
+&#60;p&#62;&#60;code&#62;sonarDataLocation&#60;/code&#62; should be wherever you saved the data to - either a relative path, in the current case (&#60;code&#62;fdns_a.json&#60;/code&#62; is in the same folder as &#60;code&#62;fetchData.js&#60;/code&#62;), or an absolute path, like &#60;code&#62;C:\\Users\\James\\Downloads\\fdns_a.json.gz&#60;/code&#62;. We then create a &#60;a href=&#34;https://nodejs.org/api/stream.html#stream&#34;&#62;read stream&#60;/a&#62; - not the actual data itself - that we can later read through and parse. &#60;code&#62;fs&#60;/code&#62; is Node.js&#39;s filesystem module, allowing us to interact with local files. We then pass this stream, and the MongoClient passed into the function, to a function that does not yet exist - it&#39;s next for us to make.&#60;/p&#62;
 
 &#60;p&#62;Finally, let&#39;s call this method from the main function with &#60;code&#62;readFromFile(client);&#60;/code&#62;&#60;/p&#62;
 
-&#60;p&#62;Alternatively:&#60;/p&#62;
+&#60;p&#62;Alternatively, if you don&#39;t want to have the file saved locally:&#60;/p&#62;
 
 &#60;h2 id=&#34;fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62; Fetching and parsing an online version of Project Sonar&#60;/h2&#62;
 &#60;p&#62;This method is a bit more complicated, but means that we do not have to keep a copy saved on our machine, taking up space. It will require you to have a reliable internet connection, however.&#60;/p&#62;
@@ -160,16 +160,16 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 	readFromWeb(client, res.headers.location);
 } else {
 	console.log(`Download request failed, response status: ${res.statusCode} ${res.statusMessage}`);
-} &#60;/code&#62;&#60;/pre&#62;This function gets a read stream - not the actual data itself - that we can later read through and parse. We can then pass it to a function that does not yet exist (We&#39;ll add it shortly) along with the MongoClient this function was passed.&#60;/p&#62;
+} &#60;/code&#62;&#60;/pre&#62;This function gets a &#60;a href=&#34;https://nodejs.org/api/stream.html#stream&#34;&#62;read stream&#60;/a&#62; - not the actual data itself - that we can later read through and parse. We can then pass it to a function that does not yet exist (We&#39;ll add it shortly) along with the MongoClient this function was passed.&#60;/p&#62;
 
-&#60;p&#62;Now we can return to our main method and add in something to call our function
+&#60;p&#62;Now we can return to our main method and add in something to call our new function
 &#60;pre&#62;&#60;code&#62;const dataUrl = &#38;#34;https://opendata.rapid7.com/sonar.fdns_v2/2022-01-28-1643328400-fdns_a.json.gz&#38;#34;;
 readFromWeb(client, dataUrl); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;Note that if this doesn&#39;t work, make sure you have the latest link from &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;, as downloading older/newer versions requires an account.&#60;/p&#62;
 
 &#60;h2 id=&#34;parsing-our-input&#34;&#62; Parsing our input&#60;/h2&#62;
-&#60;p&#62;So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the stream, and then we have to decompress the data we&#39;ve been given - it&#39;s currently still gzipped.&#60;/p&#62;
+&#60;p&#62;So now, using either of the above methods, we have a stream that will allow us to read in the project sonar data. Unfortunately, we still have two things to deal with before getting to anything useful: We have to get data out of the stream, and then we have to decompress the data we&#39;ve been given - it&#39;s currently still &#60;a href=&#34;https://en.wikipedia.org/wiki/Gzip&#34;&#62;gzipped&#60;/a&#62;.&#60;/p&#62;
 
 &#60;p&#62;Luckily, we can deal with both of those problems pretty quickly! Let&#39;s create a new function:
 &#60;pre&#62;&#60;code&#62;async function parseSonar(client, readstream) {
@@ -184,21 +184,21 @@ readFromWeb(client, dataUrl); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 &#60;p&#62;What we&#39;re doing here is:&#60;ul&#62;
  	&#60;li&#62;Creating a writable stream called &#60;code&#62;gunzip&#60;/code&#62; with &#60;code&#62;zlib&#60;/code&#62;, node.js&#39;s module for compression/decompression&#60;/li&#62;
  	&#60;li&#62;Piping our readstream of compressed Project Sonar data to this &#60;code&#62;gunzip&#60;/code&#62; object&#60;/li&#62;
- 	&#60;li&#62;Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don&#39;t have to worry about buffers stopping mid-line.)&#60;/li&#62;
+ 	&#60;li&#62;Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don&#39;t have to worry about buffers stopping mid-line and giving us all sorts of errors.)&#60;/li&#62;
 &#60;/ul&#62;
 
 &#60;/p&#62;
 
-&#60;p&#62;Quite a lot for a few lines of code! We also need to remember to call this new function from within our main function -   &#60;br/&#62;
-Now, we still need to get our data out of this linereader. To do this, we can use the &#60;code&#62;&#38;#34;line&#38;#34;&#60;/code&#62; event that the linereader emits to let us know when we have a new line to parse, with:
+&#60;p&#62;Quite a lot for a few lines of code!  &#60;br/&#62;
+Now, we still need to get our data out of this linereader. To do this, we can use the &#60;code&#62;&#38;#34;line&#38;#34;&#60;/code&#62; event that the linereader &#39;emits&#39; to let us know when we have a new line to parse, with:
 &#60;pre&#62;&#60;code&#62;lineReader.on(&#38;#34;line&#38;#34;, (line) =&#38;#62; {
 	// We&#38;#39;ll parse the line in here
 }); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;So we&#39;ve got a line of data - now what?  &#60;br/&#62;
-The data is in JSON form, and luckily for us, we can simply use javascript&#39;s &#60;code&#62;JSON.parse()&#60;/code&#62; to parse it. Next up, we need to break the hostname (eg &#60;code&#62;subdomain.example.com/path&#60;/code&#62;) into it parts - we need just the &#60;code&#62;example&#60;/code&#62; bit (This is required for performance - I&#39;ll explain more once we get to that point). We can do this pretty easily by using the &#60;code&#62;tldts&#60;/code&#62; package&#39;s &#60;code&#62;parse&#60;/code&#62; function we imported earlier as &#60;code&#62;tldParse&#60;/code&#62;.&#60;/p&#62;
+The data is in JSON form, and luckily for us, we can simply use javascript&#39;s &#60;code&#62;JSON.parse()&#60;/code&#62; to parse it. Next up, we need to break the hostname (eg &#60;code&#62;subdomain.example.com/path&#60;/code&#62;) into it parts - we need just the &#60;code&#62;example&#60;/code&#62; bit (This is required for performance - I&#39;ll explain more once we get to that point). We can do this pretty easily by using the &#60;code&#62;tldts-experimental&#60;/code&#62; package&#39;s &#60;code&#62;parse&#60;/code&#62; function we imported earlier as &#60;code&#62;tldParse&#60;/code&#62;.&#60;/p&#62;
 
-&#60;p&#62;First, we need to deal with many records beginning with &#60;code&#62;*.&#60;/code&#62;. If we don&#39;t remove this from the start of the hostname, we cannot properly parse it. Then, let&#39;s parse it with &#60;code&#62;tldParse&#60;/code&#62; and log it, to make sure everything is working so far.&#60;/p&#62;
+&#60;p&#62;First, we need to deal with the many records beginning with &#60;code&#62;*.&#60;/code&#62;. If we don&#39;t remove this from the start of the hostname, we cannot properly parse it. Next, let&#39;s parse it with &#60;code&#62;tldParse&#60;/code&#62; and log it, to make sure everything is working so far.&#60;/p&#62;
 
 
 &#60;p&#62;&#60;pre&#62;&#60;code&#62;let lineJson = JSON.parse(line);
@@ -226,7 +226,7 @@ try {
 } catch {} &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;Nice! Now we can begin actually adding the data to MongoDB.  &#60;br/&#62;
-Returning back to our parseSonar function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let&#39;s do that. After we&#39;ve created the linereader, let&#39;s create an array and a counter to keep track of how many items we have.&#60;/p&#62;
+Returning back to our &#60;code&#62;parseSonar&#60;/code&#62; function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let&#39;s do that. After we&#39;ve created the linereader, let&#39;s create an array and a counter to keep track of how many items we have.&#60;/p&#62;
 
 &#60;p&#62;Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our parseSonar function should now look something like:
 &#60;pre&#62;&#60;code&#62;async function parseSonar(client, readstream) {
@@ -248,6 +248,7 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 
 		if (tldParsed.domainWithoutSuffix) {
 			count++;
+			// What data you&#38;#39;re putting in the array depends on what you&#38;#39;re planning to do with it
 			arr.push({
 				domainWithoutSuffix: tldParsed.domainWithoutSuffix,
 				publicSuffix: tldParsed.publicSuffix,
@@ -256,7 +257,7 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-
+			
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, &#38;#34;sonardata&#38;#34;);
@@ -269,7 +270,7 @@ Returning back to our parseSonar function - items can be inserted in bulk to Mon
 &#60;p&#62;Nearly done now! We just need to add the &#60;code&#62;createManyListings&#60;/code&#62; function. Thankfully, it&#39;s pretty simple:
 &#60;pre&#62;&#60;code&#62;async function createManyListings(client, newListing, collection, dbName = &#38;#34;test_db&#38;#34;) {
 	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
-} &#60;/code&#62;&#60;/pre&#62;The only thing to note here is that we&#39;re telling MongoDB that our data is not/does not need to be ordered, helping increase our performance. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse!&#60;/p&#62;
+} &#60;/code&#62;&#60;/pre&#62;The only thing to note here is that we&#39;re telling MongoDB that our data is not/does not need to be ordered, helping increase our performance slightly. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse! Finally, you may also run into memory issues with NodeJS, as by default it can only use &#60;a href=&#34;https://www.the-data-wrangler.com/nodejs-memory-limits/&#34;&#62;up to 1.7gb of memory&#60;/a&#62;, and MongoDB cannot always keep up with the rate we are sending it data at (It&#39;s inconsistant). Since we only need our application to run for long enough to allow us to fetch all the data, we can take the quick and easy approach of just giving NodeJS more memory. We can do this by running &#60;code&#62;node --max-old-space-size=6000 fetchData.js&#60;/code&#62;.&#60;/p&#62;
 
 &#60;h2 id=&#34;querying-mongodb&#34;&#62; Querying MongoDB&#60;/h2&#62;
 &#60;p&#62;So, we have our data sitting in a collection in MongoDB. Now what?&#60;/p&#62;
@@ -288,7 +289,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-
+		
 		// Run query here
 	} catch (e) {
 		// Log any errors
