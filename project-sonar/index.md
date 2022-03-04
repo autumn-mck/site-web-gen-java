@@ -16,6 +16,29 @@ It can also be used for subdomain enumeration (Finding subdomains under the give
 
 The port scans can also be used to guess at what software a server is running and publicly exposed.
 
+## Project Sonar's data
+I'll also explain a bit about what data Project Sonar contains:
+
+#### Foreward DNS (FDNS)
+Contains data from the [Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System) (DNS), used to get from a [hostname](https://en.wikipedia.org/wiki/Hostname) like "example.com" to an IP address like `93.184.216.34` (A records for an IPv4 address, AAAA record for an IPv6 address, or a CNAME rerecord, which points to another hostname). It also stores information like where an email should be sent to and what to do with an email if it is suspected of being spam (See [DKIM](https://www.gov.uk/government/publications/email-security-standards/domainkeys-identified-mail-dkim) for more on that). For more on DNS records, [Cloudflare](https://www.cloudflare.com/en-gb/learning/dns/dns-records/) has some good doccumentation.
+
+#### Reverse DNS (RDNS)
+This dataset contains the results of PTR Lookups, which is essentially the reverse of A records mention above. However PTR lookups are not perfectly reliable, and it is generally recommended to use A records to resolve IP addresses to a hostname instead of PTR Lookups.
+
+#### HTTP GET Responses
+This dayaset contains the results of [HTTP GET requests](https://en.wikipedia.org/wiki/GET_request) against ports commonly used for HTTP (Generally port 80 is used for the majority of HTTP requests).
+
+#### HTTPS GET Responses
+Same as above, except against ports commonly used for [HTTPS](https://en.wikipedia.org/wiki/HTTPS). (Port 443 is the most commonly used for HTTPS)
+
+#### TCP Scans
+This dataset contains responses from many commonly used [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) ports, which can be used to check what services a server may be running, or could be vulnerable. To see what a given port is used for, check <https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml> ([IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority) are in charge of managing what ports are "officially" used for to avoid multiple services using the same port)
+
+#### UDP Scans
+Same as the above TCP scans, but with [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol).
+
+#### SSL Certificates & More SSL Certificates (non-443)
+Contains data on certificates used for secuting HTTPS connections.
 
 ## Setup
 To start, you're going to want to be using an IDE - I'd reccommend [Visual Studio Code](https://code.visualstudio.com/). This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE. It's also assuming you've not used Node.js before - if you have, you might want to skip to [Start Programming](#start-programming). Finally, all the code for this guide is also [up on GitHub](https://github.com/James-McK/ProjectSonarTutorial)!
@@ -61,7 +84,7 @@ Next up we'll connect to MongoDB. Since we're using a local database, the connec
 ```
 async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
-
+ 
     console.log("Databases:");
     dbList.databases.forEach(db => console.log(` - ${db.name}`));
 };
@@ -90,7 +113,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-
+		
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -118,7 +141,7 @@ Both options are shown in this tutorial (See [Parsing a local copy of Project So
 
 I'd probably reccommend using the local copy, as it does not depend on your internet connection's reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.
 
-Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!
+Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! 
 
 ## Parsing a local copy of Project Sonar
 Let's add a new function, `readFromFile`.
@@ -271,7 +294,7 @@ async function parseSonar(client, readstream) {
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-
+			
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, "sonardata");
@@ -308,7 +331,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-
+		
 		// Run query here
 	} catch (e) {
 		// Log any errors
