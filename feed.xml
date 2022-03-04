@@ -18,18 +18,18 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <updated>2022-03-04T00:00:00Z</updated>
 <id>https://mck.is/CSC1028/index.html</id>
 <content type="html" xml:base="https://mck.is/CSC1028/index.html">
-&#60;p&#62;THIS POST IS STILL WIP! INITIAL TEST&#60;/p&#62;
-
 &#60;h1 id=&#34;url-understanding-tool&#34;&#62; URL Understanding Tool&#60;/h1&#62;
 &#60;p&#62;This project was created over the course of 7 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.&#60;/p&#62;
+
+&#60;h3 id=&#34;aims-of-the-project&#34;&#62; Aims of the project&#60;/h3&#62;
+&#60;p&#62;This project aims to be a tool for cybersecurity or power users to provide as much relevant metadata on a given URL as possible. Although there are only currently a few sources of data, the application is set up to be as easy as possible to add sources to.&#60;/p&#62;
 
 &#60;p&#62;The project has 3 main parts:&#60;/p&#62;
 
 &#60;h2 id=&#34;http-apis&#34;&#62; HTTP APIs&#60;/h2&#62;
 &#60;p&#62;&#60;a href=&#34;https://github.com/James-McK/CSC1028APIs&#34;&#62;GitHub&#60;/a&#62;  &#60;br/&#62;
-The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:  &#60;ul&#62;
-&#60;br/&#62;
-	&#60;li&#62;A local MongoDB database containing data from Project Sonar&#60;/li&#62;
+The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs.  The current data sources are:&#60;ul&#62;
+ 	&#60;li&#62;A local MongoDB database containing data from Project Sonar&#60;/li&#62;
  	&#60;li&#62;A local MongoDB database containing data on phishing/malware URLs from &#60;a href=&#34;https://phishtank.org/&#34;&#62;Phishtank&#60;/a&#62;, &#60;a href=&#34;https://openphish.com/&#34;&#62;OpenPhish&#60;/a&#62;, &#60;a href=&#34;https://urlhaus.abuse.ch/&#34;&#62;URLHaus&#60;/a&#62; and &#60;a href=&#34;https://malwarediscoverer.com/&#34;&#62;MalwareDiscoverer&#60;/a&#62;.&#60;/li&#62;
  	&#60;li&#62;Earliest page/hostname archive date, from &#60;a href=&#34;https://archive.org&#34;&#62;https://archive.org&#60;/a&#62;.&#60;/li&#62;
  	&#60;li&#62;&#60;a href=&#34;https://www.similarweb.com/&#34;&#62;Similarweb&#60;/a&#62; global website rank&#60;/li&#62;
@@ -38,17 +38,17 @@ The main component of this project is a set of HTTP APIs that can be queried for
 
 &#60;/p&#62;
 
+&#60;p&#62;Several of these can also be queried via the command line, i.e. &#60;code&#62;node queryArchiveDate.js example.com&#60;/code&#62;&#60;/p&#62;
+
 &#60;p&#62;For more information on dealing with Project Sonar&#39;s data, see &#60;a href=&#34;https://mck.is/project-sonar/&#34;&#62;my how-to guide&#60;/a&#62;, but in summary, the data is stored in a local MongoDB database which, when full, can fill up to 60gb. We then use &#60;a href=&#34;https://docs.mongodb.com/manual/core/index-text/&#34;&#62;text indexes&#60;/a&#62; to allow &#60;em&#62;extremely&#60;/em&#62; performant queries to be made.&#60;/p&#62;
 
 &#60;p&#62;Note on Project Sonar&#39;s data: 6 days after I wrote my how-to guide, &#60;a href=&#34;https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/&#34;&#62;Rapid7 switched to requiring you to apply&#60;/a&#62; to access Project Sonar&#39;s data. Except now, a few weeks later, it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permanent or temporary change.&#60;/p&#62;
-
-&#60;p&#62;Several of these can also be queried via the command line, i.e. &#60;code&#62;node queryArchiveDate.js example.com&#60;/code&#62;&#60;/p&#62;
 
 &#60;h3 id=&#34;retrieving-data&#34;&#62; Retrieving data&#60;/h3&#62;
 &#60;p&#62;To retrieve the data used for the above HTTP APIs, some of the modules send a request to an external API, while some query a local MongoDB database. To fetch the data used to fill up the MongoDB database, there exists two programs: One for parsing and inserting Project Sonar&#39;s data, and one for fetching, parsing and inserting malware/phishing data.&#60;/p&#62;
 
 &#60;h3 id=&#34;creating-the-http-apis&#34;&#62; Creating the HTTP APIs&#60;/h3&#62;
-&#60;p&#62;To create and manage the HTTP APIs, there is a single program (&#60;code&#62;createAllAPI.js&#60;/code&#62;) that opens up all the APIs when run. This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably &#60;code&#62;createHTTPServer.js&#60;/code&#62;, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.&#60;/p&#62;
+&#60;p&#62;To create and manage the HTTP APIs, there is a single program (&#60;code&#62;createAllAPI.js&#60;/code&#62;) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably &#60;code&#62;createHTTPServer.js&#60;/code&#62;, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.&#60;/p&#62;
 
 &#60;h3 id=&#34;running/developing-the-application&#34;&#62; Running/developing the application&#60;/h3&#62;
 &#60;p&#62;For developing any of this project, you&#39;ll need a few things set up and installed. I&#39;d recommend following the setup process I used in &#60;a href=&#34;https://mck.is/project-sonar/#setup&#34;&#62;my how-to guide&#60;/a&#62;. You&#39;ll also want to install the dependancies listed in &#60;code&#62;package.json&#60;/code&#62; with &#60;code&#62;npm install &#38;#60;package_name&#38;#62;&#60;/code&#62;. To actually get the data, you&#39;ll first want to run &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; and &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; (Assuming you&#39;ve downloaded Project Sonar&#39;s data in a similar way as I did in my &#60;a href=&#34;https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar&#34;&#62;how-to guide&#60;/a&#62;).  &#60;br/&#62;
@@ -62,7 +62,8 @@ You can then run &#60;code&#62;node ./create/createAllAPI.js&#60;/code&#62; to s
 &#60;p&#62;Since it is built with electron, the page is little more than a HTML page with some javascript behind it! As a result, all this app has to do is query the back-end HTTP APIs and display the result to the user!&#60;/p&#62;
 
 &#60;h3 id=&#34;running-the-application&#34;&#62; Running the application&#60;/h3&#62;
-&#60;p&#62;Assuming you&#39;ve followed the steps above for running/developing the central node.js app (Which you should have done, as this electron app isn&#39;t too useful without it), not much more is required to run the electron app. After opening the folder, you&#39;ll need to run &#60;code&#62;npm install --save-dev electron&#60;/code&#62; to install everything required for electron. You can then run &#60;code&#62;npm start&#60;/code&#62; to start the app.&#60;/p&#62;
+&#60;p&#62;Assuming you&#39;ve followed the steps above for running/developing the central node.js app (Which you should have done, as this electron app isn&#39;t too useful without it), not much more is required to run the electron app. After opening the folder, you&#39;ll need to run &#60;code&#62;npm install --save-dev electron&#60;/code&#62; to install everything required for electron. You can then run &#60;code&#62;npm start&#60;/code&#62; to start the app.  &#60;br/&#62;
+You might also want to look at &#60;a href=&#34;https://www.electronjs.org/docs/latest/tutorial/quick-start/&#34;&#62;https://www.electronjs.org/docs/latest/tutorial/quick-start/&#60;/a&#62; for an introduction to Electron.&#60;/p&#62;
 
 &#60;h2 id=&#34;browser-addon&#34;&#62; Browser Addon&#60;/h2&#62;
 &#60;p&#62;&#60;img src=&#34;BasicAddon.png&#34; alt=&#34;Basic Addon UI&#34; loading=&#34;lazy&#34; /&#62; &#60;a href=&#34;https://github.com/James-McK/CSC1028FFAddon&#34;&#62;GitHub&#60;/a&#62;&#60;/p&#62;
@@ -74,7 +75,8 @@ Note: The addon currently only supports Firefox, however it could be ported to s
 
 &#60;h3 id=&#34;installing-the-addon&#34;&#62; Installing the addon&#60;/h3&#62;
 &#60;p&#62;(Currently Firefox-only)  &#60;br/&#62;
-Installing the addon is thankfully easy. Navigate to &#60;code&#62;about:debugging&#60;/code&#62; and click on the &#34;This Firefox&#34; tab. Click on &#34;Load Temporary Add-on...&#34; and navigate to the folder containing the addon files. Click on any of the files (e.g. &#60;code&#62;manifest.json&#60;/code&#62;) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the &#34;Reload&#34; button that appears.&#60;/p&#62;
+Installing the addon is thankfully easy. Navigate to &#60;code&#62;about:debugging&#60;/code&#62; and click on the &#34;This Firefox&#34; tab. Click on &#34;Load Temporary Add-on...&#34; and navigate to the folder containing the addon files. Click on any of the files (e.g. &#60;code&#62;manifest.json&#60;/code&#62;) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the &#34;Reload&#34; button that appears.  &#60;br/&#62;
+I&#39;d also reccommend looking at &#60;a href=&#34;https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions&#34;&#62;MDN&#60;/a&#62; for excellent doccumentation of the WebExtension APIs.&#60;/p&#62;
 
 &#60;p&#62;&#60;img src=&#34;LoadingAddon.png&#34; alt=&#34;Loading the addon&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 
@@ -86,6 +88,8 @@ Installing the addon is thankfully easy. Navigate to &#60;code&#62;about:debuggi
  	&#60;li&#62;What tech stack companies are using, and alert the user to suspicious activity if a different result is actually found, using information from &#60;a href=&#34;https://stackshare.io&#34;&#62;https://stackshare.io&#60;/a&#62;&#60;/li&#62;
  	&#60;li&#62;Further integration with archives, e.g. thumbnails of pages from the &#60;a href=&#34;https://web.archive.org/&#34;&#62;Wayback Machine&#60;/a&#62; - If a webpage has only existed for a few days its chance of being malware or a phishing attack are higher&#60;/li&#62;
  	&#60;li&#62;Data from &#60;a href=&#34;https://commoncrawl.org/&#34;&#62;Common Crawl&#60;/a&#62; to find sites that point to a given page (They were having &#60;a href=&#34;https://groups.google.com/g/common-crawl/c/kEHzXZNu5To&#34;&#62;issues with 503 errors&#60;/a&#62; when I last looked into integrating this, although it appears to have been fixed since.)&#60;/li&#62;
+ 	&#60;li&#62;Possibly other sources of data like Mozilla Observatory or Google Lighthouse.&#60;/li&#62;
+ 	&#60;li&#62;General improvements to the user experience.&#60;/li&#62;
 &#60;/ul&#62;
 
   And many other possible sources of interesting metadata!&#60;/p&#62;
