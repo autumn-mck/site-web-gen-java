@@ -1,11 +1,13 @@
 How to deal with Project Sonar's data
 From the beginning
 01/02/2022
-04/02/2022
+04/03/2022
 nodejs, project sonar, programming
 -----
 ## What is Project Sonar?
 [Project Sonar](https://opendata.rapid7.com/) is a data collection project containing information from scans across the internet: DNS records, SSL Certificates, and also scans of many commonly used ports with TCP/UDP.
+
+Update: 6 days after this guide was originally posted, [Rapid7 switched to requiring you to apply](https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/) to access Project Sonar's data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permenant or temporary change.
 
 ### Why should you use it?
 Project Sonar's forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method ([PTR Records](https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/)).
@@ -59,7 +61,7 @@ Next up we'll connect to MongoDB. Since we're using a local database, the connec
 ```
 async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log("Databases:");
     dbList.databases.forEach(db => console.log(` - ${db.name}`));
 };
@@ -88,7 +90,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -116,7 +118,7 @@ Both options are shown in this tutorial (See [Parsing a local copy of Project So
 
 I'd probably reccommend using the local copy, as it does not depend on your internet connection's reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.
 
-Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! 
+Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!
 
 ## Parsing a local copy of Project Sonar
 Let's add a new function, `readFromFile`.
@@ -269,7 +271,7 @@ async function parseSonar(client, readstream) {
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, "sonardata");
@@ -286,7 +288,7 @@ async function createManyListings(client, newListing, collection, dbName = "test
 	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
 }
 ```
-The only thing to note here is that we're telling MongoDB that our data is not/does not need to be ordered, helping increase our performance slightly. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse! Finally, you may also run into memory issues with NodeJS, as by default it can only use [up to 1.7gb of memory](https://www.the-data-wrangler.com/nodejs-memory-limits/), and MongoDB cannot always keep up with the rate we are sending it data at (It's inconsistant). Since we only need our application to run for long enough to allow us to fetch all the data, we can take the quick and easy approach of just giving NodeJS more memory. We can do this by running `node --max-old-space-size=6000 fetchData.js`.
+The only thing to note here is that we're telling MongoDB that our data is not/does not need to be ordered, helping increase our performance slightly. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse! Finally, you may also run into memory issues with NodeJS, as by default it can only use [up to 1.7gb of memory](https://www.the-data-wrangler.com/nodejs-memory-limits/), and MongoDB cannot always keep up with the rate we are sending it data at (It's inconsistant). Since we only need our application to run for long enough to allow us to fetch all the data, we can take the quick and easy approach of just giving NodeJS more memory. We can do this by running `node --max-old-space-size=8000 fetchData.js`.
 
 ## Querying MongoDB
 So, we have our data sitting in a collection in MongoDB. Now what?
@@ -306,7 +308,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors
@@ -352,3 +354,14 @@ async function findMany(client, query, collection, db_name = "test_db", maxResul
 This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them.
 
 And that's it! Now you're able to query Project Sonar's data! Although this guide only covered the DNS A records, the same principles apply to the port scans, SSL certificates, etc.
+
+## Final note on compiling to executable
+This won't be relevant to everybody, but as I encountered issues with it I'm putting it here in the hope it will help somebody.
+
+`pkg`, the most popular option for compiling NodeJS executables, still does not support the several-year old javascript ES6 modules (See [this](https://github.com/vercel/pkg/issues/1291) github issue and [this](https://github.com/vercel/pkg/pull/1323) pull request for updates), so we'll be using [nexe](https://github.com/nexe/nexe) instead. Unfortunately, the latest version of NodeJS that `nexe` has pre-compiled is 14, and we need to be using version 16, so we'll need to compile it ourselves later. Don't worry, this isn't too difficult!
+
+Let's begin by installing `nexe` with `npm i nexe -g`. We'll then need to follow the instructions for building [here](https://github.com/nodejs/node/blob/v16.x/BUILDING.md). (Use the section for Linux, Windows or MacOS depending on what you are using)
+
+We can select which file we want `nexe` to build by running  then run `nexe --build` to start building. (If you get an error, you probably don't have everything required installed. Look at the output of `nexe  --build --verbose` to see what you're missing). This will probably take a while - on my laptop, it took half an hour, and fifteen minutes on my desktop. (To get an estimate of how long it'll take for you, see <https://openbenchmarking.org/test/pts/build-nodejs>.)
+
+Once that step has completed, we can finally build our application by running `nexe <filename> -b`, and additionally can target other platforms by using `--target win`, or `--target linux`, etc. as additional arguments.

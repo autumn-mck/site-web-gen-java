@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
 <link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
-<updated>2022-02-04T00:00:00Z</updated>
+<updated>2022-03-04T00:00:00Z</updated>
 <id>https://mck.is/feed.xml</id>
 <title type="html">James McKee’s Blog</title>
 <subtitle>
@@ -15,11 +15,13 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <title type="html">How to deal with Project Sonar's data</title>
 <link href="https://mck.is/project-sonar/index.html" rel="alternate" type="text/html" title="How to deal with Project Sonar's data"/>
 <published>2022-02-01T00:00:00Z</published>
-<updated>2022-02-04T00:00:00Z</updated>
+<updated>2022-03-04T00:00:00Z</updated>
 <id>https://mck.is/project-sonar/index.html</id>
 <content type="html" xml:base="https://mck.is/project-sonar/index.html">
 &#60;h2 id=&#34;what-is-project-sonar?&#34;&#62; What is Project Sonar?&#60;/h2&#62;
 &#60;p&#62;&#60;a href=&#34;https://opendata.rapid7.com/&#34;&#62;Project Sonar&#60;/a&#62; is a data collection project containing information from scans across the internet: DNS records, SSL Certificates, and also scans of many commonly used ports with TCP/UDP.&#60;/p&#62;
+
+&#60;p&#62;Update: 6 days after this guide was originally posted, &#60;a href=&#34;https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/&#34;&#62;Rapid7 switched to requiring you to apply&#60;/a&#62; to access Project Sonar&#39;s data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permenant or temporary change.&#60;/p&#62;
 
 &#60;h3 id=&#34;why-should-you-use-it?&#34;&#62; Why should you use it?&#60;/h3&#62;
 &#60;p&#62;Project Sonar&#39;s forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method (&#60;a href=&#34;https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/&#34;&#62;PTR Records&#60;/a&#62;).&#60;/p&#62;
@@ -66,7 +68,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;&#60;pre&#62;&#60;code&#62;async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log(&#38;#34;Databases:&#38;#34;);
     dbList.databases.forEach(db =&#38;#62; console.log(` - ${db.name}`));
 }; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
@@ -92,7 +94,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -121,7 +123,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.&#60;/p&#62;
 
-&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  In this guide, I&#39;m going to be parsing the DNS A Records, so, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! &#60;/p&#62;
+&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  In this guide, I&#39;m going to be parsing the DNS A Records, so, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
 
 &#60;h2 id=&#34;parsing-a-local-copy-of-project-sonar&#34;&#62; Parsing a local copy of Project Sonar&#60;/h2&#62;
 &#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromFile&#60;/code&#62;.&#60;/p&#62;
@@ -257,7 +259,7 @@ Returning back to our &#60;code&#62;parseSonar&#60;/code&#62; function - items c
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, &#38;#34;sonardata&#38;#34;);
@@ -270,7 +272,7 @@ Returning back to our &#60;code&#62;parseSonar&#60;/code&#62; function - items c
 &#60;p&#62;Nearly done now! We just need to add the &#60;code&#62;createManyListings&#60;/code&#62; function. Thankfully, it&#39;s pretty simple:
 &#60;pre&#62;&#60;code&#62;async function createManyListings(client, newListing, collection, dbName = &#38;#34;test_db&#38;#34;) {
 	client.db(dbName).collection(collection).insertMany(newListing, { ordered: false });
-} &#60;/code&#62;&#60;/pre&#62;The only thing to note here is that we&#39;re telling MongoDB that our data is not/does not need to be ordered, helping increase our performance slightly. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse! Finally, you may also run into memory issues with NodeJS, as by default it can only use &#60;a href=&#34;https://www.the-data-wrangler.com/nodejs-memory-limits/&#34;&#62;up to 1.7gb of memory&#60;/a&#62;, and MongoDB cannot always keep up with the rate we are sending it data at (It&#39;s inconsistant). Since we only need our application to run for long enough to allow us to fetch all the data, we can take the quick and easy approach of just giving NodeJS more memory. We can do this by running &#60;code&#62;node --max-old-space-size=6000 fetchData.js&#60;/code&#62;.&#60;/p&#62;
+} &#60;/code&#62;&#60;/pre&#62;The only thing to note here is that we&#39;re telling MongoDB that our data is not/does not need to be ordered, helping increase our performance slightly. Running the program now will begin filling up our database with data. Unfortunately, this is still a slow process - We have about 1.7 billion lines to parse! Finally, you may also run into memory issues with NodeJS, as by default it can only use &#60;a href=&#34;https://www.the-data-wrangler.com/nodejs-memory-limits/&#34;&#62;up to 1.7gb of memory&#60;/a&#62;, and MongoDB cannot always keep up with the rate we are sending it data at (It&#39;s inconsistant). Since we only need our application to run for long enough to allow us to fetch all the data, we can take the quick and easy approach of just giving NodeJS more memory. We can do this by running &#60;code&#62;node --max-old-space-size=8000 fetchData.js&#60;/code&#62;.&#60;/p&#62;
 
 &#60;h2 id=&#34;querying-mongodb&#34;&#62; Querying MongoDB&#60;/h2&#62;
 &#60;p&#62;So, we have our data sitting in a collection in MongoDB. Now what?&#60;/p&#62;
@@ -289,7 +291,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors
@@ -333,6 +335,17 @@ await findMany(client, query, &#38;#34;sonardata&#38;#34;); &#60;/code&#62;&#60;
 &#60;p&#62;This function is fairly simple - all it does is fetch the results of the query to the given collection as an array, then if there are results, print them.&#60;/p&#62;
 
 &#60;p&#62;And that&#39;s it! Now you&#39;re able to query Project Sonar&#39;s data! Although this guide only covered the DNS A records, the same principles apply to the port scans, SSL certificates, etc.&#60;/p&#62;
+
+&#60;h2 id=&#34;final-note-on-compiling-to-executable&#34;&#62; Final note on compiling to executable&#60;/h2&#62;
+&#60;p&#62;This won&#39;t be relevant to everybody, but as I encountered issues with it I&#39;m putting it here in the hope it will help somebody.&#60;/p&#62;
+
+&#60;p&#62;&#60;code&#62;pkg&#60;/code&#62;, the most popular option for compiling NodeJS executables, still does not support the several-year old javascript ES6 modules (See &#60;a href=&#34;https://github.com/vercel/pkg/issues/1291&#34;&#62;this&#60;/a&#62; github issue and &#60;a href=&#34;https://github.com/vercel/pkg/pull/1323&#34;&#62;this&#60;/a&#62; pull request for updates), so we&#39;ll be using &#60;a href=&#34;https://github.com/nexe/nexe&#34;&#62;nexe&#60;/a&#62; instead. Unfortunately, the latest version of NodeJS that &#60;code&#62;nexe&#60;/code&#62; has pre-compiled is 14, and we need to be using version 16, so we&#39;ll need to compile it ourselves later. Don&#39;t worry, this isn&#39;t too difficult!&#60;/p&#62;
+
+&#60;p&#62;Let&#39;s begin by installing &#60;code&#62;nexe&#60;/code&#62; with &#60;code&#62;npm i nexe -g&#60;/code&#62;. We&#39;ll then need to follow the instructions for building &#60;a href=&#34;https://github.com/nodejs/node/blob/v16.x/BUILDING.md&#34;&#62;here&#60;/a&#62;. (Use the section for Linux, Windows or MacOS depending on what you are using)&#60;/p&#62;
+
+&#60;p&#62;We can select which file we want &#60;code&#62;nexe&#60;/code&#62; to build by running  then run &#60;code&#62;nexe --build&#60;/code&#62; to start building. (If you get an error, you probably don&#39;t have everything required installed. Look at the output of &#60;code&#62;nexe  --build --verbose&#60;/code&#62; to see what you&#39;re missing). This will probably take a while - on my laptop, it took half an hour, and fifteen minutes on my desktop. (To get an estimate of how long it&#39;ll take for you, see &#60;a href=&#34;https://openbenchmarking.org/test/pts/build-nodejs&#34;&#62;https://openbenchmarking.org/test/pts/build-nodejs&#60;/a&#62;.)&#60;/p&#62;
+
+&#60;p&#62;Once that step has completed, we can finally build our application by running &#60;code&#62;nexe &#38;#60;filename&#38;#62; -b&#60;/code&#62;, and additionally can target other platforms by using &#60;code&#62;--target win&#60;/code&#62;, or &#60;code&#62;--target linux&#60;/code&#62;, etc. as additional arguments.&#60;/p&#62;
 
 
 </content>
