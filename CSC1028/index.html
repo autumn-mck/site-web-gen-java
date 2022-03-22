@@ -33,7 +33,7 @@
     <main>
 <h1 id="title">Blog post for CSC1028</h1>
 <em>A summary of the project</em><br/>
-<small>Published on Fri 04 Mar 2022, updated on Tue 22 Mar 2022. 1939 words.</small><br/>
+<small>Published on Fri 04 Mar 2022, updated on Tue 22 Mar 2022. 1942 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h1 id="url-understanding-tool"> URL Understanding Tool</h1>
@@ -52,6 +52,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
  	<li>Earliest page/hostname archive date, from <a href="https://archive.org">https://archive.org</a>.</li>
  	<li><a href="https://www.similarweb.com/">Similarweb</a> global website rank</li>
  	<li>IP Geolocation data (Currently from <a href="https://ip-api.com/">https://ip-api.com/</a>, could probably be improved - this section did not have much thought put into it, and was mostly done as a proof of concept)</li>
+ 	<li><a href="https://stackshare.io/">Stackshare</a> data</li>
 </ul>
 
 </p>
@@ -69,7 +70,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
 <p>To create and manage the HTTP APIs, there is a single program (<code>createAllAPI.js</code>) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably <code>createHTTPServer.js</code>, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.</p>
 
 <h3 id="running-the-application"> Running the application</h3>
-<p>For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in <a href="https://mck.is/project-sonar/#setup">my how-to guide</a>. You'll also want to install the dependancies listed in <code>package.json</code> with <code>npm install &#60;package_name&#62;</code>. To actually get the data, you'll first want to run <code>./fetch/fetchMalwarePhishingData.js</code> and <code>./fetch/fetchMalwarePhishingData.js</code> (Assuming you've downloaded Project Sonar's data in a similar way as I did in my <a href="https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar">how-to guide</a>).  <br/>
+<p>For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in <a href="https://mck.is/project-sonar/#setup">my how-to guide</a>. You'll also want to install the dependencies listed in <code>package.json</code> with <code>npm install &#60;package_name&#62;</code>. To actually get the data, you'll first want to run <code>./fetch/fetchMalwarePhishingData.js</code> and <code>./fetch/fetchMalwarePhishingData.js</code> (Assuming you've downloaded Project Sonar's data in a similar way as I did in my <a href="https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar">how-to guide</a>).  <br/>
 You can then run <code>node ./create/createAllAPI.js</code> to start the APIs.</p>
 
 <h3 id="testing-plan"> Testing plan</h3>
@@ -115,7 +116,7 @@ This is where the advantage of the application's modularity comes in. To see thi
 For getting a free similarweb API key (5000 requests per month), <a href="https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352">see here</a>  <br/>
 For getting a free stackshare API key (100 requests per month), <a href="https://www.stackshare.io/api">see here</a></p>
 
-<p>Once you've got the API keys you want, you can then create a <code>.env</code> file, using the provided <code>.env.template</code> file as a teplate. The result should look something like:
+<p>Once you've got the API keys you want, you can then create a <code>.env</code> file, using the provided <code>.env.template</code> file as a template. The result should look something like:
 <pre><code>SIMILARWEB_KEY=abc1234
 STACKSHARE_KEY=abcd </code></pre></p>
 
@@ -141,7 +142,7 @@ Note: The addon currently only supports Firefox, however it could be ported to s
 <h3 id="installing-the-addon"> Installing the addon</h3>
 <p>(Currently Firefox-only)  <br/>
 Installing the addon is thankfully easy. Navigate to <code>about:debugging</code> and click on the "This Firefox" tab. Click on "Load Temporary Add-on..." and navigate to the folder containing the addon files. Click on any of the files (e.g. <code>manifest.json</code>) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the "Reload" button that appears.  <br/>
-I'd also reccommend looking at <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions">MDN</a> for excellent doccumentation of the WebExtension APIs.</p>
+I'd also reccommend looking at <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions">MDN</a> for excellent documentation of the WebExtension APIs.</p>
 
 <p><img src="LoadingAddon.png" alt="Loading the addon" loading="lazy" /></p>
 

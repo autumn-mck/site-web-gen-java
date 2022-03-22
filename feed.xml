@@ -34,6 +34,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
  	&#60;li&#62;Earliest page/hostname archive date, from &#60;a href=&#34;https://archive.org&#34;&#62;https://archive.org&#60;/a&#62;.&#60;/li&#62;
  	&#60;li&#62;&#60;a href=&#34;https://www.similarweb.com/&#34;&#62;Similarweb&#60;/a&#62; global website rank&#60;/li&#62;
  	&#60;li&#62;IP Geolocation data (Currently from &#60;a href=&#34;https://ip-api.com/&#34;&#62;https://ip-api.com/&#60;/a&#62;, could probably be improved - this section did not have much thought put into it, and was mostly done as a proof of concept)&#60;/li&#62;
+ 	&#60;li&#62;&#60;a href=&#34;https://stackshare.io/&#34;&#62;Stackshare&#60;/a&#62; data&#60;/li&#62;
 &#60;/ul&#62;
 
 &#60;/p&#62;
@@ -51,7 +52,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
 &#60;p&#62;To create and manage the HTTP APIs, there is a single program (&#60;code&#62;createAllAPI.js&#60;/code&#62;) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably &#60;code&#62;createHTTPServer.js&#60;/code&#62;, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.&#60;/p&#62;
 
 &#60;h3 id=&#34;running-the-application&#34;&#62; Running the application&#60;/h3&#62;
-&#60;p&#62;For developing any of this project, you&#39;ll need a few things set up and installed. I&#39;d recommend following the setup process I used in &#60;a href=&#34;https://mck.is/project-sonar/#setup&#34;&#62;my how-to guide&#60;/a&#62;. You&#39;ll also want to install the dependancies listed in &#60;code&#62;package.json&#60;/code&#62; with &#60;code&#62;npm install &#38;#60;package_name&#38;#62;&#60;/code&#62;. To actually get the data, you&#39;ll first want to run &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; and &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; (Assuming you&#39;ve downloaded Project Sonar&#39;s data in a similar way as I did in my &#60;a href=&#34;https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar&#34;&#62;how-to guide&#60;/a&#62;).  &#60;br/&#62;
+&#60;p&#62;For developing any of this project, you&#39;ll need a few things set up and installed. I&#39;d recommend following the setup process I used in &#60;a href=&#34;https://mck.is/project-sonar/#setup&#34;&#62;my how-to guide&#60;/a&#62;. You&#39;ll also want to install the dependencies listed in &#60;code&#62;package.json&#60;/code&#62; with &#60;code&#62;npm install &#38;#60;package_name&#38;#62;&#60;/code&#62;. To actually get the data, you&#39;ll first want to run &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; and &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; (Assuming you&#39;ve downloaded Project Sonar&#39;s data in a similar way as I did in my &#60;a href=&#34;https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar&#34;&#62;how-to guide&#60;/a&#62;).  &#60;br/&#62;
 You can then run &#60;code&#62;node ./create/createAllAPI.js&#60;/code&#62; to start the APIs.&#60;/p&#62;
 
 &#60;h3 id=&#34;testing-plan&#34;&#62; Testing plan&#60;/h3&#62;
@@ -97,7 +98,7 @@ This is where the advantage of the application&#39;s modularity comes in. To see
 For getting a free similarweb API key (5000 requests per month), &#60;a href=&#34;https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352&#34;&#62;see here&#60;/a&#62;  &#60;br/&#62;
 For getting a free stackshare API key (100 requests per month), &#60;a href=&#34;https://www.stackshare.io/api&#34;&#62;see here&#60;/a&#62;&#60;/p&#62;
 
-&#60;p&#62;Once you&#39;ve got the API keys you want, you can then create a &#60;code&#62;.env&#60;/code&#62; file, using the provided &#60;code&#62;.env.template&#60;/code&#62; file as a teplate. The result should look something like:
+&#60;p&#62;Once you&#39;ve got the API keys you want, you can then create a &#60;code&#62;.env&#60;/code&#62; file, using the provided &#60;code&#62;.env.template&#60;/code&#62; file as a template. The result should look something like:
 &#60;pre&#62;&#60;code&#62;SIMILARWEB_KEY=abc1234
 STACKSHARE_KEY=abcd &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
@@ -123,7 +124,7 @@ Note: The addon currently only supports Firefox, however it could be ported to s
 &#60;h3 id=&#34;installing-the-addon&#34;&#62; Installing the addon&#60;/h3&#62;
 &#60;p&#62;(Currently Firefox-only)  &#60;br/&#62;
 Installing the addon is thankfully easy. Navigate to &#60;code&#62;about:debugging&#60;/code&#62; and click on the &#34;This Firefox&#34; tab. Click on &#34;Load Temporary Add-on...&#34; and navigate to the folder containing the addon files. Click on any of the files (e.g. &#60;code&#62;manifest.json&#60;/code&#62;) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the &#34;Reload&#34; button that appears.  &#60;br/&#62;
-I&#39;d also reccommend looking at &#60;a href=&#34;https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions&#34;&#62;MDN&#60;/a&#62; for excellent doccumentation of the WebExtension APIs.&#60;/p&#62;
+I&#39;d also reccommend looking at &#60;a href=&#34;https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions&#34;&#62;MDN&#60;/a&#62; for excellent documentation of the WebExtension APIs.&#60;/p&#62;
 
 &#60;p&#62;&#60;img src=&#34;LoadingAddon.png&#34; alt=&#34;Loading the addon&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
 

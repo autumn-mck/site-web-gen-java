@@ -21,6 +21,7 @@ The current data sources are:
  - Earliest page/hostname archive date, from <https://archive.org>.
  - [Similarweb](https://www.similarweb.com/) global website rank
  - IP Geolocation data (Currently from <https://ip-api.com/>, could probably be improved - this section did not have much thought put into it, and was mostly done as a proof of concept)
+ - [Stackshare](https://stackshare.io/) data
 
 Several of these can also be queried via the command line, i.e. `node queryArchiveDate.js example.com`
 
@@ -36,7 +37,7 @@ To retrieve the data used for the above HTTP APIs, some of the modules send a re
 To create and manage the HTTP APIs, there is a single program (`createAllAPI.js`) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably `createHTTPServer.js`, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.
 
 ### Running the application
-For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in [my how-to guide](https://mck.is/project-sonar/#setup). You'll also want to install the dependancies listed in `package.json` with `npm install <package_name>`.
+For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in [my how-to guide](https://mck.is/project-sonar/#setup). You'll also want to install the dependencies listed in `package.json` with `npm install <package_name>`.
 To actually get the data, you'll first want to run `./fetch/fetchMalwarePhishingData.js` and `./fetch/fetchMalwarePhishingData.js` (Assuming you've downloaded Project Sonar's data in a similar way as I did in my [how-to guide](https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar)).  
 You can then run `node ./create/createAllAPI.js` to start the APIs.
 
@@ -86,7 +87,7 @@ However, this means you will have to get your own API keys for the services that
 For getting a free similarweb API key (5000 requests per month), [see here](https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352)  
 For getting a free stackshare API key (100 requests per month), [see here](https://www.stackshare.io/api)
 
-Once you've got the API keys you want, you can then create a `.env` file, using the provided `.env.template` file as a teplate. The result should look something like:
+Once you've got the API keys you want, you can then create a `.env` file, using the provided `.env.template` file as a template. The result should look something like:
 ```
 SIMILARWEB_KEY=abc1234
 STACKSHARE_KEY=abcd
@@ -117,7 +118,7 @@ The addon's UI is also currently lacking as I chose to shift focus away from it,
 ### Installing the addon
 (Currently Firefox-only)  
 Installing the addon is thankfully easy. Navigate to `about:debugging` and click on the "This Firefox" tab. Click on "Load Temporary Add-on..." and navigate to the folder containing the addon files. Click on any of the files (e.g. `manifest.json`) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the "Reload" button that appears.  
-I'd also reccommend looking at [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions) for excellent doccumentation of the WebExtension APIs.
+I'd also reccommend looking at [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions) for excellent documentation of the WebExtension APIs.
 
 ![Loading the addon](LoadingAddon.png)
 
