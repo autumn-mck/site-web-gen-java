@@ -18,10 +18,6 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <updated>2022-03-22T00:00:00Z</updated>
 <id>https://mck.is/CSC1028/index.html</id>
 <content type="html" xml:base="https://mck.is/CSC1028/index.html">
-&#60;ul&#62;
-	&#60;li&#62;--&#60;/li&#62;
-&#60;/ul&#62;
-
 &#60;h1 id=&#34;url-understanding-tool&#34;&#62; URL Understanding Tool&#60;/h1&#62;
 &#60;p&#62;This project was created over the course of 10 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.&#60;/p&#62;
 
