@@ -39,7 +39,7 @@
 <h2 id="what-is-project-sonar?"> What is Project Sonar?</h2>
 <p><a href="https://opendata.rapid7.com/">Project Sonar</a> is a data collection project containing information from scans across the internet: DNS records, SSL Certificates, and also scans of many commonly used ports with TCP/UDP.</p>
 
-<p>Update: 6 days after this guide was originally posted, <a href="https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/">Rapid7 switched to requiring you to apply</a> to access Project Sonar's data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permenant or temporary change.</p>
+<p>Update: 6 days after this guide was originally posted, <a href="https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/">Rapid7 switched to requiring you to apply</a> to access Project Sonar's data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permeant or temporary change.</p>
 
 <h3 id="why-should-you-use-it?"> Why should you use it?</h3>
 <p>Project Sonar's forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method (<a href="https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/">PTR Records</a>).</p>
@@ -52,13 +52,13 @@
 <p>I'll also explain a bit about what data Project Sonar contains:</p>
 
 <h4 id="foreward-dns-(fdns)"> Foreward DNS (FDNS)</h4>
-<p>Contains data from the <a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System</a> (DNS), used to get from a <a href="https://en.wikipedia.org/wiki/Hostname">hostname</a> like "example.com" to an IP address like <code>93.184.216.34</code> (A records for an IPv4 address, AAAA record for an IPv6 address, or a CNAME rerecord, which points to another hostname). It also stores information like where an email should be sent to and what to do with an email if it is suspected of being spam (See <a href="https://www.gov.uk/government/publications/email-security-standards/domainkeys-identified-mail-dkim">DKIM</a> for more on that). For more on DNS records, <a href="https://www.cloudflare.com/en-gb/learning/dns/dns-records/">Cloudflare</a> has some good doccumentation.</p>
+<p>Contains data from the <a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System</a> (DNS), used to get from a <a href="https://en.wikipedia.org/wiki/Hostname">hostname</a> like "example.com" to an IP address like <code>93.184.216.34</code> (A records for an IPv4 address, AAAA record for an IPv6 address, or a CNAME rerecord, which points to another hostname). It also stores information like where an email should be sent to and what to do with an email if it is suspected of being spam (See <a href="https://www.gov.uk/government/publications/email-security-standards/domainkeys-identified-mail-dkim">DKIM</a> for more on that). For more on DNS records, <a href="https://www.cloudflare.com/en-gb/learning/dns/dns-records/">Cloudflare</a> has some good documentation.</p>
 
 <h4 id="reverse-dns-(rdns)"> Reverse DNS (RDNS)</h4>
 <p>This dataset contains the results of PTR Lookups, which is essentially the reverse of A records mention above. However PTR lookups are not perfectly reliable, and it is generally recommended to use A records to resolve IP addresses to a hostname instead of PTR Lookups.</p>
 
 <h4 id="http-get-responses"> HTTP GET Responses</h4>
-<p>This dayaset contains the results of <a href="https://en.wikipedia.org/wiki/GET_request">HTTP GET requests</a> against ports commonly used for HTTP (Generally port 80 is used for the majority of HTTP requests).</p>
+<p>This dataset contains the results of <a href="https://en.wikipedia.org/wiki/GET_request">HTTP GET requests</a> against ports commonly used for HTTP (Generally port 80 is used for the majority of HTTP requests).</p>
 
 <h4 id="https-get-responses"> HTTPS GET Responses</h4>
 <p>Same as above, except against ports commonly used for <a href="https://en.wikipedia.org/wiki/HTTPS">HTTPS</a>. (Port 443 is the most commonly used for HTTPS)</p>
@@ -70,16 +70,16 @@
 <p>Same as the above TCP scans, but with <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a>.</p>
 
 <h4 id="ssl-certificates-&-more-ssl-certificates-(non-443)"> SSL Certificates & More SSL Certificates (non-443)</h4>
-<p>Contains data on certificates used for secuting HTTPS connections.</p>
+<p>Contains data on certificates used for securing HTTPS connections.</p>
 
 <h2 id="setup"> Setup</h2>
-<p>To start, you're going to want to be using an IDE - I'd reccommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE. It's also assuming you've not used Node.js before - if you have, you might want to skip to <a href="#start-programming">Start Programming</a>. Finally, all the code for this guide is also <a href="https://github.com/James-McK/ProjectSonarTutorial">up on GitHub</a>!</p>
+<p>To start, you're going to want to be using an IDE - I'd recommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. This guide is written assuming you're using VS Code, but everything will still work if you choose a different IDE. It's also assuming you've not used Node.js before - if you have, you might want to skip to <a href="#start-programming">Start Programming</a>. Finally, all the code for this guide is also <a href="https://github.com/James-McK/ProjectSonarTutorial">up on GitHub</a>!</p>
 
 <p>Start by making a new folder to hold your project - I called mine ProjectSonarTutorial - and open it in VS Code. We're going to need to install Node.js too - a convenient way to do so is using a version manager like <a href="https://github.com/nvm-sh/nvm">nvm</a> for Linux and MacOS, or <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a> for Windows.</p>
 
 <p>Once you have one of these installed (Note: On windows, you may have to restart your computer to use nvm), we can install install Node.js. Open up a terminal as administrator (Or run the commands with <code>sudo</code> on linux/mac) and run <code>nvm install 16</code>. This will install the latest version of Node 16, currently 16.13.2 (We're using Node 16 instead of the newer 17 as some packages are currently incompatible with it), then run <code>nvm use 16.13.2</code>. Now we have node.js installed and set up!</p>
 
-<p>We're also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at <a href="https://docs.mongodb.com/manual/installation/">https://docs.mongodb.com/manual/installation/</a>. MongoDB compass might be installed along side it, but if not, I'd reccommend installing it too - it's a useful tool for inspecting your databases.</p>
+<p>We're also going to be using MongoDB - I used a local installation for this tutorial. To install it, follow the instructions over at <a href="https://docs.mongodb.com/manual/installation/">https://docs.mongodb.com/manual/installation/</a>. MongoDB compass might be installed along side it, but if not, I'd recommend installing it too - it's a useful tool for inspecting your databases.</p>
 
 <p>Returning to VS Code, we can open up its built in terminal with <code>ctrl + &#39;</code>. We're going to need a few external packages later, so we might as well install them now. First up, we'll generate the package.json file (Where information like what packages your program depends on  is stored), by running <code>npm init</code>. <code>npm</code> stands for Node Package Manager, and is how you can install external packages (Like the MongoDB Node.js Driver) to use in your program. <code>npm init</code>'s defaults are probably good enough, however you can change them if you wish. Next up, open the <code>package.json</code> file that was created, and add the line <code>&#34;type&#34;: &#34;module&#34;,</code> below the description line - This marks our program as using the newer <code>import ... from ...</code> syntax instead of the older <code>var ... = require(...)</code> syntax. Be aware that some tutorials still make use of the old syntax, however. Finally, run <code>npm install mongodb</code> and <code>npm install tldts-experimental</code> to install the packages that we need.</p>
 
@@ -272,7 +272,7 @@ try {
 <p>Nice! Now we can begin actually adding the data to MongoDB.  <br/>
 Returning back to our <code>parseSonar</code> function - items can be inserted in bulk to MongoDB to increase performance, up to 100k items - so let's do that. After we've created the linereader, let's create an array and a counter to keep track of how many items we have.</p>
 
-<p>Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our parseSonar function should now look something like:
+<p>Now, after the JSON has been parsed, we can increment our counter and add whatever data we want to our buffer array. Then, when our counter is evenly divisible by 100,000, we can log how many lines have been parsed, send our data to be added to MongoDB, and clear our buffer array. Our <code>parseSonar</code> function should now look something like:
 <pre><code>async function parseSonar(client, readstream) {
 	// Pipe the response into gunzip to decompress
 	let gunzip = zlib.createGunzip();
