@@ -33,11 +33,15 @@
     <main>
 <h1 id="title">Blog post for CSC1028</h1>
 <em>A summary of the project</em><br/>
-<small>Published on Fri 04 Mar 2022. 1167 words.</small><br/>
+<small>Published on Fri 04 Mar 2022, updated on Tue 22 Mar 2022. 1939 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
+<ul>
+	<li>--</li>
+</ul>
+
 <h1 id="url-understanding-tool"> URL Understanding Tool</h1>
-<p>This project was created over the course of 7 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.</p>
+<p>This project was created over the course of 10 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.</p>
 
 <h3 id="aims-of-the-project"> Aims of the project</h3>
 <p>This project aims to be a tool for cybersecurity or power users to provide as much relevant metadata on a given URL as possible. Although there are only currently a few sources of data, the application is set up to be as easy as possible to add sources to.</p>
@@ -46,7 +50,7 @@
 
 <h2 id="http-apis"> HTTP APIs</h2>
 <p><a href="https://github.com/James-McK/CSC1028APIs">GitHub</a>  <br/>
-The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs.  The current data sources are:<ul>
+The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:<ul>
  	<li>A local MongoDB database containing data from Project Sonar</li>
  	<li>A local MongoDB database containing data on phishing/malware URLs from <a href="https://phishtank.org/">Phishtank</a>, <a href="https://openphish.com/">OpenPhish</a>, <a href="https://urlhaus.abuse.ch/">URLHaus</a> and <a href="https://malwarediscoverer.com/">MalwareDiscoverer</a>.</li>
  	<li>Earliest page/hostname archive date, from <a href="https://archive.org">https://archive.org</a>.</li>
@@ -68,9 +72,56 @@ The main component of this project is a set of HTTP APIs that can be queried for
 <h3 id="creating-the-http-apis"> Creating the HTTP APIs</h3>
 <p>To create and manage the HTTP APIs, there is a single program (<code>createAllAPI.js</code>) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably <code>createHTTPServer.js</code>, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.</p>
 
-<h3 id="running/developing-the-application"> Running/developing the application</h3>
+<h3 id="running-the-application"> Running the application</h3>
 <p>For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in <a href="https://mck.is/project-sonar/#setup">my how-to guide</a>. You'll also want to install the dependancies listed in <code>package.json</code> with <code>npm install &#60;package_name&#62;</code>. To actually get the data, you'll first want to run <code>./fetch/fetchMalwarePhishingData.js</code> and <code>./fetch/fetchMalwarePhishingData.js</code> (Assuming you've downloaded Project Sonar's data in a similar way as I did in my <a href="https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar">how-to guide</a>).  <br/>
 You can then run <code>node ./create/createAllAPI.js</code> to start the APIs.</p>
+
+<h3 id="testing-plan"> Testing plan</h3>
+<p>The easiest way to ensure the node.js APIs are working is to start the application by running <code>npm start</code> and querying them in your browser. For example, to query the archive date API, which is hosted on port 10133, you'd visit <code>http://localhost:10133/example.com</code> .  <br/>
+<img src="DebuggingAPI.png" alt="Example output from the API" loading="lazy" /></p>
+
+<p>I've found that the best way to debug it is to make thorough use of <code>console.log(...);</code> to make sure I know the state of variables over time, which is extremely useful in helping to detect any issues.</p>
+
+<h3 id="further-development"> Further development</h3>
+<p>I've tried to make adding additional functionality to the API as easy as possible. All APIs are set up in the <code>createAllAPI.js</code> file, which itself contains very little code, and as a whole, the application is developed very modularly. As an example, we'll cover how querying similarweb works, as it has more requirements to get working than other functions. (You can view all the code for this <a href="https://github.com/James-McK/CSC1028APIs/blob/master/query/querySimilarweb.js">here</a>)</p>
+
+<p>All query functions are stored in the <code>create</code> folder, and our function for querying similarweb is stored in <code>querySimilarweb.js</code>. At the top of the file, we begin by importing any other modules or functions we'll need.</p>
+
+
+<p><pre><code>import &#34;dotenv/config&#34;;
+import getRemoteJSON from &#34;./queryRemoteJSON.js&#34;;
+import parseHostname from &#34;../parse/parseHostname.js&#34;;
+import createCli from &#34;../create/createCli.js&#34;; </code></pre></p>
+
+<p>First of all, we're importing the <code>dotenv</code> module, as querying similarweb requires an API key, which we'll store in a <code>.env</code> file (More on that later). We're also using a couple of other functions that are defined in other files - <code>queryRemoteJSON.js</code> fetches JSON from a URL and <code>parseHostname.js</code> parses the string containing the URL into a URL object. <code>createCli.js</code> is used for allowing the function to be used via the command line (i.e. <code>node ./query/querySimilarweb.js example.com</code>), but this part of the application is just an optional extra that some of the functions provide, and isn't worth worrying much about.</p>
+
+<p>Next up, we want to create the function that will actually be used to make the query. Since we're planning to use this function later on in a different file, we'll also need to export the function using <code>export default</code>. The function will also need to take in the URL that is being queried. We can then parse this into a URL object, which will allow us to select just the hostname, by using the <code>parseHostname</code> function we imported earlier. Then we build the string for the API that we're querying, and we can use the <code>getRemoteJSON</code> function we imported earlier to query the API, and we can return the result.
+<pre><code>let parsed = parseHostname(url);
+// Construct the URL to query
+const fetchUrl = `https://api.similarweb.com/v1/similar-rank/${parsed.hostname}/rank?api_key=${process.env.SIMILARWEB_KEY}`;
+
+// Get the result of the query
+let res = await Promise.resolve(getRemoteJSON(fetchUrl));
+
+// If an error occurred, return -1, otherwise return the rank
+if (res.meta.status === &#34;Error&#34;) return -1;
+else return res.similar_rank.rank; </code></pre></p>
+
+<p>Now, you might have noticed that nowhere in there are we creating our own queryable HTTP API or anything. So how does that happen?  <br/>
+This is where the advantage of the application's modularity comes in. To see this in action, we can go back to the <code>createAllAPI.js</code> file.</p>
+
+<p>Again, at the top of the file, we're importing all the functions we need from other files (notably <code>import createHttpServer from &#34;./createHttpServer.js&#34;;</code> and <code>import fetchSimilarwebRank from &#34;../query/querySimilarweb.js&#34;;</code>). Then, in our main function, we can call the <code>createHttpServer</code> function we've just imported, and we pass it the port we want it to use, and the function we want to use. In this case we're using port 10131 (Picked because it is not used by any major applications, see <a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers</a>) and the <code>fetchSimilarwebRank</code> function. This <code>createHttpServer.js</code> allows us to add additional functionality on different ports with minimal effort, as it handles all of the networking side of the API, without this having to be re-architected for each additional function provided. You shouldn't even need to understand exactly what the <code>createHttpServer</code> function does to be able to use it, but if you do, the code is well commented.</p>
+
+<h3 id=".env-files-and-api-keys"> .env Files and API keys</h3>
+<p>Since I can't just share my API keys for anybody to use, the application makes use of a <code>.env</code> file to store these. This allows these secret values to be stored in a file that is not publicly exposed.</p>
+
+<p>However, this means you will have to get your own API keys for the services that require them. Currently this is just similarweb and stackshare.  <br/>
+For getting a free similarweb API key (5000 requests per month), <a href="https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352">see here</a>  <br/>
+For getting a free stackshare API key (100 requests per month), <a href="https://www.stackshare.io/api">see here</a></p>
+
+<p>Once you've got the API keys you want, you can then create a <code>.env</code> file, using the provided <code>.env.template</code> file as a teplate. The result should look something like:
+<pre><code>SIMILARWEB_KEY=abc1234
+STACKSHARE_KEY=abcd </code></pre></p>
 
 <h2 id="electron-app"> Electron App</h2>
 <p><img src="ElectronUI2.png" alt="Electron app UI" loading="lazy" /> <a href="https://github.com/James-McK/CSC1028ElectronApp">GitHub</a></p>

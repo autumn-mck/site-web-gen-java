@@ -33,7 +33,7 @@
     <main>
 <h1 id="title">How to deal with Project Sonar's data</h1>
 <em>From the beginning</em><br/>
-<small>Published on Tue 01 Feb 2022, updated on Fri 04 Mar 2022. 3451 words.</small><br/>
+<small>Published on Tue 01 Feb 2022, updated on Fri 04 Mar 2022. 3449 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h2 id="what-is-project-sonar?"> What is Project Sonar?</h2>
@@ -110,7 +110,7 @@ main().catch(console.error); </code></pre></p>
 
 <p><pre><code>async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log(&#34;Databases:&#34;);
     dbList.databases.forEach(db =&#62; console.log(` - ${db.name}`));
 }; </code></pre></p>
@@ -136,7 +136,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -165,7 +165,7 @@ main().catch(console.error); </code></pre></p>
 
 <p>I'd probably reccommend using the local copy, as it does not depend on your internet connection's reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.</p>
 
-<p>Project Sonar's data can be found at <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in <code>-fdns_a.json.gz</code>. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! </p>
+<p>Project Sonar's data can be found at <a href="https://opendata.rapid7.com/sonar.fdns_v2/">https://opendata.rapid7.com/sonar.fdns_v2/</a>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in <code>-fdns_a.json.gz</code>. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!</p>
 
 <h2 id="parsing-a-local-copy-of-project-sonar"> Parsing a local copy of Project Sonar</h2>
 <p>Let's add a new function, <code>readFromFile</code>.</p>
@@ -301,7 +301,7 @@ Returning back to our <code>parseSonar</code> function - items can be inserted i
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, &#34;sonardata&#34;);
@@ -333,7 +333,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors

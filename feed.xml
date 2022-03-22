@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <link href="https://mck.is/feed.xml" rel="self" type="application/atom+xml"/>
 <link href="https://mck.is/" rel="alternate" type="text/html" hreflang="en"/>
-<updated>2022-03-04T00:00:00Z</updated>
+<updated>2022-03-22T00:00:00Z</updated>
 <id>https://mck.is/feed.xml</id>
 <title type="html">James McKee’s Blog</title>
 <subtitle>
@@ -15,11 +15,15 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 <title type="html">Blog post for CSC1028</title>
 <link href="https://mck.is/CSC1028/index.html" rel="alternate" type="text/html" title="Blog post for CSC1028"/>
 <published>2022-03-04T00:00:00Z</published>
-<updated>2022-03-04T00:00:00Z</updated>
+<updated>2022-03-22T00:00:00Z</updated>
 <id>https://mck.is/CSC1028/index.html</id>
 <content type="html" xml:base="https://mck.is/CSC1028/index.html">
+&#60;ul&#62;
+	&#60;li&#62;--&#60;/li&#62;
+&#60;/ul&#62;
+
 &#60;h1 id=&#34;url-understanding-tool&#34;&#62; URL Understanding Tool&#60;/h1&#62;
-&#60;p&#62;This project was created over the course of 7 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.&#60;/p&#62;
+&#60;p&#62;This project was created over the course of 10 weeks for my CSC1028 module, and although it is not a fully complete project, it provides a great framework for future work.&#60;/p&#62;
 
 &#60;h3 id=&#34;aims-of-the-project&#34;&#62; Aims of the project&#60;/h3&#62;
 &#60;p&#62;This project aims to be a tool for cybersecurity or power users to provide as much relevant metadata on a given URL as possible. Although there are only currently a few sources of data, the application is set up to be as easy as possible to add sources to.&#60;/p&#62;
@@ -28,7 +32,7 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 
 &#60;h2 id=&#34;http-apis&#34;&#62; HTTP APIs&#60;/h2&#62;
 &#60;p&#62;&#60;a href=&#34;https://github.com/James-McK/CSC1028APIs&#34;&#62;GitHub&#60;/a&#62;  &#60;br/&#62;
-The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs.  The current data sources are:&#60;ul&#62;
+The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:&#60;ul&#62;
  	&#60;li&#62;A local MongoDB database containing data from Project Sonar&#60;/li&#62;
  	&#60;li&#62;A local MongoDB database containing data on phishing/malware URLs from &#60;a href=&#34;https://phishtank.org/&#34;&#62;Phishtank&#60;/a&#62;, &#60;a href=&#34;https://openphish.com/&#34;&#62;OpenPhish&#60;/a&#62;, &#60;a href=&#34;https://urlhaus.abuse.ch/&#34;&#62;URLHaus&#60;/a&#62; and &#60;a href=&#34;https://malwarediscoverer.com/&#34;&#62;MalwareDiscoverer&#60;/a&#62;.&#60;/li&#62;
  	&#60;li&#62;Earliest page/hostname archive date, from &#60;a href=&#34;https://archive.org&#34;&#62;https://archive.org&#60;/a&#62;.&#60;/li&#62;
@@ -50,9 +54,56 @@ The main component of this project is a set of HTTP APIs that can be queried for
 &#60;h3 id=&#34;creating-the-http-apis&#34;&#62; Creating the HTTP APIs&#60;/h3&#62;
 &#60;p&#62;To create and manage the HTTP APIs, there is a single program (&#60;code&#62;createAllAPI.js&#60;/code&#62;) that opens up all the APIs when run (Ports 10130 to 10135 by default). This program does almost nothing itself, and imports functionality from other modules to create the APIs (Notably &#60;code&#62;createHTTPServer.js&#60;/code&#62;, which will take any function and open up an API for it on the given port.). This approach allows new APIs to be added with ease, and allows you to manage which modules are started.&#60;/p&#62;
 
-&#60;h3 id=&#34;running/developing-the-application&#34;&#62; Running/developing the application&#60;/h3&#62;
+&#60;h3 id=&#34;running-the-application&#34;&#62; Running the application&#60;/h3&#62;
 &#60;p&#62;For developing any of this project, you&#39;ll need a few things set up and installed. I&#39;d recommend following the setup process I used in &#60;a href=&#34;https://mck.is/project-sonar/#setup&#34;&#62;my how-to guide&#60;/a&#62;. You&#39;ll also want to install the dependancies listed in &#60;code&#62;package.json&#60;/code&#62; with &#60;code&#62;npm install &#38;#60;package_name&#38;#62;&#60;/code&#62;. To actually get the data, you&#39;ll first want to run &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; and &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; (Assuming you&#39;ve downloaded Project Sonar&#39;s data in a similar way as I did in my &#60;a href=&#34;https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar&#34;&#62;how-to guide&#60;/a&#62;).  &#60;br/&#62;
 You can then run &#60;code&#62;node ./create/createAllAPI.js&#60;/code&#62; to start the APIs.&#60;/p&#62;
+
+&#60;h3 id=&#34;testing-plan&#34;&#62; Testing plan&#60;/h3&#62;
+&#60;p&#62;The easiest way to ensure the node.js APIs are working is to start the application by running &#60;code&#62;npm start&#60;/code&#62; and querying them in your browser. For example, to query the archive date API, which is hosted on port 10133, you&#39;d visit &#60;code&#62;http://localhost:10133/example.com&#60;/code&#62; .  &#60;br/&#62;
+&#60;img src=&#34;DebuggingAPI.png&#34; alt=&#34;Example output from the API&#34; loading=&#34;lazy&#34; /&#62;&#60;/p&#62;
+
+&#60;p&#62;I&#39;ve found that the best way to debug it is to make thorough use of &#60;code&#62;console.log(...);&#60;/code&#62; to make sure I know the state of variables over time, which is extremely useful in helping to detect any issues.&#60;/p&#62;
+
+&#60;h3 id=&#34;further-development&#34;&#62; Further development&#60;/h3&#62;
+&#60;p&#62;I&#39;ve tried to make adding additional functionality to the API as easy as possible. All APIs are set up in the &#60;code&#62;createAllAPI.js&#60;/code&#62; file, which itself contains very little code, and as a whole, the application is developed very modularly. As an example, we&#39;ll cover how querying similarweb works, as it has more requirements to get working than other functions. (You can view all the code for this &#60;a href=&#34;https://github.com/James-McK/CSC1028APIs/blob/master/query/querySimilarweb.js&#34;&#62;here&#60;/a&#62;)&#60;/p&#62;
+
+&#60;p&#62;All query functions are stored in the &#60;code&#62;create&#60;/code&#62; folder, and our function for querying similarweb is stored in &#60;code&#62;querySimilarweb.js&#60;/code&#62;. At the top of the file, we begin by importing any other modules or functions we&#39;ll need.&#60;/p&#62;
+
+
+&#60;p&#62;&#60;pre&#62;&#60;code&#62;import &#38;#34;dotenv/config&#38;#34;;
+import getRemoteJSON from &#38;#34;./queryRemoteJSON.js&#38;#34;;
+import parseHostname from &#38;#34;../parse/parseHostname.js&#38;#34;;
+import createCli from &#38;#34;../create/createCli.js&#38;#34;; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
+
+&#60;p&#62;First of all, we&#39;re importing the &#60;code&#62;dotenv&#60;/code&#62; module, as querying similarweb requires an API key, which we&#39;ll store in a &#60;code&#62;.env&#60;/code&#62; file (More on that later). We&#39;re also using a couple of other functions that are defined in other files - &#60;code&#62;queryRemoteJSON.js&#60;/code&#62; fetches JSON from a URL and &#60;code&#62;parseHostname.js&#60;/code&#62; parses the string containing the URL into a URL object. &#60;code&#62;createCli.js&#60;/code&#62; is used for allowing the function to be used via the command line (i.e. &#60;code&#62;node ./query/querySimilarweb.js example.com&#60;/code&#62;), but this part of the application is just an optional extra that some of the functions provide, and isn&#39;t worth worrying much about.&#60;/p&#62;
+
+&#60;p&#62;Next up, we want to create the function that will actually be used to make the query. Since we&#39;re planning to use this function later on in a different file, we&#39;ll also need to export the function using &#60;code&#62;export default&#60;/code&#62;. The function will also need to take in the URL that is being queried. We can then parse this into a URL object, which will allow us to select just the hostname, by using the &#60;code&#62;parseHostname&#60;/code&#62; function we imported earlier. Then we build the string for the API that we&#39;re querying, and we can use the &#60;code&#62;getRemoteJSON&#60;/code&#62; function we imported earlier to query the API, and we can return the result.
+&#60;pre&#62;&#60;code&#62;let parsed = parseHostname(url);
+// Construct the URL to query
+const fetchUrl = `https://api.similarweb.com/v1/similar-rank/${parsed.hostname}/rank?api_key=${process.env.SIMILARWEB_KEY}`;
+
+// Get the result of the query
+let res = await Promise.resolve(getRemoteJSON(fetchUrl));
+
+// If an error occurred, return -1, otherwise return the rank
+if (res.meta.status === &#38;#34;Error&#38;#34;) return -1;
+else return res.similar_rank.rank; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
+
+&#60;p&#62;Now, you might have noticed that nowhere in there are we creating our own queryable HTTP API or anything. So how does that happen?  &#60;br/&#62;
+This is where the advantage of the application&#39;s modularity comes in. To see this in action, we can go back to the &#60;code&#62;createAllAPI.js&#60;/code&#62; file.&#60;/p&#62;
+
+&#60;p&#62;Again, at the top of the file, we&#39;re importing all the functions we need from other files (notably &#60;code&#62;import createHttpServer from &#38;#34;./createHttpServer.js&#38;#34;;&#60;/code&#62; and &#60;code&#62;import fetchSimilarwebRank from &#38;#34;../query/querySimilarweb.js&#38;#34;;&#60;/code&#62;). Then, in our main function, we can call the &#60;code&#62;createHttpServer&#60;/code&#62; function we&#39;ve just imported, and we pass it the port we want it to use, and the function we want to use. In this case we&#39;re using port 10131 (Picked because it is not used by any major applications, see &#60;a href=&#34;https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers&#34;&#62;https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers&#60;/a&#62;) and the &#60;code&#62;fetchSimilarwebRank&#60;/code&#62; function. This &#60;code&#62;createHttpServer.js&#60;/code&#62; allows us to add additional functionality on different ports with minimal effort, as it handles all of the networking side of the API, without this having to be re-architected for each additional function provided. You shouldn&#39;t even need to understand exactly what the &#60;code&#62;createHttpServer&#60;/code&#62; function does to be able to use it, but if you do, the code is well commented.&#60;/p&#62;
+
+&#60;h3 id=&#34;.env-files-and-api-keys&#34;&#62; .env Files and API keys&#60;/h3&#62;
+&#60;p&#62;Since I can&#39;t just share my API keys for anybody to use, the application makes use of a &#60;code&#62;.env&#60;/code&#62; file to store these. This allows these secret values to be stored in a file that is not publicly exposed.&#60;/p&#62;
+
+&#60;p&#62;However, this means you will have to get your own API keys for the services that require them. Currently this is just similarweb and stackshare.  &#60;br/&#62;
+For getting a free similarweb API key (5000 requests per month), &#60;a href=&#34;https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352&#34;&#62;see here&#60;/a&#62;  &#60;br/&#62;
+For getting a free stackshare API key (100 requests per month), &#60;a href=&#34;https://www.stackshare.io/api&#34;&#62;see here&#60;/a&#62;&#60;/p&#62;
+
+&#60;p&#62;Once you&#39;ve got the API keys you want, you can then create a &#60;code&#62;.env&#60;/code&#62; file, using the provided &#60;code&#62;.env.template&#60;/code&#62; file as a teplate. The result should look something like:
+&#60;pre&#62;&#60;code&#62;SIMILARWEB_KEY=abc1234
+STACKSHARE_KEY=abcd &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;h2 id=&#34;electron-app&#34;&#62; Electron App&#60;/h2&#62;
 &#60;p&#62;&#60;img src=&#34;ElectronUI2.png&#34; alt=&#34;Electron app UI&#34; loading=&#34;lazy&#34; /&#62; &#60;a href=&#34;https://github.com/James-McK/CSC1028ElectronApp&#34;&#62;GitHub&#60;/a&#62;&#60;/p&#62;
@@ -188,7 +239,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;&#60;pre&#62;&#60;code&#62;async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log(&#38;#34;Databases:&#38;#34;);
     dbList.databases.forEach(db =&#38;#62; console.log(` - ${db.name}`));
 }; &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
@@ -214,7 +265,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -243,7 +294,7 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;
 
 &#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.&#60;/p&#62;
 
-&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  In this guide, I&#39;m going to be parsing the DNS A Records, so, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! &#60;/p&#62;
+&#60;p&#62;Project Sonar&#39;s data can be found at &#60;a href=&#34;https://opendata.rapid7.com/sonar.fdns_v2/&#34;&#62;https://opendata.rapid7.com/sonar.fdns_v2/&#60;/a&#62;.  In this guide, I&#39;m going to be parsing the DNS A Records, so, we need the file ending in &#60;code&#62;-fdns_a.json.gz&#60;/code&#62;. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!&#60;/p&#62;
 
 &#60;h2 id=&#34;parsing-a-local-copy-of-project-sonar&#34;&#62; Parsing a local copy of Project Sonar&#60;/h2&#62;
 &#60;p&#62;Let&#39;s add a new function, &#60;code&#62;readFromFile&#60;/code&#62;.&#60;/p&#62;
@@ -379,7 +430,7 @@ Returning back to our &#60;code&#62;parseSonar&#60;/code&#62; function - items c
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, &#38;#34;sonardata&#38;#34;);
@@ -411,7 +462,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors

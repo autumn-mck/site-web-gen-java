@@ -84,7 +84,7 @@ Next up we'll connect to MongoDB. Since we're using a local database, the connec
 ```
 async function listDatabases(client) {
     let dbList = await client.db().admin().listDatabases();
- 
+
     console.log("Databases:");
     dbList.databases.forEach(db => console.log(` - ${db.name}`));
 };
@@ -113,7 +113,7 @@ async function main() {
 	try {
 		// Connect to MongoDB
 		await client.connect();
-		
+
 		// List databases
 		await listDatabases(client);
 	} catch (e) {
@@ -141,7 +141,7 @@ Both options are shown in this tutorial (See [Parsing a local copy of Project So
 
 I'd probably reccommend using the local copy, as it does not depend on your internet connection's reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.
 
-Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb! 
+Project Sonar's data can be found at <https://opendata.rapid7.com/sonar.fdns_v2/>.  In this guide, I'm going to be parsing the DNS A Records, so, we need the file ending in `-fdns_a.json.gz`. Do note that the file is large (17gb) and be careful not to unzip it - uncompressed, it is over 200gb!
 
 ## Parsing a local copy of Project Sonar
 Let's add a new function, `readFromFile`.
@@ -294,7 +294,7 @@ async function parseSonar(client, readstream) {
 				type: lineJson.type,
 				value: lineJson.value,
 			});
-			
+
 			if (count % 100000 === 0) {
 				console.log(`${count} lines parsed`);
 				createManyListings(client, arr, "sonardata");
@@ -331,7 +331,7 @@ async function main() {
 	try {
 		// Connect to the MongoDB cluster
 		await client.connect();
-		
+
 		// Run query here
 	} catch (e) {
 		// Log any errors
