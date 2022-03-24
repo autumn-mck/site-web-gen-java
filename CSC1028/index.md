@@ -1,7 +1,7 @@
 Blog post for CSC1028
 A summary of the project
 04/03/2022
-22/03/2022
+24/03/2022
 nodejs, project sonar, programming
 -----
 # URL Understanding Tool
@@ -95,7 +95,7 @@ STACKSHARE_KEY=abcd
 
 
 ## Electron App
-![Electron app UI](ElectronUI2.png)
+![Electron app UI](ElectronUI2.png)  
 [GitHub](https://github.com/James-McK/CSC1028ElectronApp)
 
 The electron app provides a user-friendly interface allowing the user to make queries regarding any URL, and displays the data to the user in a better format than the entirely raw JSON, however further steps should be taken as the current presentation is still not easily readable.
@@ -106,8 +106,14 @@ Since it is built with electron, the page is little more than a HTML page with s
 Assuming you've followed the steps above for running/developing the central node.js app (Which you should have done, as this electron app isn't too useful without it), not much more is required to run the electron app. After opening the folder, you'll need to run `npm install --save-dev electron` to install everything required for electron. You can then run `npm start` to start the app.  
 You might also want to look at <https://www.electronjs.org/docs/latest/tutorial/quick-start/> for an introduction to Electron.
 
+### Further development
+The electron app itself is thankfully not too complex.  
+First, there's the `main.js` file, which is a node.js application that is used to launch the electron browser window itself, which is `index.html`. This just works like a standard web page - the HTML is stored in `index.html`, the CSS in `index.css` (The CSS probably doesn't need to much editing - It's designed to work well with just plain HTML), and the javascript is in `renderer.js`.
+
+The javascript doesn't have to do too much in this case - it only needs to query the Node.js APIs created earlier, and display the results to the user. If you're looking for something to improve in the electron application, I'd suggest this - currently, only the raw data returned is displayed to the user.
+
 ## Browser Addon
-![Basic Addon UI](BasicAddon.png)
+![Basic Addon UI](BasicAddon.png)  
 [GitHub](https://github.com/James-McK/CSC1028FFAddon)
 
 The browser addon is extremely similar to the electron app, providing a user-friendly front end to the data, built with HTML and javascript. As it is integrated into the browser, it can automatically fetch and cache data as the user navigates the web.  
@@ -118,9 +124,16 @@ The addon's UI is also currently lacking as I chose to shift focus away from it,
 ### Installing the addon
 (Currently Firefox-only)  
 Installing the addon is thankfully easy. Navigate to `about:debugging` and click on the "This Firefox" tab. Click on "Load Temporary Add-on..." and navigate to the folder containing the addon files. Click on any of the files (e.g. `manifest.json`) and load it. The addon is now loaded! Whenever you update your code and save it, you just need to click the "Reload" button that appears.  
-I'd also reccommend looking at [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions) for excellent documentation of the WebExtension APIs.
+I'd also recommend looking at [MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions) for excellent documentation of the WebExtension APIs.
 
 ![Loading the addon](LoadingAddon.png)
+
+### Further development
+The browser addon is similar in concept to the electron application, except with the front-end for displaying data being decoupled from the backend for requesting data.
+
+The backend is stored in `backround.js`, which as the name suggests, runs in the background. It uses event listeners to tell when the user changes to a different tab/web page, and if the data for that page has not been requested, request it and cache it by storing it in the addon storage.
+
+The front-end is in `popup/urlInfo.html` (This, and the background script file, are determined in `manifest.json`.), which provides a UI similar to the electron app whenever the user clicks on the toolbar button, which queries the cache and displays the data for the user's current tab.
 
 
 ## Improvements and vision
@@ -132,5 +145,6 @@ There are many possible new data sources that could be integrated into the proje
  - Further integration with archives, e.g. thumbnails of pages from the [Wayback Machine](https://web.archive.org/) - If a webpage has only existed for a few days its chance of being malware or a phishing attack are higher
  - Data from [Common Crawl](https://commoncrawl.org/) to find sites that point to a given page (They were having [issues with 503 errors](https://groups.google.com/g/common-crawl/c/kEHzXZNu5To) when I last looked into integrating this, although it appears to have been fixed since.)
  - Possibly other sources of data like Mozilla Observatory or Google Lighthouse.
+ - Add an extension page to the browser addon providing functionality similar to the electron app, allowing the user to query any URL
  - General improvements to the user experience.
  And many other possible sources of interesting metadata!
