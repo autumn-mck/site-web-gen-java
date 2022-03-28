@@ -53,7 +53,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
 
 &#60;h3 id=&#34;running-the-application&#34;&#62; Running the application&#60;/h3&#62;
 &#60;p&#62;For developing any of this project, you&#39;ll need a few things set up and installed. I&#39;d recommend following the setup process I used in &#60;a href=&#34;https://mck.is/project-sonar/#setup&#34;&#62;my how-to guide&#60;/a&#62;. You&#39;ll also want to install the dependencies listed in &#60;code&#62;package.json&#60;/code&#62; with &#60;code&#62;npm install &#38;#60;package_name&#38;#62;&#60;/code&#62;. To actually get the data, you&#39;ll first want to run &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; and &#60;code&#62;./fetch/fetchMalwarePhishingData.js&#60;/code&#62; (Assuming you&#39;ve downloaded Project Sonar&#39;s data in a similar way as I did in my &#60;a href=&#34;https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar&#34;&#62;how-to guide&#60;/a&#62;).  &#60;br/&#62;
-You can then run &#60;code&#62;node ./create/createAllAPI.js&#60;/code&#62; to start the APIs.&#60;/p&#62;
+You can then run &#60;code&#62;npm start&#60;/code&#62; to start the APIs (This command then calls &#60;code&#62;node ./create/createAllAPI.js&#60;/code&#62;, as specified in &#60;code&#62;package.json&#60;/code&#62;).&#60;/p&#62;
 
 &#60;h3 id=&#34;testing-plan&#34;&#62; Testing plan&#60;/h3&#62;
 &#60;p&#62;The easiest way to ensure the node.js APIs are working is to start the application by running &#60;code&#62;npm start&#60;/code&#62; and querying them in your browser. For example, to query the archive date API, which is hosted on port 10133, you&#39;d visit &#60;code&#62;http://localhost:10133/example.com&#60;/code&#62; .  &#60;br/&#62;

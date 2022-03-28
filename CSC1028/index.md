@@ -40,7 +40,7 @@ To create and manage the HTTP APIs, there is a single program (`createAllAPI.js`
 ### Running the application
 For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in [my how-to guide](https://mck.is/project-sonar/#setup). You'll also want to install the dependencies listed in `package.json` with `npm install <package_name>`.
 To actually get the data, you'll first want to run `./fetch/fetchMalwarePhishingData.js` and `./fetch/fetchMalwarePhishingData.js` (Assuming you've downloaded Project Sonar's data in a similar way as I did in my [how-to guide](https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar)).  
-You can then run `node ./create/createAllAPI.js` to start the APIs.
+You can then run `npm start` to start the APIs (This command then calls `node ./create/createAllAPI.js`, as specified in `package.json`).
 
 ### Testing plan
 The easiest way to ensure the node.js APIs are working is to start the application by running `npm start` and querying them in your browser. For example, to query the archive date API, which is hosted on port 10133, you'd visit `http://localhost:10133/example.com` .  

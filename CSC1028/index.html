@@ -33,7 +33,7 @@
     <main>
 <h1 id="title">Blog post for CSC1028</h1>
 <em>A summary of the project</em><br/>
-<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2236 words.</small><br/>
+<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2246 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h1 id="url-understanding-tool"> URL Understanding Tool</h1>
@@ -71,7 +71,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
 
 <h3 id="running-the-application"> Running the application</h3>
 <p>For developing any of this project, you'll need a few things set up and installed. I'd recommend following the setup process I used in <a href="https://mck.is/project-sonar/#setup">my how-to guide</a>. You'll also want to install the dependencies listed in <code>package.json</code> with <code>npm install &#60;package_name&#62;</code>. To actually get the data, you'll first want to run <code>./fetch/fetchMalwarePhishingData.js</code> and <code>./fetch/fetchMalwarePhishingData.js</code> (Assuming you've downloaded Project Sonar's data in a similar way as I did in my <a href="https://mck.is/project-sonar/#parsing-a-local-copy-of-project-sonar">how-to guide</a>).  <br/>
-You can then run <code>node ./create/createAllAPI.js</code> to start the APIs.</p>
+You can then run <code>npm start</code> to start the APIs (This command then calls <code>node ./create/createAllAPI.js</code>, as specified in <code>package.json</code>).</p>
 
 <h3 id="testing-plan"> Testing plan</h3>
 <p>The easiest way to ensure the node.js APIs are working is to start the application by running <code>npm start</code> and querying them in your browser. For example, to query the archive date API, which is hosted on port 10133, you'd visit <code>http://localhost:10133/example.com</code> .  <br/>
