@@ -7,7 +7,8 @@ nodejs, project sonar, programming
 ## What is Project Sonar?
 [Project Sonar](https://opendata.rapid7.com/) is a data collection project containing information from scans across the internet: DNS records, SSL Certificates, and also scans of many commonly used ports with TCP/UDP.
 
-Update: 6 days after this guide was originally posted, [Rapid7 switched to requiring you to apply](https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/) to access Project Sonar's data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permeant or temporary change.
+Update: 6 days after this guide was originally posted, [Rapid7 switched to requiring you to apply](https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/) to access Project Sonar's data. Except now, a few weeks later (01/03/2022), it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permanent or temporary change.  
+Update on 28/03/22: This appears to be a permanent change. See <https://opendata.rapid7.com/about/> to apply for access.
 
 ### Why should you use it?
 Project Sonar's forward DNS data can be used as a reverse DNS lookup (Finding a list of domains that point to a given IP address) more reliably than the standard method ([PTR Records](https://www.cloudflare.com/learning/dns/dns-records/dns-ptr-record/)).
