@@ -29,6 +29,7 @@ For more information on dealing with Project Sonar's data, see [my how-to guide]
 
 Note on Project Sonar's data:
 6 days after I wrote my how-to guide, [Rapid7 switched to requiring you to apply](https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/) to access Project Sonar's data. Except now, a few weeks later, it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permanent or temporary change.
+Update on 28/03/22: This appears to be a permanent change. See <https://opendata.rapid7.com/about/> to apply for access.
 
 ### Retrieving data
 To retrieve the data used for the above HTTP APIs, some of the modules send a request to an external API, while some query a local MongoDB database. To fetch the data used to fill up the MongoDB database, there exists two programs: One for parsing and inserting Project Sonar's data, and one for fetching, parsing and inserting malware/phishing data.

@@ -33,7 +33,7 @@
     <main>
 <h1 id="title">Blog post for CSC1028</h1>
 <em>A summary of the project</em><br/>
-<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2219 words.</small><br/>
+<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2236 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h1 id="url-understanding-tool"> URL Understanding Tool</h1>
@@ -61,7 +61,7 @@ The main component of this project is a set of HTTP APIs that can be queried for
 
 <p>For more information on dealing with Project Sonar's data, see <a href="https://mck.is/project-sonar/">my how-to guide</a>, but in summary, the data is stored in a local MongoDB database which, when full, can fill up to 60gb. We then use <a href="https://docs.mongodb.com/manual/core/index-text/">text indexes</a> to allow <em>extremely</em> performant queries to be made.</p>
 
-<p>Note on Project Sonar's data: 6 days after I wrote my how-to guide, <a href="https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/">Rapid7 switched to requiring you to apply</a> to access Project Sonar's data. Except now, a few weeks later, it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permanent or temporary change.</p>
+<p>Note on Project Sonar's data: 6 days after I wrote my how-to guide, <a href="https://www.rapid7.com/blog/post/2022/02/10/evolving-how-we-share-rapid7-research-data-2/">Rapid7 switched to requiring you to apply</a> to access Project Sonar's data. Except now, a few weeks later, it no longer requires an account again, and this time I cannot find any blog post etc. mentioning this change back, so I do not know if this is a permanent or temporary change. Update on 28/03/22: This appears to be a permanent change. See <a href="https://opendata.rapid7.com/about/">https://opendata.rapid7.com/about/</a> to apply for access.</p>
 
 <h3 id="retrieving-data"> Retrieving data</h3>
 <p>To retrieve the data used for the above HTTP APIs, some of the modules send a request to an external API, while some query a local MongoDB database. To fetch the data used to fill up the MongoDB database, there exists two programs: One for parsing and inserting Project Sonar's data, and one for fetching, parsing and inserting malware/phishing data.</p>
