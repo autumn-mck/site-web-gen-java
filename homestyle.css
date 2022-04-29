@@ -1,26 +1,26 @@
 /* Dark theme */
 :root {
-	--bg: #14161B;
-	--accent-bg: #20232C;
-	--text: #E8E6E3;
-	--text-light: #FFFDF9;
-	--border: #A0988B;
-	--accent: #58A8E1;
-	--accent-light: #58A8E1;
-	--code: #F06292;
-	--preformatted: #CCCCCC;
+	--bg: #14161b;
+	--accent-bg: #20232c;
+	--text: #e8e6e3;
+	--text-light: #fffdf9;
+	--border: #a0988b;
+	--accent: #58a8e1;
+	--accent-light: #58a8e1;
+	--code: #f06292;
+	--preformatted: #cccccc;
 	--disabled: #111111;
 }
 
 html {
-	background: #0E0300;
+	background: #0e0300;
 	background-size: cover;
-	font-family: -apple-system,BlinkMacSystemFont,"Avenir Next",Avenir,"Nimbus Sans L",Roboto,Noto,"Segoe UI",Arial,Helvetica,"Helvetica Neue",sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, Noto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
 }
 
 .grid-2 {
 	display: grid;
-	grid-template-columns: repeat(2,1fr);
+	grid-template-columns: repeat(2, 1fr);
 }
 
 body {
@@ -54,7 +54,8 @@ p {
 	text-align: center;
 }
 
-.icon, .icon:visited {
+.icon,
+.icon:visited {
 	text-decoration: none;
 	font-size: 1.7rem;
 	padding: 5px;
@@ -88,7 +89,7 @@ img {
 
 	animation: fadeInAnimation ease 0.25s;
 	animation-iteration-count: 1;
-	animation-fill-mode:forwards;
+	animation-fill-mode: forwards;
 }
 
 @keyframes fadeInAnimation {
@@ -105,12 +106,12 @@ img {
 }
 
 /* Rearranging for mobile */
-@media(max-width:780px) {
+@media (max-width: 780px) {
 	.grid-2 {
 		grid-template-columns: 1fr;
 	}
 	.section-1 {
-		padding:0;
+		padding: 0;
 		padding-top: 5rem;
 	}
 	.section-2 {

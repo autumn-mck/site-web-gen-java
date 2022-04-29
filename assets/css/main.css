@@ -1,0 +1,284 @@
+/* Dark theme */
+:root {
+	--bg: #1e1e2e; /* Black 2 */
+	--bg-accent: #161320; /* Black 0 */
+	--text: #d9e0ee; /* White */
+	--accent: #ddb6f2; /* Mauve */
+	--accent-2: #96cdfb; /* Blue */
+}
+
+html {
+	color: var(--text);
+	background: var(--bg);
+	font-family: sans-serif;
+	background-size: cover;
+}
+
+body {
+	margin: 0;
+}
+
+h2 {
+	margin-top: 0;
+	font-size: 2rem;
+	margin-bottom: 0.6rem;
+}
+
+p {
+	margin: 0;
+	font-size: 1.3rem;
+	line-height: 1.4;
+}
+
+a,
+a:visited {
+	color: var(--text);
+	text-decoration: underline var(--accent-2);
+}
+
+a:hover,
+a:focus {
+	text-decoration: none;
+	color: var(--accent);
+}
+
+#not-footer {
+	min-height: 100vh;
+}
+
+#fetch a,
+#fetch a:visited {
+	color: var(--accent-2);
+	text-decoration: none;
+}
+
+#fetch a:hover,
+#fetch a:focus {
+	text-decoration: underline;
+	color: var(--accent);
+}
+
+main {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	height: 100%;
+	margin-top: 7rem;
+}
+
+footer p {
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+#page-bg {
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: url(../imgs/background.webp) no-repeat center center fixed;
+	background-size: cover;
+	z-index: -1;
+
+	animation: fadeInAnimation ease 0.25s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+img {
+	animation: fadeInAnimation ease 0.25s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+#left-col {
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#fetch {
+	background: var(--bg);
+	padding: 1rem;
+	border: 2px solid var(--bg-accent);
+	border-radius: 0.5rem;
+	font-size: 1.1rem;
+}
+
+.terminal {
+	margin: 0;
+}
+
+#fetch-row {
+	display: flex;
+	flex-direction: row;
+	margin: 1rem;
+	margin-left: 0;
+}
+
+#img-me {
+	width: 10rem;
+	height: 10rem;
+	margin-right: 1rem;
+	margin-left: 0;
+	border-radius: 0.4rem;
+}
+
+#caret {
+	animation: caretToggle 1.5s infinite;
+	opacity: 1;
+}
+
+#right-col {
+	margin: auto;
+	display: flex;
+	align-items: center;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#right-content {
+	width: 75%;
+}
+
+footer {
+	margin: 1rem 0 0.4rem 0;
+	text-align: center;
+}
+
+/* Format navigation */
+header {
+	display: flex;
+}
+
+nav {
+	font-size: 1rem;
+	line-height: 2;
+	padding: 1rem 0 0 0;
+	background: var(--bg);
+	display: inline-block;
+	border: 1px solid var(--accent);
+	margin: auto;
+	margin-top: -0.8rem;
+	border-radius: 0.4rem;
+	text-align: center;
+}
+
+nav a,
+nav a:visited {
+	margin: 0 0.5rem 0.6rem 0.5rem;
+	color: var(--text);
+	display: inline-block;
+	padding: 0.1rem 1rem;
+	text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus,
+nav a#nav-current {
+	color: var(--accent) !important;
+	text-decoration: underline;
+}
+
+/* Reduce nav size on mobile */
+@media only screen and (max-width: 580px) {
+	body > header p {
+		margin: 0rem auto;
+	}
+
+	nav a {
+		padding: 0.05rem 0.2rem;
+	}
+}
+
+@media only screen and (max-width: 1400px) {
+	#fetch {
+		font-size: 1rem;
+	}
+
+	#img-me {
+		width: 9rem;
+		height: 9rem;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	#right-content {
+		margin: auto;
+		width: 85%;
+	}
+}
+
+@media only screen and (max-width: 950px) {
+	main {
+		grid-template-columns: 1fr;
+		margin-top: 0;
+	}
+
+	#right-content {
+		width: 90%;
+	}
+
+	#fetch {
+		font-size: 0.9rem;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	#img-me {
+		width: 8rem;
+		height: 8rem;
+	}
+
+	#right-content {
+		margin-bottom: 1rem;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	#fetch {
+		font-size: 0.7rem;
+	}
+
+	#img-me {
+		width: 6rem;
+		height: 6rem;
+	}
+}
+
+@media only screen and (max-width: 390px) {
+	#fetch-row {
+		flex-direction: column;
+	}
+}
+
+@keyframes fadeInAnimation {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes caretToggle {
+	0% {
+		opacity: 1;
+	}
+	49% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
