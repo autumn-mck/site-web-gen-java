@@ -34,14 +34,14 @@ a,
 a:visited {
 	color: var(--text);
 	text-decoration: underline var(--accent-2);
-	transition: 80ms linear;
+	transition: 60ms linear;
 }
 
 a:hover,
 a:focus {
 	text-decoration: underline var(--accent);
 	color: var(--accent);
-	transition: 80ms linear;
+	transition: 60ms linear;
 }
 
 #not-footer {
