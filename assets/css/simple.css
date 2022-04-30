@@ -20,14 +20,14 @@
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bg: #14161b;
-		--accent-bg: #20232c;
-		--text: #e8e6e3;
-		--text-light: #fffdf9;
-		--border: #a0988b;
-		--accent: #58a8e1;
-		--code: #de4177;
-		--preformatted: #cccccc;
+		--bg: #1e1e2e;
+		--accent-bg: #302d41;
+		--text: #d9e0ee;
+		--text-light: #d9e0ee;
+		--border: #ddb6f2;
+		--accent: #96cdfb;
+		--code: #f28fad;
+		--preformatted: #c9cbff;
 	}
 	/* Add a bit of transparancy so light media isn't so glaring in dark mode */
 	img,
