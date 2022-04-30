@@ -28,7 +28,9 @@ My personal blog, where I ramble about whatever I'm currently interested in.
 
 &#60;h2 id=&#34;http-apis&#34;&#62; HTTP APIs&#60;/h2&#62;
 &#60;p&#62;&#60;a href=&#34;https://github.com/James-McK/CSC1028APIs&#34;&#62;GitHub&#60;/a&#62;  &#60;br/&#62;
-The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:&#60;ul&#62;
+The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:&#60;/p&#62;
+
+&#60;ul&#62;
  	&#60;li&#62;A local MongoDB database containing data from Project Sonar&#60;/li&#62;
  	&#60;li&#62;A local MongoDB database containing data on phishing/malware URLs from &#60;a href=&#34;https://phishtank.org/&#34;&#62;Phishtank&#60;/a&#62;, &#60;a href=&#34;https://openphish.com/&#34;&#62;OpenPhish&#60;/a&#62;, &#60;a href=&#34;https://urlhaus.abuse.ch/&#34;&#62;URLHaus&#60;/a&#62; and &#60;a href=&#34;https://malwarediscoverer.com/&#34;&#62;MalwareDiscoverer&#60;/a&#62;.&#60;/li&#62;
  	&#60;li&#62;Earliest page/hostname archive date, from &#60;a href=&#34;https://archive.org&#34;&#62;https://archive.org&#60;/a&#62;.&#60;/li&#62;
@@ -36,8 +38,6 @@ The main component of this project is a set of HTTP APIs that can be queried for
  	&#60;li&#62;IP Geolocation data (Currently from &#60;a href=&#34;https://ip-api.com/&#34;&#62;https://ip-api.com/&#60;/a&#62;, could probably be improved - this section did not have much thought put into it, and was mostly done as a proof of concept)&#60;/li&#62;
  	&#60;li&#62;&#60;a href=&#34;https://stackshare.io/&#34;&#62;Stackshare&#60;/a&#62; data&#60;/li&#62;
 &#60;/ul&#62;
-
-&#60;/p&#62;
 
 &#60;p&#62;Several of these can also be queried via the command line, i.e. &#60;code&#62;node queryArchiveDate.js example.com&#60;/code&#62;&#60;/p&#62;
 
@@ -150,7 +150,9 @@ I&#39;d also recommend looking at &#60;a href=&#34;https://developer.mozilla.org
 &#60;h2 id=&#34;improvements-and-vision&#34;&#62; Improvements and vision&#60;/h2&#62;
 &#60;p&#62;The project in its current state is nowhere near complete, but serves as a foundation to build further upon.&#60;/p&#62;
 
-&#60;p&#62;There are many possible new data sources that could be integrated into the project, for example:&#60;ul&#62;
+&#60;p&#62;There are many possible new data sources that could be integrated into the project, for example:&#60;/p&#62;
+
+&#60;ul&#62;
  	&#60;li&#62;Crowdsourced datasets, eg Trustpilot and other user-driven sources of metadata&#60;/li&#62;
  	&#60;li&#62;What tech stack companies are using, and alert the user to suspicious activity if a different result is actually found, using information from &#60;a href=&#34;https://stackshare.io&#34;&#62;https://stackshare.io&#60;/a&#62;&#60;/li&#62;
  	&#60;li&#62;Further integration with archives, e.g. thumbnails of pages from the &#60;a href=&#34;https://web.archive.org/&#34;&#62;Wayback Machine&#60;/a&#62; - If a webpage has only existed for a few days its chance of being malware or a phishing attack are higher&#60;/li&#62;
@@ -160,7 +162,7 @@ I&#39;d also recommend looking at &#60;a href=&#34;https://developer.mozilla.org
  	&#60;li&#62;General improvements to the user experience.&#60;/li&#62;
 &#60;/ul&#62;
 
-  And many other possible sources of interesting metadata!&#60;/p&#62;
+ &#60;p&#62; And many other possible sources of interesting metadata!&#60;/p&#62;
 
 
 </content>
@@ -311,12 +313,14 @@ main().catch(console.error); &#60;/code&#62;&#60;/pre&#62;
 
 &#60;p&#62;You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press &#60;code&#62;Ctrl + c&#60;/code&#62; when focused on the terminal to stop the currently running program at any time.&#60;/p&#62;
 
-&#60;p&#62;Next, we need to fetch the data. There are 2 options for this:&#60;ul&#62;
+&#60;p&#62;Next, we need to fetch the data. There are 2 options for this:&#60;/p&#62;
+
+&#60;ul&#62;
  	&#60;li&#62;Use a local copy of the file that we can parse&#60;/li&#62;
  	&#60;li&#62;Stream the data from the web and parse it as we receive it&#60;/li&#62;
 &#60;/ul&#62;
 
- Both options are shown in this tutorial (See &#60;a href=&#34;#parsing-a-local-copy-of-project-sonar&#34;&#62;Parsing a local copy of Project Sonar&#60;/a&#62; and &#60;a href=&#34;#fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62;Fetching and parsing an online version of Project Sonar&#60;/a&#62;).&#60;/p&#62;
+ &#60;p&#62;Both options are shown in this tutorial (See &#60;a href=&#34;#parsing-a-local-copy-of-project-sonar&#34;&#62;Parsing a local copy of Project Sonar&#60;/a&#62; and &#60;a href=&#34;#fetching-and-parsing-an-online-version-of-project-sonar&#34;&#62;Fetching and parsing an online version of Project Sonar&#60;/a&#62;).&#60;/p&#62;
 
 &#60;p&#62;I&#39;d probably reccommend using the local copy, as it does not depend on your internet connection&#39;s reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.&#60;/p&#62;
 
@@ -392,13 +396,13 @@ readFromWeb(client, dataUrl); &#60;/code&#62;&#60;/pre&#62;
 	});
 } &#60;/code&#62;&#60;/pre&#62;
 
-&#60;p&#62;What we&#39;re doing here is:&#60;ul&#62;
+&#60;p&#62;What we&#39;re doing here is:&#60;/p&#62;
+
+&#60;ul&#62;
  	&#60;li&#62;Creating a writable stream called &#60;code&#62;gunzip&#60;/code&#62; with &#60;code&#62;zlib&#60;/code&#62;, node.js&#39;s module for compression/decompression&#60;/li&#62;
  	&#60;li&#62;Piping our readstream of compressed Project Sonar data to this &#60;code&#62;gunzip&#60;/code&#62; object&#60;/li&#62;
  	&#60;li&#62;Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don&#39;t have to worry about buffers stopping mid-line and giving us all sorts of errors.)&#60;/li&#62;
 &#60;/ul&#62;
-
-&#60;/p&#62;
 
 &#60;p&#62;Quite a lot for a few lines of code!  &#60;br/&#62;
 Now, we still need to get our data out of this linereader. To do this, we can use the &#60;code&#62;&#38;#34;line&#38;#34;&#60;/code&#62; event that the linereader &#39;emits&#39; to let us know when we have a new line to parse, with:&#60;/p&#62;
@@ -536,12 +540,12 @@ To actually query this, I&#39;ll use:&#60;/p&#62;
 &#60;pre&#62;&#60;code&#62;let query = { $text: { $search: &#38;#34;rapid7&#38;#34; }, domainWithoutSuffix: &#38;#34;rapid7&#38;#34; };
 await findMany(client, query, &#38;#34;sonardata&#38;#34;); &#60;/code&#62;&#60;/pre&#62;
 
-&#60;p&#62;To explain what the query actually means:&#60;ul&#62;
+&#60;p&#62;To explain what the query actually means:&#60;/p&#62;
+
+&#60;ul&#62;
  	&#60;li&#62;&#60;code&#62;$text: { $search: &#38;#34;rapid7&#38;#34; }&#60;/code&#62; is how we&#39;re able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  &#60;code&#62;domainWithoutSuffix&#60;/code&#62;s that &#60;strong&#62;contain&#60;/strong&#62; (&#60;em&#62;not&#60;/em&#62; match exactly) the given query.&#60;/li&#62;
  	&#60;li&#62;&#60;code&#62;domainWithoutSuffix: &#38;#34;rapid7&#38;#34;&#60;/code&#62; narrows that down further to only the exact matches.&#60;/li&#62;
 &#60;/ul&#62;
-
-&#60;/p&#62;
 
 &#60;p&#62;We could continue to further narrow this down if we wanted (For more info, see &#60;a href=&#34;https://docs.mongodb.com/manual/tutorial/query-documents/&#34;&#62;https://docs.mongodb.com/manual/tutorial/query-documents/&#60;/a&#62;). First though, we need to add in the &#60;code&#62;findMany&#60;/code&#62; function that we&#39;re calling.&#60;/p&#62;
 

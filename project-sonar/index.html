@@ -165,12 +165,14 @@ main().catch(console.error); </code></pre>
 
 <p>You might have have noticed that the program still appears to be running, and you can no longer type in the terminal. You can press <code>Ctrl + c</code> when focused on the terminal to stop the currently running program at any time.</p>
 
-<p>Next, we need to fetch the data. There are 2 options for this:<ul>
+<p>Next, we need to fetch the data. There are 2 options for this:</p>
+
+<ul>
  	<li>Use a local copy of the file that we can parse</li>
  	<li>Stream the data from the web and parse it as we receive it</li>
 </ul>
 
- Both options are shown in this tutorial (See <a href="#parsing-a-local-copy-of-project-sonar">Parsing a local copy of Project Sonar</a> and <a href="#fetching-and-parsing-an-online-version-of-project-sonar">Fetching and parsing an online version of Project Sonar</a>).</p>
+ <p>Both options are shown in this tutorial (See <a href="#parsing-a-local-copy-of-project-sonar">Parsing a local copy of Project Sonar</a> and <a href="#fetching-and-parsing-an-online-version-of-project-sonar">Fetching and parsing an online version of Project Sonar</a>).</p>
 
 <p>I'd probably reccommend using the local copy, as it does not depend on your internet connection's reliability, but it does require you to have the space to store the compressed file, in addition to the storage space required by the MongoDB database itself.</p>
 
@@ -246,13 +248,13 @@ readFromWeb(client, dataUrl); </code></pre>
 	});
 } </code></pre>
 
-<p>What we're doing here is:<ul>
+<p>What we're doing here is:</p>
+
+<ul>
  	<li>Creating a writable stream called <code>gunzip</code> with <code>zlib</code>, node.js's module for compression/decompression</li>
  	<li>Piping our readstream of compressed Project Sonar data to this <code>gunzip</code> object</li>
  	<li>Taking the output of that, and using it as the input for a readline object, which allows us to parse the data one line at a time. (It also means we don't have to worry about buffers stopping mid-line and giving us all sorts of errors.)</li>
 </ul>
-
-</p>
 
 <p>Quite a lot for a few lines of code!  <br/>
 Now, we still need to get our data out of this linereader. To do this, we can use the <code>&#34;line&#34;</code> event that the linereader 'emits' to let us know when we have a new line to parse, with:</p>
@@ -390,12 +392,12 @@ To actually query this, I'll use:</p>
 <pre><code>let query = { $text: { $search: &#34;rapid7&#34; }, domainWithoutSuffix: &#34;rapid7&#34; };
 await findMany(client, query, &#34;sonardata&#34;); </code></pre>
 
-<p>To explain what the query actually means:<ul>
+<p>To explain what the query actually means:</p>
+
+<ul>
  	<li><code>$text: { $search: &#34;rapid7&#34; }</code> is how we're able to make queries with a reasonable level of performance - It makes use of the text index we set up earlier, and matches with all  <code>domainWithoutSuffix</code>s that <strong>contain</strong> (<em>not</em> match exactly) the given query.</li>
  	<li><code>domainWithoutSuffix: &#34;rapid7&#34;</code> narrows that down further to only the exact matches.</li>
 </ul>
-
-</p>
 
 <p>We could continue to further narrow this down if we wanted (For more info, see <a href="https://docs.mongodb.com/manual/tutorial/query-documents/">https://docs.mongodb.com/manual/tutorial/query-documents/</a>). First though, we need to add in the <code>findMany</code> function that we're calling.</p>
 

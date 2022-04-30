@@ -33,7 +33,7 @@
     <main>
 <h1 id="title">Blog post for CSC1028</h1>
 <em>A summary of the project</em><br/>
-<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2246 words.</small><br/>
+<small>Published on Fri 04 Mar 2022, updated on Thu 24 Mar 2022. 2247 words.</small><br/>
 <small>Tags: <a href="/blog/tags/nodejs">nodejs</a> | <a href="/blog/tags/project%20sonar">project sonar</a> | <a href="/blog/tags/programming">programming</a></small>
 <hr/>
 <h1 id="url-understanding-tool"> URL Understanding Tool</h1>
@@ -46,7 +46,9 @@
 
 <h2 id="http-apis"> HTTP APIs</h2>
 <p><a href="https://github.com/James-McK/CSC1028APIs">GitHub</a>  <br/>
-The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:<ul>
+The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs. The current data sources are:</p>
+
+<ul>
  	<li>A local MongoDB database containing data from Project Sonar</li>
  	<li>A local MongoDB database containing data on phishing/malware URLs from <a href="https://phishtank.org/">Phishtank</a>, <a href="https://openphish.com/">OpenPhish</a>, <a href="https://urlhaus.abuse.ch/">URLHaus</a> and <a href="https://malwarediscoverer.com/">MalwareDiscoverer</a>.</li>
  	<li>Earliest page/hostname archive date, from <a href="https://archive.org">https://archive.org</a>.</li>
@@ -54,8 +56,6 @@ The main component of this project is a set of HTTP APIs that can be queried for
  	<li>IP Geolocation data (Currently from <a href="https://ip-api.com/">https://ip-api.com/</a>, could probably be improved - this section did not have much thought put into it, and was mostly done as a proof of concept)</li>
  	<li><a href="https://stackshare.io/">Stackshare</a> data</li>
 </ul>
-
-</p>
 
 <p>Several of these can also be queried via the command line, i.e. <code>node queryArchiveDate.js example.com</code></p>
 
@@ -168,7 +168,9 @@ I'd also recommend looking at <a href="https://developer.mozilla.org/en-US/docs/
 <h2 id="improvements-and-vision"> Improvements and vision</h2>
 <p>The project in its current state is nowhere near complete, but serves as a foundation to build further upon.</p>
 
-<p>There are many possible new data sources that could be integrated into the project, for example:<ul>
+<p>There are many possible new data sources that could be integrated into the project, for example:</p>
+
+<ul>
  	<li>Crowdsourced datasets, eg Trustpilot and other user-driven sources of metadata</li>
  	<li>What tech stack companies are using, and alert the user to suspicious activity if a different result is actually found, using information from <a href="https://stackshare.io">https://stackshare.io</a></li>
  	<li>Further integration with archives, e.g. thumbnails of pages from the <a href="https://web.archive.org/">Wayback Machine</a> - If a webpage has only existed for a few days its chance of being malware or a phishing attack are higher</li>
@@ -178,7 +180,7 @@ I'd also recommend looking at <a href="https://developer.mozilla.org/en-US/docs/
  	<li>General improvements to the user experience.</li>
 </ul>
 
-  And many other possible sources of interesting metadata!</p>
+ <p> And many other possible sources of interesting metadata!</p>
 
     </main>
 
