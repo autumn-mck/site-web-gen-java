@@ -1,8 +1,7 @@
 /* Global variables. */
 :root {
 	/* Set sans-serif & mono fonts */
-	--sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, Noto, "Segoe UI",
-		Arial, Helvetica, "Helvetica Neue", sans-serif;
+	--sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, Noto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
 	--mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 
 	/* Default (light) theme */
@@ -33,7 +32,7 @@
 	/* Add a bit of transparancy so light media isn't so glaring in dark mode */
 	img,
 	video {
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 }
 
