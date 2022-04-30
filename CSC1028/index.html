@@ -85,14 +85,16 @@ You can then run <code>npm start</code> to start the APIs (This command then cal
 <p>All query functions are stored in the <code>create</code> folder, and our function for querying similarweb is stored in <code>querySimilarweb.js</code>. At the top of the file, we begin by importing any other modules or functions we'll need.</p>
 
 
-<p><pre><code>import &#34;dotenv/config&#34;;
+<pre><code>import &#34;dotenv/config&#34;;
 import getRemoteJSON from &#34;./queryRemoteJSON.js&#34;;
 import parseHostname from &#34;../parse/parseHostname.js&#34;;
-import createCli from &#34;../create/createCli.js&#34;; </code></pre></p>
+import createCli from &#34;../create/createCli.js&#34;; </code></pre>
 
 <p>First of all, we're importing the <code>dotenv</code> module, as querying similarweb requires an API key, which we'll store in a <code>.env</code> file (More on that later). We're also using a couple of other functions that are defined in other files - <code>queryRemoteJSON.js</code> fetches JSON from a URL and <code>parseHostname.js</code> parses the string containing the URL into a URL object. <code>createCli.js</code> is used for allowing the function to be used via the command line (i.e. <code>node ./query/querySimilarweb.js example.com</code>), but this part of the application is just an optional extra that some of the functions provide, and isn't worth worrying much about.</p>
 
-<p>Next up, we want to create the function that will actually be used to make the query. Since we're planning to use this function later on in a different file, we'll also need to export the function using <code>export default</code>. The function will also need to take in the URL that is being queried. We can then parse this into a URL object, which will allow us to select just the hostname, by using the <code>parseHostname</code> function we imported earlier. Then we build the string for the API that we're querying, and we can use the <code>getRemoteJSON</code> function we imported earlier to query the API, and we can return the result.
+<p>Next up, we want to create the function that will actually be used to make the query. Since we're planning to use this function later on in a different file, we'll also need to export the function using <code>export default</code>. The function will also need to take in the URL that is being queried. We can then parse this into a URL object, which will allow us to select just the hostname, by using the <code>parseHostname</code> function we imported earlier. Then we build the string for the API that we're querying, and we can use the <code>getRemoteJSON</code> function we imported earlier to query the API, and we can return the result.</p>
+
+
 <pre><code>let parsed = parseHostname(url);
 // Construct the URL to query
 const fetchUrl = `https://api.similarweb.com/v1/similar-rank/${parsed.hostname}/rank?api_key=${process.env.SIMILARWEB_KEY}`;
@@ -102,7 +104,7 @@ let res = await Promise.resolve(getRemoteJSON(fetchUrl));
 
 // If an error occurred, return -1, otherwise return the rank
 if (res.meta.status === &#34;Error&#34;) return -1;
-else return res.similar_rank.rank; </code></pre></p>
+else return res.similar_rank.rank; </code></pre>
 
 <p>Now, you might have noticed that nowhere in there are we creating our own queryable HTTP API or anything. So how does that happen?  <br/>
 This is where the advantage of the application's modularity comes in. To see this in action, we can go back to the <code>createAllAPI.js</code> file.</p>
@@ -116,9 +118,11 @@ This is where the advantage of the application's modularity comes in. To see thi
 For getting a free similarweb API key (5000 requests per month), <a href="https://support.similarweb.com/hc/en-us/articles/4414317910929-Website-DigitalRank-API#UUID-b25b8106-20c9-2d5a-e7b2-cdee63a4eaa6_section-idm4621956633339232800133052352">see here</a>  <br/>
 For getting a free stackshare API key (100 requests per month), <a href="https://www.stackshare.io/api">see here</a></p>
 
-<p>Once you've got the API keys you want, you can then create a <code>.env</code> file, using the provided <code>.env.template</code> file as a template. The result should look something like:
+<p>Once you've got the API keys you want, you can then create a <code>.env</code> file, using the provided <code>.env.template</code> file as a template. The result should look something like:</p>
+
+
 <pre><code>SIMILARWEB_KEY=abc1234
-STACKSHARE_KEY=abcd </code></pre></p>
+STACKSHARE_KEY=abcd </code></pre>
 
 <h2 id="electron-app"> Electron App</h2>
 <p><img src="ElectronUI2.png" alt="Electron app UI" loading="lazy" />  <br/>
