@@ -20,8 +20,8 @@
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bg: #1e1e2e;
-		--accent-bg: #302d41;
+		--bg: #1a1826;
+		--accent-bg: #1e1e2e;
 		--text: #d9e0ee;
 		--text-light: #d9e0ee;
 		--border: #ddb6f2;
