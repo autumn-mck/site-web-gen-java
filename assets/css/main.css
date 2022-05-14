@@ -1,0 +1,73 @@
+/* Dark theme */
+:root {
+	--bg: #1e1e2e; /* Black 2 */
+	--bg-accent: #161320; /* Black 0 */
+	--text: #d9e0ee; /* White */
+	--accent: #ddb6f2; /* Mauve */
+	--accent-2: #96cdfb; /* Blue */
+}
+
+html {
+	color: var(--text);
+	background: var(--bg-accent);
+	font-family: sans-serif;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: auto;
+	width: min(75ch, 87%);
+	font-size: 1.15rem;
+	line-height: 1.4;
+	text-align: center;
+}
+
+main img,
+main video {
+	max-width: 100%;
+	height: auto;
+	border-radius: 5px;
+	/* Add a bit of transparancy so light media isn't so glaring in dark mode */
+	opacity: 0.9;
+}
+
+/* Format header/navigation */
+header {
+	background: var(--bg);
+	display: inline-block;
+	border: 1px solid var(--accent);
+	border-radius: 0.4rem;
+	margin: auto;
+	text-align: center;
+	margin-top: -0.8rem;
+}
+
+header h1 {
+	margin: 0.6rem 0 0 0;
+}
+
+nav {
+	font-size: 1rem;
+	line-height: 2;
+	padding: 0.2rem 0 0 0;
+}
+
+nav a,
+nav a:visited {
+	margin: 0 0.5rem 0.6rem 0.5rem;
+	color: var(--text);
+	display: inline-block;
+	padding: 0.1rem 1rem;
+	text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus,
+nav a#nav-current {
+	color: var(--accent) !important;
+	text-decoration: underline;
+}
+
+main {
+	text-align: left;
+}
