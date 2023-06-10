@@ -13,7 +13,7 @@ This project aims to be a tool for cybersecurity or power users to provide as mu
 The project has 3 main parts:
 
 ## HTTP APIs
-[GitHub](https://github.com/James-McK/CSC1028APIs)  
+[Code](https://github.com/James-McK/CSC1028APIs)  
 The main component of this project is a set of HTTP APIs that can be queried for information on a URL/IP address to provide information from various sources, from local databases to external APIs.
 The current data sources are:
  - A local MongoDB database containing data from Project Sonar
@@ -97,7 +97,7 @@ STACKSHARE_KEY=abcd
 
 ## Electron App
 ![Electron app UI](ElectronUI2.png)  
-[GitHub](https://github.com/James-McK/CSC1028ElectronApp)
+[Code](https://github.com/James-McK/CSC1028ElectronApp)
 
 The electron app provides a user-friendly interface allowing the user to make queries regarding any URL, and displays the data to the user in a better format than the entirely raw JSON, however further steps should be taken as the current presentation is still not easily readable.
 
@@ -115,7 +115,7 @@ The javascript doesn't have to do too much in this case - it only needs to query
 
 ## Browser Addon
 ![Basic Addon UI](BasicAddon.png)  
-[GitHub](https://github.com/James-McK/CSC1028FFAddon)
+[Code](https://github.com/James-McK/CSC1028FFAddon)
 
 The browser addon is extremely similar to the electron app, providing a user-friendly front end to the data, built with HTML and javascript. As it is integrated into the browser, it can automatically fetch and cache data as the user navigates the web.  
 Note: The addon currently only supports Firefox, however it could be ported to support Chromium-based browsers extremely easily, as both share an extremely similar base API, with only a few functions being located in different namespaces, but providing the same results. (See [Chrome incompatibilities](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Chrome_incompatibilities) on MDN for details)
