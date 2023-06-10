@@ -1,9 +1,5 @@
 User-agent: *
-Allow: /
-
-Disallow: /*.png$
-Disallow: /*.jpg$
-Disallow: /*.webp$
+Disallow: /
 
 Disallow: /harming-humans
 Disallow: /ignoring-human-orders
