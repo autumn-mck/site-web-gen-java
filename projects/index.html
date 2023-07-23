@@ -1,136 +1,206 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" href="/favicon.ico" />
-		<title>Projects | mck.is</title>
-		<meta name="description" content="Some of the projects I've worked on" />
-		<meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Projects | mck.is</title>
+    <meta name="description" content="Some of the projects I've worked on" />
+    <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
 
-		<link rel="stylesheet" href="../assets/css/simple.min.css" />
-	</head>
+    <link rel="stylesheet" href="../assets/css/simple.min.css" />
+  </head>
 
-	<body>
-		<header>
-			<h1>💻 James' Blog</h1>
+  <body>
+    <header>
+      <h1>💻 James' Blog</h1>
 
-			<nav>
-				<a href="/">Home</a>
-				<a href="/blog">Blog</a>
-				<a href="/projects">Projects</a>
-			</nav>
-		</header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/projects">Projects</a>
+      </nav>
+    </header>
 
-		<main>
-			<h1>Projects Test</h1>
-			<p>A list of most of the projects I've worked on, mostly personal projects with a few from university</p>
+    <main>
+      <h1>Projects</h1>
+      <p>A list of most of the projects I've worked on, mostly personal projects with a few from university</p>
 
-			<h3>Personal website</h3>
-			<p>
-				The website you're currently browsing! Created from scratch by me, and optimised to be as minimal as possible. (The main page is under 50kb!) Several of the main pages, like this one, were created by hand, with some (e.g. blog posts) being generated automatically from markdown using another
-				program I created (
-				<a href="#WebGenJava">WebGenJava</a>
-				). Not the optimal way of doing things - many better options and better static site generators exist out there, but I wanted to have fun with this as a personal project.
-			</p>
-			<img src="./imgs/website.webp" alt="A screenshot of the homepage of this website" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/james-mck.github.io">Code on GitHub</a>
+      <h3>CSC1028</h3>
+      <p>
+        The project I created for the CSC1028 module I opted to do, providing all sorts of metadata on a given URL. See
+        my <a href="https://mck.is/CSC1028/">blog post</a> on it for a lot more info, and also the
+        <a href="https://mck.is/project-sonar/">how-to guide I wrote</a> for dealing with Project Sonar's data.
+      </p>
+      <img src="./imgs/1028.png" alt="A screenshot of part of the UI of the project" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/CSC1028APIs">NodeJS API code here</a><br />
+      <a href="https://github.com/James-McK/CSC1028FFAddon">Firefox addon code here</a><br />
+      <a href="https://github.com/James-McK/CSC1028ElectronApp">Electron app code here</a>
 
-			<h3>CSC1028</h3>
-			<p>The project I created for the CSC1028 module I opted to do, providing all sorts of metadata on a given URL. See my <a href="https://mck.is/CSC1028/">blog post</a> on it for a lot more info, and also the <a href="https://mck.is/project-sonar/">how-to guide I wrote</a> for dealing with Project Sonar's data.</p>
-			<img src="./imgs/1028.png" alt="A screenshot of part of the UI of the project" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/CSC1028APIs">NodeJS API code here</a>
-			<a href="https://github.com/James-McK/CSC1028FFAddon">Firefox addon code here</a>
-			<a href="https://github.com/James-McK/CSC1028ElectronApp">Electron app code here</a>
+      <h1>Yet another "Conway's Game of Life" simulator</h1>
+      <p>
+        Currently very work in progress, made to gain more experience with TypeScript, GitHub Actions, and the
+        HTML/JavaScript Canvas API.
+      </p>
+      <a href="https://github.com/James-McK/game-of-life">Code here</a>, and
+      <a href="https://game-of-life.mck.is/">hosted here</a>
 
-			<h3>MusicBee installation script</h3>
-			<p>A shell script to install and set up <a href="https://getmusicbee.com/">MusicBee</a> (a Windows-only music player) on Linux.<br />
-				Uses winetricks to set up the required wineprefix correctly, installs libraries to improve the range of supported media formats, fetches an existing configuration to skipt the out-of-box experience, download the desired plugins and themes, and create an improved XDG desktop entry to better integrate into the Linux desktop system.</p>
-			<img src="./imgs/MusicbeeOnLinux.webp" alt="Screenshot of MusicBee running on linux beside a window showing a neofetch output" /><br />
-			<a href="https://gist.github.com/James-McK/ef1fba379cb2429083cf76369d0b032a">Code here</a>
+      <h3>Last Stand Text Adventure</h3>
+      <p>
+        A text adventure made as a group project for our CSC1030 (Web Technologies) module. I created the majority of
+        the CSS for the layout, along with the temperature and typewriter systems used by all other group members. I
+        also worked with them to create the inventory and timer systems also used throughout the game. We worked great
+        together, and later returned to work together for our CSC2058 (Software Engineering and Systems Development)
+        coursework.
+      </p>
+      <img src="./imgs/last-stand.webp" alt="Screenshot of the theme" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/LastStand">Code here</a>,
+      <a href="https://last-stand.mck.is/">playable here</a>.
 
-			<h3>2048 clone</h3>
-			<p>A significantly modified version of the original 2048, with new features including:</p>
-			<ul>
-				<li>Allowing boards of any arbitrary size</li>
-				<li>Support for theming, including a dark mode</li>
-				<li>Additional challenges, such as an extra tile being added every second</li>
-				<li>Slightly tidier code, making use of updates to javascript and CSS since the release of the original version</li>
-			</ul>
-			<p>Made for fun to improve on an existing project and gain some more experience with browser javascript</p>
-			<img src="./imgs/2048.webp" alt="A screenshot of my version of 2048" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/2048">Code here</a>, and playable <a href="https://2048.mck.is/">over here</a>
+      <h3>A2 Project</h3>
+      <p>
+        This application was my A2 coursework project for Software Systems Development, written between 10/11/2020 and
+        14/03/2021 using C# and WPF. See the <a href="https://github.com/James-McK/A2-Project">git repo</a> for more
+        details and features
+      </p>
+      <p>
+        This is still a project I'm very proud of - It's got a few minor flaws, but it has some features I put a lot of
+        work into and I'm very happy with the end result.
+      </p>
+      <img src="./imgs/a2-cal.webp" alt="A screenshot of the appointment calendar view" loading="lazy" /><br />
+      <img src="./imgs/a2-stats.webp" alt="A screenshot of some graphs in the statistics view" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/A2-Project">Code here</a>
 
-			<h3>Last Stand Text Adventure</h3>
-			<p>
-				A text adventure made as a group project for our CSC1030 (Web Technologies) module. I created the majority of the CSS for the layout, along with the temperature and typewriter systems used by all other group members. I also worked with them to create the inventory and timer systems also used throughout the game. We worked great together, and later returned to work together for our CSC2058 (Software Engineering and Systems Development) coursework.
-			</p>
-			<img src="./imgs/last-stand.webp" alt="Screenshot of the theme" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/LastStand">Code here</a>, playable <a href="https://last-stand.mck.is/">here</a>.
+      <h3>MusicBee installation script</h3>
+      <p>
+        A shell script to install and set up <a href="https://getmusicbee.com/">MusicBee</a> (a Windows-only music
+        player) on Linux.<br />
+        Uses winetricks to set up the required wineprefix correctly, installs libraries to improve the range of
+        supported media formats, fetches an existing configuration to skipt the out-of-box experience, download the
+        desired plugins and themes, and create an improved XDG desktop entry to better integrate into the Linux desktop
+        system.
+      </p>
+      <img
+        src="./imgs/MusicbeeOnLinux.webp"
+        alt="Screenshot of MusicBee running on linux beside a window showing a neofetch output"
+      /><br />
+      <a href="https://gist.github.com/James-McK/ef1fba379cb2429083cf76369d0b032a">Code here</a>
 
-			<h3>A2 Project</h3>
-			<p>This application was my A2 coursework project for Software Systems Development, written between 10/11/2020 and 14/03/2021 using C# and WPF. See the <a href="https://github.com/James-McK/A2-Project">git repo</a> for more details and features</p>
-			<p>This is still a project I'm very proud of - It's got a few minor flaws, but it has some features I put a lot of work into and I'm very happy with the end result.</p>
-			<img src="./imgs/a2-cal.webp" alt="A screenshot of the appointment calendar view" loading="lazy" /><br />
-			<img src="./imgs/a2-stats.webp" alt="A screenshot of some graphs in the statistics view" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/A2-Project">Code here</a>
+      <h3>Catppuccin MusicBee theme</h3>
+      <p>
+        A theme for the MusicBee music player based on the very nice
+        <a href="https://github.com/catppuccin/catppuccin">catppuccin</a> colour palettes
+      </p>
+      <img
+        src="https://raw.githubusercontent.com/catppuccin/musicbee/main/assets/screenshot.webp"
+        alt="Screenshot of the theme"
+        loading="lazy"
+      /><br />
+      <a href="https://github.com/catppuccin/musicbee">Code & theme here</a>
 
-			<h3>Driver</h3>
-			<p>An application I wrote from scratch with several parts:</p>
-			<ul>
-				<li>A 2D driving simulation that actually feels fun to drive around in</li>
-				<li>A system for creating and improving genetic neural networks written entirely from scratch to allow me to better understand how simple networks like that actually function</li>
-			</ul>
-			<p>... the end result of which is networks which can drive a car pretty well based on only a few sensors (5 distances to the edge of the track at different angles)</p>
-			<img src="./imgs/driver.gif" alt="GIF demonstrating the application" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/MonoGameDriver">Code here</a>
+      <h3>2048 fork</h3>
+      <p>A significantly modified version of the original 2048, with new features including:</p>
+      <ul>
+        <li>Allowing boards of any arbitrary size</li>
+        <li>Support for theming, including a dark mode</li>
+        <li>Additional challenges, such as an extra tile being added every second</li>
+        <li>
+          Slightly tidier code, making use of updates to javascript and CSS since the release of the original version
+        </li>
+      </ul>
+      <p>Made for fun to improve on an existing project and gain some more experience with browser javascript</p>
+      <img src="./imgs/2048.webp" alt="A screenshot of my version of 2048" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/2048">Code here</a>, and playable
+      <a href="https://2048.mck.is/">over here</a>
 
-			<h3>CPU-based raytracer</h3>
-			<p>A multithreaded CPU ray tracer written in C#. Based on the "Ray Tracing in One Weekend" book. Features:</p>
-			<ul>
-				<li>Reflections (inc. reflections of reflections)</li>
-				<li>Refraction (e.g. light passing through glass spheres)</li>
-				<li>Accurate shadows</li>
-				<li>Depth of field</li>
-				<li>Multithreaded for significantly improved performance</li>
-			</ul>
-			<p>Although performance could significantly be improved by offloading the GPU (Which is better suited for that kind of workload) it was still a very fun project to work on</p>
-			<img src="./imgs/rtweekend.webp" alt="Example output of the programme, showing spheres of different sizes and different materials" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/RTWeekend">Code here</a>
+      <h3>Driver</h3>
+      <p>An application I wrote from scratch with several parts:</p>
+      <ul>
+        <li>A 2D driving simulation that actually feels fun to drive around in</li>
+        <li>
+          A system for creating and improving genetic neural networks written entirely from scratch to allow me to
+          better understand how simple networks like that actually function
+        </li>
+      </ul>
+      <p>
+        ... the end result of which is networks which can drive a car pretty well based on only a few sensors (5
+        distances to the edge of the track at different angles)
+      </p>
+      <img src="./imgs/driver.gif" alt="GIF demonstrating the application" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/MonoGameDriver">Code here</a>
 
-			<h3>Catppuccin MusicBee theme</h3>
-			<p>A theme for the MusicBee music player based on the very nice <a href="https://github.com/catppuccin/catppuccin">catppuccin</a> colour palettes</p>
-			<img src="https://raw.githubusercontent.com/catppuccin/musicbee/main/assets/screenshot.webp" alt="Screenshot of the theme" loading="lazy" /><br />
-			<a href="https://github.com/catppuccin/musicbee">Code & theme here</a>
+      <h3>CPU-based raytracer</h3>
+      <p>A multithreaded CPU ray tracer written in C#. Based on the "Ray Tracing in One Weekend" book. Features:</p>
+      <ul>
+        <li>Reflections (inc. reflections of reflections)</li>
+        <li>Refraction (e.g. light passing through glass spheres)</li>
+        <li>Accurate shadows</li>
+        <li>Depth of field</li>
+        <li>Multithreaded for significantly improved performance</li>
+      </ul>
+      <p>
+        Although performance could significantly be improved by offloading the GPU (Which is better suited for that kind
+        of workload) it was still a very fun project to work on
+      </p>
+      <img
+        src="./imgs/rtweekend.webp"
+        alt="Example output of the programme, showing spheres of different sizes and different materials"
+        loading="lazy"
+      /><br />
+      <a href="https://github.com/James-McK/RTWeekend">Code here</a>
 
-			<h3>Particle/powder toy simulator</h3>
-			<p>A small particle/powder toy simulator. Very basic - its flaws are definitely noticable if you're looking for them - but I still enjoyed messing around with this kind of cellular automaton</p>
-			<img src="./imgs/powdertoy.gif" alt="GIF demonstrating the application" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/ParticleSim">Code here</a>
+      <h3>PlanetPhysics</h3>
+      <p>
+        An <a href="https://en.wikipedia.org/wiki/N-body_problem">n-body</a> physics simulator built for fun as a side
+        project.<br />
+        Currently uses the less accurate <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a> for
+        integration (this is mostly mitigated by using very small step sizes), but ideally it should use something like
+        the Runge-kutta methods for better accuracy.<br />
+        Includes several pre-set situations, including a fictional but nice-looking system (shown below), a stable
+        3-body figure-8 system, a binary star system, and our solar system to scale (with and without moons)
+      </p>
+      <img src="./imgs/planets.gif" alt="GIF showing some planets orbiting a star" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/PlanetPhysics">Code here</a>
 
-			<h3>PlanetPhysics</h3>
-			<p>
-				An <a href="https://en.wikipedia.org/wiki/N-body_problem">n-body</a> physics simulator built for fun as a side project.<br />
-				Currently uses the less accurate <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a> for integration (this is mostly mitigated by using very small step sizes), but ideally it should use something like the Runge-kutta methods for better accuracy.<br />
-				Includes several pre-set situations, including a fictional but nice-looking system (shown below), a stable 3-body figure-8 system, a binary star system, and our solar system to scale (with and without moons)
-			</p>
-			<img src="./imgs/planets.gif" alt="GIF showing some planets orbiting a star" loading="lazy" /><br />
-			<a href="https://github.com/James-McK/PlanetPhysics">Code here</a>
+      <h3>Particle/powder toy simulator</h3>
+      <p>
+        A small particle/powder toy simulator. Very basic - its flaws are definitely noticable if you're looking for
+        them - but I still enjoyed messing around with this kind of cellular automaton
+      </p>
+      <img src="./imgs/powdertoy.gif" alt="GIF demonstrating the application" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/ParticleSim">Code here</a>
 
-			<h3 id="WebGenJava">WebGenJava</h3>
-			<p>
-				The program I wrote to convert markdown to the HTML you're currently viewing. Although there are already existing solutions that offer this sort of functionality (eg <a href="https://pandoc.org/">pandoc</a>), and other better static site generators already exist, I wanted something that gave me slightly more control over the result, and to have a bit of fun creating my own solution.<br />
-				<a href="https://github.com/James-McK/WebGenJava">Code here</a>
-			</p>
-		</main>
+      <h3>Personal website</h3>
+      <p>
+        The website you're currently browsing! Created from scratch by me, and optimised to be as minimal as possible.
+        (The main page is under 50kb!) Several of the main pages, like this one, were created by hand, with some (e.g.
+        blog posts) being generated automatically from markdown using another program I created (
+        <a href="#WebGenJava">WebGenJava</a>). Not the optimal way of doing things - many better options and better
+        static site generators exist out there, but I wanted to have fun with this as a personal project.
+      </p>
+      <img src="./imgs/website.webp" alt="A screenshot of the homepage of this website" loading="lazy" /><br />
+      <a href="https://github.com/James-McK/james-mck.github.io">Code on GitHub</a>
 
-		<footer>
-			<p>
-				<small>
-					This page was handmade by James McKee using <code>&lt;\&gt;</code> and <a href="https://simplecss.org">Simple.css</a>, and is currently hosted on GitHub Pages.<br /><br />
-					<a href="https://512kb.club"><img src="/assets/images/green-team.svg" alt="Green team member of the 512kb club" /></a><br /><br />
-				</small>
-			</p>
-		</footer>
-	</body>
+      <h3 id="WebGenJava">WebGenJava</h3>
+      <p>
+        The program I wrote to convert markdown to the HTML you're currently viewing. Although there are already
+        existing solutions that offer this sort of functionality (eg <a href="https://pandoc.org/">pandoc</a>), and
+        other better static site generators already exist, I wanted something that gave me slightly more control over
+        the result, and to have a bit of fun creating my own solution.<br />
+        <a href="https://github.com/James-McK/WebGenJava">Code here</a>
+      </p>
+    </main>
+
+    <footer>
+      <p>
+        <small>
+          This page was handmade by James McKee using <code>&lt;\&gt;</code> and
+          <a href="https://simplecss.org">Simple.css</a>, and is currently hosted on GitHub Pages.<br /><br />
+          <a href="https://512kb.club"
+            ><img src="/assets/images/green-team.svg" alt="Green team member of the 512kb club" /></a
+          ><br /><br />
+        </small>
+      </p>
+    </footer>
+  </body>
 </html>
